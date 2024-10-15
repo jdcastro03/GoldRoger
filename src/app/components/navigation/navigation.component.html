@@ -1,0 +1,42 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav 
+    #drawer 
+    class="sidenav" 
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="true">
+    <mat-toolbar class="roger-text">Menu</mat-toolbar>
+    <mat-nav-list>
+      <a class="link-text" routerLink="/home">Inicio</a>
+      <a class="link-text" href="#">Link 2</a>
+      <a class="link-text" href="#">Link 3</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+
+      <img src="LogoFinal.png" alt="Logo" class="logo-img">
+      <span class="gold-text">Gold</span><span class="roger-text">Roger</span>
+      
+      <span class="spacer"></span>
+
+      <!-- Botón que muestra el login -->
+      <button class="btn-acceder" routerLink="/login">Acceder</button>
+      <button class="btn-registrar">Registrar</button>
+    </mat-toolbar>
+
+    <app-dashboard></app-dashboard>
+    
+   <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

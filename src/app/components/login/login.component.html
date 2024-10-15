@@ -1,0 +1,71 @@
+<!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap" rel="stylesheet">
+<body>
+    
+
+  <div class="login-container">
+   
+    <div class="close-button">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-letter-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFFFFF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+            <path d="M10 8l4 8" />
+            <path d="M10 16l4 -8" />
+          </svg>
+    </div>
+    <h2>Acceder a <span class="gold-text">Gold</span><span class="roger-text">Roger</span></h2>
+    <form>
+      <div class="input-group">
+        <label for="username"><i class="user-icon">👤</i> Nombre de usuario o email</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="input-group">
+        <label for="password"><i class="lock-icon">🔒</i> Contraseña</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="forgot-password">
+        <a href="#">Restablecer contraseña</a>
+      </div>
+      <button type="submit" class="login-button">Acceder</button>
+      <div class="register-link">
+        ¿Aún no tienes cuenta? <a href="#">Regístrate</a>
+      </div>
+    </form>
+  </div>
+
+</body> -->
+<app-navigation></app-navigation>
+<div class="login-container" (click)="handleOutsideClick()">
+  <div class="login-card" (click)="$event.stopPropagation()">
+    <h2>Acceder a <span class="gold-text">Gold</span><span class="roger-text">Roger</span></h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field  class="full-width">
+        <mat-label>Correo Electrónico</mat-label>
+        <input matInput formControlName="email" placeholder="Ingrese su correo" type="email" required>
+        <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+          El correo es obligatorio.
+        </mat-error>
+        <mat-error *ngIf="loginForm.controls['email'].hasError('email')">
+          Correo no válido.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input matInput formControlName="password" placeholder="Ingrese su contraseña" type="password" required minlength="6">
+        <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+          La contraseña es obligatoria.
+        </mat-error>
+        <mat-error *ngIf="loginForm.controls['password'].hasError('minlength')">
+          La contraseña debe tener al menos 6 caracteres.
+        </mat-error>
+      </mat-form-field>
+
+      <button [disabled]="loginForm.invalid">Acceder</button>
+      
+    </form>
+    <div class="register-prompt">
+      ¿Aún no tienes cuenta? 
+      <a class="register-link" (click)="navigateToRegister()">Regístrate</a>
+    </div>
+  </div>
+</div>

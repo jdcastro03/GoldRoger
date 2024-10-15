@@ -1,0 +1,15 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Inicio</h1>
+  <div class="match-cards-container">
+    <button class="scroll-button left" (click)="scroll('left')" *ngIf="showLeftArrow">&#9664;</button> <!-- Flecha izquierda -->
+    <div class="matches" #matchCardsContainer>
+      <div class="match-card">Partido 1</div>
+      <div class="match-card">Partido 2</div>
+      <div class="match-card">Partido 3</div>
+      <div class="match-card">Partido 4</div>
+      <div class="match-card">Partido 5</div>
+      <div class="match-card">Partido 6</div>
+    </div>
+    <button class="scroll-button right" (click)="scroll('right')" *ngIf="showRightArrow">&#9654;</button> <!-- Flecha derecha -->
+  </div>
+</div>

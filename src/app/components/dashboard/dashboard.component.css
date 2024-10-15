@@ -1,0 +1,54 @@
+.grid-container {
+  margin: 20px;
+}
+
+.match-cards-container {
+ 
+  align-items: center; /* Alinea verticalmente los elementos */
+  position: relative; /* Para posicionar las flechas correctamente */
+}
+
+.matches {
+  display: flex; /* Usa flexbox */
+  flex-wrap: nowrap; /* Asegúrate de que las tarjetas no se envuelvan */
+  overflow-x: hidden; /* Oculta la barra de desplazamiento */
+}
+
+body {
+  background-color: #f4f4f4;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.match-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px; /* Espacio interno de cada tarjeta */
+  margin: 10px; /* Margen entre tarjetas */
+  flex: 0 0 250px; /* Ajusta el tamaño de las tarjetas, mínimo 250px */
+  height: 150px; /* Altura de las tarjetas */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scroll-button {
+  background-color: transparent; /* Fondo transparente para las flechas */
+  border: none; /* Sin borde */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  font-size: 24px; /* Tamaño de la flecha */
+  padding: 10px; /* Espaciado alrededor del botón */
+  position: absolute; /* Posiciona el botón en relación al contenedor */
+  top: 50%; /* Centra verticalmente */
+  transform: translateY(-50%); /* Centra verticalmente */
+  z-index: 1; /* Asegura que esté por encima del contenedor */
+}
+
+.scroll-button.left {
+  left: 10px; /* Posiciona la flecha izquierda */
+}
+
+.scroll-button.right {
+  right: 10px; /* Posiciona la flecha derecha */
+}
