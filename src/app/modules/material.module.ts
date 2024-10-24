@@ -30,6 +30,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from "@angular/material/dialog";
 import { SidebarModule } from 'primeng/sidebar';
 import { AppRoutingModule } from "./app-routing.module";
+import { HotToastModule } from '@ngneat/hot-toast';
 
 
 
@@ -58,7 +59,8 @@ import { AppRoutingModule } from "./app-routing.module";
     SidebarModule,
     MatSidenavModule, 
     MatIconModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDialogModule
       
      
      
@@ -83,7 +85,8 @@ import { AppRoutingModule } from "./app-routing.module";
   SidebarModule,
   MatSidenavModule, 
 MatIconModule,
-AppRoutingModule 
+AppRoutingModule,
+MatDialogModule
       
     ]
   })

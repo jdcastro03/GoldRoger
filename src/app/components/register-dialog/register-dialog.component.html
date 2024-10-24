@@ -1,0 +1,77 @@
+<div class="login-container">
+    <div class="login-card">
+      <button mat-icon-button class="close-button" (click)="closeDialog()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <h2>Registrarse en <span class="gold-text">Gold</span><span class="roger-text">Roger</span></h2>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="full-width">
+          <mat-label>Nombre de Usuario</mat-label>
+          <input matInput formControlName="username" placeholder="Ingrese su nombre de usuario" required>
+          <mat-error *ngIf="registerForm.controls['username'].hasError('required')">
+            El nombre de usuario es obligatorio.
+          </mat-error>
+        </mat-form-field>
+  
+     
+  
+        <mat-form-field class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input matInput formControlName="password" placeholder="Ingrese su contraseña" type="password" required minlength="6">
+          <mat-error *ngIf="registerForm.controls['password'].hasError('required')">
+            La contraseña es obligatoria.
+          </mat-error>
+          <mat-error *ngIf="registerForm.controls['password'].hasError('minlength')">
+            La contraseña debe tener al menos 6 caracteres.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="full-width">
+          <mat-label>Correo Electrónico</mat-label>
+          <input matInput formControlName="email" placeholder="Ingrese su correo" type="email" required>
+          <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+            El correo es obligatorio.
+          </mat-error>
+          <mat-error *ngIf="registerForm.controls['email'].hasError('email')">
+            Correo no válido.
+          </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="full-width">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="firstName" placeholder="Ingrese su nombre" required>
+          <mat-error *ngIf="registerForm.controls['firstName'].hasError('required')">
+            El nombre es obligatorio.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="full-width">
+          <mat-label>Apellido</mat-label>
+          <input matInput formControlName="lastName" placeholder="Ingrese su apellido" required>
+          <mat-error *ngIf="registerForm.controls['lastName'].hasError('required')">
+            El apellido es obligatorio.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="full-width">
+          <mat-label>Tipo de Usuario</mat-label>
+          <mat-select formControlName="userType" required>
+            <mat-option value="1">Jugador</mat-option>
+            <mat-option value="2">Árbitro</mat-option>
+            <mat-option value="3">Organizador</mat-option>
+            <mat-option value="4">Entrenador</mat-option>
+          </mat-select>
+          <mat-error *ngIf="registerForm.controls['userType'].hasError('required')">
+            Debes seleccionar un tipo de usuario.
+          </mat-error>
+        </mat-form-field>
+  
+        <button [disabled]="registerForm.invalid">Registrarse</button>
+      </form>
+  
+      <div class="register-prompt">
+        ¿Ya tienes cuenta?
+        <a class="register-link" (click)="navigateToLogin()">Inicia sesión</a>
+      </div>
+    </div>
+  </div>

@@ -13,7 +13,7 @@ import { MaterialModule } from './modules/material.module';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { LoginPageFormComponent } from './pages/login-page/login-page-form/login-page-form.component';
 import { LoginComponent } from './components/login/login.component';
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,7 +25,15 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { HomePageComponent } from './pages/home-page/home-page.component';
-
+import { RegisterComponent } from './components/register/register.component';
+import { TournamentPageComponent } from './pages/tournament-page/tournament-page.component';
+import { AuthService } from './services/auth.service';
+import { AuthGuardService } from './guards/auth.guard';
+import { JwtInterceptor } from './services/interceptor.service';
+import { TokenService } from './services/token.service';
+import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
+import { RegisterDialogComponent } from './components/register-dialog/register-dialog.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 
 @NgModule({
@@ -37,7 +45,12 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
     NavigationComponent,
     DashboardComponent,
     NavigationComponent,
-    HomePageComponent
+    HomePageComponent,
+    RegisterComponent,
+    TournamentPageComponent,
+    LoginDialogComponent,
+    RegisterDialogComponent,
+    ProfilePageComponent
     
 
   
@@ -62,7 +75,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [UserService, provideHttpClient(), provideAnimationsAsync()],
+  providers: [ TokenService, JwtInterceptor, AuthService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }, UserService, provideHttpClient(), provideAnimationsAsync()],
   bootstrap: [AppComponent],
   exports: [RouterModule]
 })

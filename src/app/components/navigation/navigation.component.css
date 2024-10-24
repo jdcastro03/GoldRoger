@@ -10,6 +10,9 @@
   color: #FFFFFF; /* Color blanco para "Roger" */
   
 }
+p{
+  color: #FFFFFF;
+}
 
 .logo-img {
   width: 60px; /* Aumentar el tamaño de la imagen del logo */
@@ -41,6 +44,7 @@
   padding: 16px; /* Ajustar el padding como el de mat-list-item */
   color: #FFFFFF; /* Color blanco para el texto */
   text-decoration: none; /* Eliminar subrayado */
+  cursor: pointer;
 }
 
 .link-text:hover {
@@ -98,3 +102,35 @@ mat-sidenav{
   border-top-right-radius: 0px;
 }
 
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-icon {
+  font-size: 24px;
+  color: white;
+}
+
+.user-name { /* Cambia esto por el nombre de usuario en lugar del saldo */
+  font-size: 18px;
+  color: white;
+  margin-right: 10px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.btn-logout {
+  background-color: #FEC82F; /* Color del botón */
+  border: none;
+  color:  black;
+  padding: 5px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;                   /* Tamaño de fuente */
+  font-weight: bold;   
+}
+
+.btn-logout:hover {
+  background-color: #e6b800; /* Color más oscuro en hover */
+}

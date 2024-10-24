@@ -7,11 +7,17 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="true">
-    <mat-toolbar class="roger-text">Menu</mat-toolbar>
+    <mat-toolbar class="roger-text">Menú</mat-toolbar>
+
     <mat-nav-list>
       <a class="link-text" routerLink="/home">Inicio</a>
-      <a class="link-text" href="#">Link 2</a>
+      <a class="link-text" routerLink="/tournament">Torneos</a>
       <a class="link-text" href="#">Link 3</a>
+
+
+      <ng-container *ngIf="isLoggedIn">
+        <a class="link-text" routerLink="/profile">Mi Perfil</a> <!-- Añadir este enlace -->
+      </ng-container>
     </mat-nav-list>
   </mat-sidenav>
 
@@ -27,16 +33,25 @@
 
       <img src="LogoFinal.png" alt="Logo" class="logo-img">
       <span class="gold-text">Gold</span><span class="roger-text">Roger</span>
-      
+
       <span class="spacer"></span>
 
-      <!-- Botón que muestra el login -->
-      <button class="btn-acceder" routerLink="/login">Acceder</button>
-      <button class="btn-registrar">Registrar</button>
+      <!-- Si está logueado, mostrar ícono de usuario con nombre -->
+      <ng-container *ngIf="isLoggedIn">
+        <div class="user-info">
+          <i class="material-icons user-icon">account_circle</i>
+          <span class="user-name">{{ currentUserName }}</span> <!-- Mostrar nombre de usuario -->
+          <button class="btn-logout" (click)="logout()">Cerrar sesión</button>
+        </div>
+      </ng-container>
+
+      <!-- Si no está logueado, mostrar los botones de login y registro -->
+      <ng-container *ngIf="!isLoggedIn">
+        <button class="btn-acceder" (click)="openLoginDialog()">Acceder</button>
+        <button class="btn-registrar" (click)="openRegisterDialog()">Registrar</button>
+      </ng-container>
     </mat-toolbar>
 
-    <app-dashboard></app-dashboard>
-    
-   <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

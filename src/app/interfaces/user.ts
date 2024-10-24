@@ -23,5 +23,5 @@ export interface User {
 
   userPermission?: UserPermission[];  // Lista de permisos del usuario
 
-  jwtToken?: string;                 // Token JWT (no mapeado en la base de datos)
+  jwToken?: string;                 // Token JWT (no mapeado en la base de datos)
 }
