@@ -9,7 +9,7 @@ import { HomePageComponent } from "../pages/home-page/home-page.component";
 import { RegisterComponent } from "../components/register/register.component";
 import { TournamentPageComponent } from "../pages/tournament-page/tournament-page.component";
 import { AuthGuardService } from "../guards/auth.guard";
-
+import { ProfilePageComponent } from "../pages/profile-page/profile-page.component";
 
 const routes: Routes = [
 
@@ -22,6 +22,7 @@ const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'tournament', component: TournamentPageComponent},
+    {path: 'profile', component: ProfilePageComponent},
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes/*, { enableTracing: true }-*/)],

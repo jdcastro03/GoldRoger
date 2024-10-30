@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RegisterDialogComponent } from '../register-dialog/register-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -25,7 +26,8 @@ export class NavigationComponent {
     constructor(
       public dialog: MatDialog, 
       private authService: AuthService, // Inyectar AuthService
-      private router: Router // Inyectar Router para redireccionar en logout
+      private router: Router, // Inyectar Router para redireccionar en logout
+      private snackBar: MatSnackBar // Inyectar MatSnackBar
     ) {}
   
     ngOnInit(): void {
@@ -78,5 +80,6 @@ export class NavigationComponent {
       this.isLoggedIn = false;
       this.currentUserName = null; // Limpiar el nombre del usuario
       this.router.navigate(['/home']); // Redirigir al inicio
+      this.snackBar.open('Sesión cerrada', 'Cerrar', { duration: 3000 }); // Notificación de éxito
     }
 }

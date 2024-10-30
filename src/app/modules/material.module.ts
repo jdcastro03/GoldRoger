@@ -1,6 +1,11 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
+
+// Angular Material
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -10,84 +15,105 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
-import { MatTableDataSource, MatTableModule } from "@angular/material/table";
-import { MatDialogModule } from "@angular/material/dialog";
-
-
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatNativeDateModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from "@angular/material/core";
-
-import { MatSortModule } from "@angular/material/sort";
-
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSortModule } from '@angular/material/sort';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatFormField } from "@angular/material/form-field";
-import { MatSelect, MatSelectModule } from "@angular/material/select";
-import { ReactiveFormsModule } from "@angular/forms";
-import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from "@angular/material/dialog";
+import { MatSelectModule } from '@angular/material/select';
+
+// PrimeNG
 import { SidebarModule } from 'primeng/sidebar';
-import { AppRoutingModule } from "./app-routing.module";
+
+// Toast Notifications
+import { ToastrModule } from 'ngx-toastr';
 import { HotToastModule } from '@ngneat/hot-toast';
 
-
-
 @NgModule({
-    providers: [
-    
-    ],
-    imports: [
-      
-      MatPaginatorModule,
-    MatTableModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatSelectModule,
+  imports: [
+    // Angular Material Modules
+    MatToolbarModule,
     MatButtonModule,
-    ReactiveFormsModule,
-    MatSnackBarModule,
-    MatIconModule,
-    MatDialogModule,
-    MatGridListModule,
-    MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogTitle,
     MatMenuModule,
-    SidebarModule,
-    MatSidenavModule, 
     MatIconModule,
+    MatGridListModule,
+    MatCardModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatDialogModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatListModule,
+    MatTabsModule,
+    MatNativeDateModule,
+    MatSortModule,
+    MatSidenavModule,
+    MatSelectModule,
+
+    // PrimeNG Module
+    SidebarModule,
+
+    // Routing and Animations
     AppRoutingModule,
-    MatDialogModule
-      
-     
-     
-    ],
-    exports: [
-      MatPaginatorModule,
-      MatTableModule,
-      MatInputModule,
-      MatFormFieldModule,
-      MatSelectModule,
-      MatButtonModule,
-      ReactiveFormsModule,
-      MatSnackBarModule,
-      MatIconModule,
-      MatDialogModule,
-      MatGridListModule,
-      MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogTitle,
-  MatMenuModule,
-  SidebarModule,
-  MatSidenavModule, 
-MatIconModule,
-AppRoutingModule,
-MatDialogModule
-      
-    ]
-  })
-  export class MaterialModule { }
+    BrowserAnimationsModule,
+
+    // Toast Modules
+    ToastrModule.forRoot(),
+    HotToastModule.forRoot({
+      position: 'top-right' // Posición en la esquina superior derecha
+    }),
+
+    // Reactive Forms
+    ReactiveFormsModule
+  ],
+  exports: [
+    // Angular Material Modules
+    MatToolbarModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
+    MatGridListModule,
+    MatCardModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatDialogModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatListModule,
+    MatTabsModule,
+    MatNativeDateModule,
+    MatSortModule,
+    MatSidenavModule,
+    MatSelectModule,
+
+    // PrimeNG Module
+    SidebarModule,
+
+    // Routing and Animations
+    AppRoutingModule,
+    BrowserAnimationsModule,
+
+    // Toast Modules
+    ToastrModule,
+    HotToastModule,
+
+    // Reactive Forms
+    ReactiveFormsModule
+  ]
+})
+export class MaterialModule { }

@@ -1,32 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog'; // Importa MatDialogRef
+import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { APIResponse } from 'src/app/interfaces/APIResponse';
 import { User } from 'src/app/interfaces/user';
 import { RegisterDialogComponent } from '../register-dialog/register-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login-dialog',
   templateUrl: './login-dialog.component.html',
-  styleUrls: ['./login-dialog.component.css'] // Corregido el nombre del archivo a 'styleUrls'
+  styleUrls: ['./login-dialog.component.css']
 })
 export class LoginDialogComponent implements OnInit {
-  loginForm: FormGroup; // Definimos el formulario de login
+  loginForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder, 
-    private router: Router, 
+    private fb: FormBuilder,
+    private router: Router,
     private authService: AuthService,
-    private dialogRef: MatDialogRef<LoginDialogComponent>, // Inyecta MatDialogRef
-    private dialog: MatDialog // Inyecta MatDialog para abrir otros diálogos
+    private dialogRef: MatDialogRef<LoginDialogComponent>,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) {
-    // Inicializamos el formulario con validaciones
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]], // Validaciones para el correo
-      password: ['', [Validators.required, Validators.minLength(6)]] // Validaciones para la contraseña
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -39,34 +40,36 @@ export class LoginDialogComponent implements OnInit {
         password: this.loginForm.value.password
       };
 
-      // Llama al servicio de autenticación
       this.authService.logIn(userDetails).then(
         (apiResponse: APIResponse<User>) => {
           if (apiResponse.success) {
-            // Cerrar el diálogo en caso de éxito
+            this.snackBar.open('Inicio de sesión exitoso', 'Cerrar', { duration: 3000 });
+            console.log('Inicio de sesión exitoso', apiResponse.data);
+
+            // Guardar datos del usuario en localStorage
+            localStorage.setItem('user', JSON.stringify(apiResponse.data));
+
             this.dialogRef.close();
-            // Redireccionar si el login es exitoso
-            this.router.navigate(['/home']);
-            console.log('Login exitoso');
-            console.log(localStorage.getItem('JWT_Token'));
+            this.router.navigate(['/home']); // Redireccionar a la página de perfil
           } else {
-            // Manejar el caso de error (mostrar un mensaje o alert)
-            console.log('Login fallido:', apiResponse.message);
-            // Aquí puedes agregar un mensaje de error en la interfaz de usuario
+            this.snackBar.open('Credenciales incorrectas', 'Cerrar', { duration: 3000 });
           }
+        },
+        (error) => {
+          this.snackBar.open('Error al iniciar sesión', 'Cerrar', { duration: 3000 });
         }
       );
     } else {
-      console.log('Formulario no válido'); // Mensaje de depuración
+      this.snackBar.open('Por favor, rellene todos los campos', 'Cerrar', { duration: 3000 });
     }
   }
 
   navigateToRegister() {
-  this.dialogRef.close(); // Cierra el diálogo de inicio de sesión
-  this.dialog.open(RegisterDialogComponent); // Abre el diálogo
+    this.dialogRef.close();
+    this.dialog.open(RegisterDialogComponent);
   }
 
   closeDialog() {
-    this.dialogRef.close(); // Cerrar el diálogo
+    this.dialogRef.close();
   }
 }

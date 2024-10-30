@@ -69,7 +69,8 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
     MatListModule,
     MatGridListModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    BrowserModule
   
     
 

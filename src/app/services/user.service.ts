@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ServerUrl, serverConfig } from '../server';
 import { User } from '../interfaces/user';
+import { CreateUserRequestDTO } from '../interfaces/createUserRequestDTO';
+import { APIResponse } from '../interfaces/APIResponse';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,10 +22,9 @@ export class UserService  {
 
   }
 
-  add(modelo:User):Observable<User>{
-    return this.http.post<User>(`${this.apiUrl}CreateUser`,modelo);
+  createUser(requestDTO: CreateUserRequestDTO): Observable<APIResponse<User>> {
+    return this.http.post<APIResponse<User>>(`${this.apiUrl}CreateUser`, requestDTO);
   }
-
   update(userId: number, modelo: User): Observable<User> {
     return this.http.put<User>(`${this.apiUrl}UpdateUser?id=${userId}`, modelo);
   }

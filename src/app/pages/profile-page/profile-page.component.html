@@ -1,1 +1,60 @@
-<p>profile-page works!</p>
+<div class="grid-container">
+    <h1>Mi Perfil</h1>
+    <div class="basic-info-card">
+      <mat-card>
+        <mat-card-content>
+          <div class="profile-header">
+            <!-- Imagen de perfil fija -->
+            <img src="avatar-default.png" alt="Profile" class="profile-image" />
+            <div class="profile-info">
+                <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+              <p>ID: {{ user.userId }}<mat-icon>content_copy</mat-icon></p>
+              <button mat-stroked-button color="primary">
+                <mat-icon>lock</mat-icon> Cambiar Contraseña
+              </button>
+            </div>
+          </div>
+          
+          <!-- Campos de información -->
+          <div class="form-row">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput value="{{ user.firstName }}" readonly />
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Apellido</mat-label>
+              <input matInput value="{{ user.lastName}}" readonly />
+            </mat-form-field>
+          </div>
+          
+          <div class="form-row">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Correo</mat-label>
+              <input matInput value="{{ user.email }}" readonly />
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Position</mat-label>
+              <input matInput value="Delantero" readonly />
+            </mat-form-field>
+          </div>
+          
+          <div class="form-row">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Nombre de Usuario</mat-label>
+              <input matInput value="{{ user.username }}" readonly />
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Contraseña</mat-label>
+              <input matInput value="*********" type="password" readonly />
+            </mat-form-field>
+          </div>
+          
+          <div class="form-row buttons">
+            <button mat-raised-button color="primary">Editar</button>
+            <button mat-raised-button color="primary">Guardar</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+    <router-outlet></router-outlet>
