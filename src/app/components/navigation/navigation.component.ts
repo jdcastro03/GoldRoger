@@ -81,5 +81,8 @@ export class NavigationComponent {
       this.currentUserName = null; // Limpiar el nombre del usuario
       this.router.navigate(['/home']); // Redirigir al inicio
       this.snackBar.open('Sesión cerrada', 'Cerrar', { duration: 3000 }); // Notificación de éxito
+      //limpia el local storage todo
+      localStorage.clear();
+      
     }
 }

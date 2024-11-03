@@ -48,6 +48,12 @@ export class LoginDialogComponent implements OnInit {
 
             // Guardar datos del usuario en localStorage
             localStorage.setItem('user', JSON.stringify(apiResponse.data));
+            //guara en el local storage el usertype de user
+            //como acceor al userid de user
+            if (apiResponse.data) {
+              localStorage.setItem('user.userId', apiResponse.data.userId.toString());
+            }
+            
 
             this.dialogRef.close();
             this.router.navigate(['/home']); // Redireccionar a la página de perfil

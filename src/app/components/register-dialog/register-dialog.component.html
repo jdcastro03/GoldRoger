@@ -65,7 +65,11 @@
       <ng-container *ngIf="additionalField === 'position'">
         <mat-form-field class="full-width">
           <mat-label>Posición</mat-label>
-          <input matInput formControlName="additionalInfo" placeholder="Ingrese su posición como jugador" required>
+          <mat-select formControlName="additionalInfo" placeholder="Seleccione su posición" required>
+            <mat-option *ngFor="let position of positions" [value]="position">
+              {{ position }}
+            </mat-option>
+          </mat-select>
           <mat-error *ngIf="registerForm.controls['additionalInfo'].hasError('required')">
             La posición es obligatoria.
           </mat-error>

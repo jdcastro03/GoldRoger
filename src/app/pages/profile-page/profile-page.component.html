@@ -1,60 +1,103 @@
 <div class="grid-container">
-    <h1>Mi Perfil</h1>
-    <div class="basic-info-card">
-      <mat-card>
-        <mat-card-content>
-          <div class="profile-header">
-            <!-- Imagen de perfil fija -->
-            <img src="avatar-default.png" alt="Profile" class="profile-image" />
-            <div class="profile-info">
-                <h2>{{ user.firstName }} {{ user.lastName }}</h2>
-              <p>ID: {{ user.userId }}<mat-icon>content_copy</mat-icon></p>
-              <button mat-stroked-button color="primary">
-                <mat-icon>lock</mat-icon> Cambiar Contraseña
-              </button>
-            </div>
+  <h1>Mi Perfil</h1>
+  <div class="basic-info-card">
+    <mat-card>
+      <mat-card-content>
+        <div class="profile-header">
+          <img src="avatar-default.png" alt="Profile" class="profile-image" />
+          <div class="profile-info">
+            <h2>
+              {{ user.firstName }} {{ user.lastName }}
+              <span *ngIf="user.userType === 1"> - Jugador</span>
+              <span *ngIf="user.userType === 2"> - Árbitro</span>
+              <span *ngIf="user.userType === 3"> - Organizador</span>
+              <span *ngIf="user.userType === 4"> - Entrenador</span>
+            </h2>
+            <p>ID: {{ user.userId }}<mat-icon>content_copy</mat-icon></p>
+            <button mat-stroked-button color="primary">
+              <mat-icon>lock</mat-icon> Cambiar Contraseña
+            </button>
           </div>
+        </div>
+        
+        <!-- Campos de información -->
+        <div class="form-row">
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput value="{{ user.firstName }}" [readonly]="!isEditing" />
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Apellido</mat-label>
+            <input matInput value="{{ user.lastName }}" [readonly]="!isEditing" />
+          </mat-form-field>
+        </div>
+        
+        <div class="form-row">
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Correo</mat-label>
+            <input matInput value="{{ user.email }}" [readonly]="!isEditing" />
+          </mat-form-field>
+
+          <ng-container *ngIf="isEditing && user.userType === 1">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Posición</mat-label>
+              <mat-select [(ngModel)]="playerPosition" required>
+                <mat-option *ngFor="let position of positions" [value]="position">
+                  {{ position }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="!playerPosition">La posición es obligatoria.</mat-error>
+            </mat-form-field>
+          </ng-container>
+
+          <ng-container *ngIf="!isEditing && user.userType === 1">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Posición</mat-label>
+              <input matInput [value]="playerPosition" readonly />
+            </mat-form-field>
+          </ng-container>
           
-          <!-- Campos de información -->
-          <div class="form-row">
+          <ng-container *ngIf="user.userType === 2">
             <mat-form-field class="form-field" appearance="outline">
-              <mat-label>Nombre</mat-label>
-              <input matInput value="{{ user.firstName }}" readonly />
+              <mat-label>Número de Licencia</mat-label>
+              <input matInput value="{{ licenseNumber }}" [readonly]="!isEditing" />
             </mat-form-field>
-            <mat-form-field class="form-field" appearance="outline">
-              <mat-label>Apellido</mat-label>
-              <input matInput value="{{ user.lastName}}" readonly />
-            </mat-form-field>
-          </div>
+          </ng-container>
           
-          <div class="form-row">
+          <ng-container *ngIf="user.userType === 3">
             <mat-form-field class="form-field" appearance="outline">
-              <mat-label>Correo</mat-label>
-              <input matInput value="{{ user.email }}" readonly />
+              <mat-label>Nombre de Organización</mat-label>
+              <input matInput value="{{ organizationName }}" [readonly]="!isEditing" />
             </mat-form-field>
-            <mat-form-field class="form-field" appearance="outline">
-              <mat-label>Position</mat-label>
-              <input matInput value="Delantero" readonly />
-            </mat-form-field>
-          </div>
+          </ng-container>
           
-          <div class="form-row">
+          <ng-container *ngIf="user.userType === 4">
             <mat-form-field class="form-field" appearance="outline">
-              <mat-label>Nombre de Usuario</mat-label>
-              <input matInput value="{{ user.username }}" readonly />
+              <mat-label>Número de Cédula</mat-label>
+              <input matInput value="{{ coachLicenseNumber }}" [readonly]="!isEditing" />
             </mat-form-field>
-            <mat-form-field class="form-field" appearance="outline">
-              <mat-label>Contraseña</mat-label>
-              <input matInput value="*********" type="password" readonly />
-            </mat-form-field>
-          </div>
-          
-          <div class="form-row buttons">
-            <button mat-raised-button color="primary">Editar</button>
-            <button mat-raised-button color="primary">Guardar</button>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
+          </ng-container>
+        </div>
+        
+        <div class="form-row">
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Nombre de Usuario</mat-label>
+            <input matInput value="{{ user.username }}" [readonly]="!isEditing" />
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Contraseña</mat-label>
+            <input matInput value="*********" type="password" readonly />
+          </mat-form-field>
+        </div>
+        
+        <div class="form-row buttons">
+          <button mat-raised-button color="primary" (click)="toggleEdit()">
+            {{ isEditing ? 'Cancelar' : 'Editar' }}
+          </button>
+          <button mat-raised-button color="primary" *ngIf="isEditing">Guardar</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
-    <router-outlet></router-outlet>
+</div>
+<router-outlet></router-outlet>

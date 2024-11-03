@@ -14,6 +14,7 @@ import { APIResponse } from 'src/app/interfaces/APIResponse'; // Asegúrate de i
   styleUrls: ['./register-dialog.component.css']
 })
 export class RegisterDialogComponent implements OnInit {
+  positions: string[] = ['Portero (PO)', 'Defensa Izquierdo (DFI)', 'Defensa Central (DFC)', 'Defensa Derecho (DFD)', 'Medio Central (MC)', 'Medio Volante Izquierdo (MVI)', 'Medio Volante Derecho (MVD)', 'Medio Izquierdo (MI)', 'Medio Derecho (MD)', 'Medio Centro Ofensivo (MCO)', 'Media Punta (MP)', 'Delantero Central (DC)', 'Extremo Derecho (ED)', 'Extremo Izquierdo (EI)'];
   registerForm!: FormGroup;
   userTypes = [
     { value: 1, label: 'Jugador' },
