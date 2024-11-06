@@ -6,6 +6,7 @@ import { ServerUrl, serverConfig } from '../server';
 import { User } from '../interfaces/user';
 import { CreateUserRequestDTO } from '../interfaces/createUserRequestDTO';
 import { APIResponse } from '../interfaces/APIResponse';
+import { UpdateUserRequestDTO } from '../interfaces/updateUserRequestDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,8 @@ export class UserService  {
   createUser(requestDTO: CreateUserRequestDTO): Observable<APIResponse<User>> {
     return this.http.post<APIResponse<User>>(`${this.apiUrl}CreateUser`, requestDTO);
   }
-  update(userId: number, modelo: User): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}UpdateUser?id=${userId}`, modelo);
+  updateUser(userId: number, userData: UpdateUserRequestDTO): Observable<any> {
+    return this.http.put(`${this.apiUrl}UpdateUser?id=${userId}`, userData);
   }
   
   delete(userId: number): Observable<User> {

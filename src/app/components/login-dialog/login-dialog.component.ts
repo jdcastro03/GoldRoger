@@ -45,10 +45,12 @@ export class LoginDialogComponent implements OnInit {
           if (apiResponse.success) {
             this.snackBar.open('Inicio de sesión exitoso', 'Cerrar', { duration: 3000 });
             console.log('Inicio de sesión exitoso', apiResponse.data);
-
+            
             // Guardar datos del usuario en localStorage
             localStorage.setItem('user', JSON.stringify(apiResponse.data));
             //guara en el local storage el usertype de user
+            //console log del lo que guarads en el local storage
+            
             //como acceor al userid de user
             if (apiResponse.data) {
               localStorage.setItem('user.userId', apiResponse.data.userId.toString());

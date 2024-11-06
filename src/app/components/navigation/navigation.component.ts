@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./navigation.component.css'] // Corregir a 'styleUrls'
 })
 export class NavigationComponent {
+
   private breakpointObserver = inject(BreakpointObserver);
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -35,11 +36,15 @@ export class NavigationComponent {
       this.isLoggedIn = this.authService.isAuthenticated();
       
       // Restaurar el nombre del usuario desde el localStorage si la página se recarga
-      const storedUser = localStorage.getItem('currentUser');
+      const storedUser = localStorage.getItem('user');
       if (storedUser) {
         const parsedUser = JSON.parse(storedUser);
         this.currentUserName = parsedUser.username; // Asignar el nombre del usuario desde el localStorage
+      
       }
+      //actualiza el nombre del usuario
+      
+     
     }
   
     // Función para abrir el diálogo de login
