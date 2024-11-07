@@ -34,6 +34,9 @@ import { TokenService } from './services/token.service';
 import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
 import { RegisterDialogComponent } from './components/register-dialog/register-dialog.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { LoadingInterceptor } from './services/loading.service';
+import { OrganizerPageComponent } from './pages/organizer-page/organizer-page.component';
+
 
 
 @NgModule({
@@ -50,7 +53,8 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
     TournamentPageComponent,
     LoginDialogComponent,
     RegisterDialogComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    OrganizerPageComponent
     
 
   
@@ -76,7 +80,7 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [ TokenService, JwtInterceptor, AuthService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }, UserService, provideHttpClient(), provideAnimationsAsync()],
+  providers: [ TokenService, JwtInterceptor, AuthService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }, { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },  UserService, provideHttpClient(), provideAnimationsAsync()],
   bootstrap: [AppComponent],
   exports: [RouterModule]
 })

@@ -1,4 +1,6 @@
 <div class="login-container">
+
+
     <div class="login-card">
           <button mat-icon-button class="close-button" (click)="closeDialog()">
       <mat-icon>close</mat-icon>
@@ -26,6 +28,13 @@
             La contraseña debe tener al menos 6 caracteres.
           </mat-error>
         </mat-form-field>
+        <ngx-spinner
+        bdColor="rgba(51, 51, 51, 0.8)"
+        size="large"
+        color="#fff"
+        type="ball-clip-rotate-multiple"
+        [fullScreen]="true">
+      </ngx-spinner>
   
         <button [disabled]="loginForm.invalid">Acceder</button>
       </form>

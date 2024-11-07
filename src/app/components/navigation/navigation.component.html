@@ -12,12 +12,33 @@
     <mat-nav-list>
       <a class="link-text" routerLink="/home">Inicio</a>
       <a class="link-text" routerLink="/tournament">Torneos</a>
-      <a class="link-text" href="#">Link 3</a>
+      
 
 
-      <ng-container *ngIf="isLoggedIn">
+      <ng-container *ngIf="isLoggedIn && this.currentUserType === 1">
+        <a class="link-text" href="#">Mis Torneos</a>
+        <a class="link-text" href="#">Mi Equipo</a>
+        <a class="link-text" href="#">Mis Estadisticas</a>
         <a class="link-text" routerLink="/profile">Mi Perfil</a> <!-- Añadir este enlace -->
       </ng-container>
+
+      <ng-container *ngIf="isLoggedIn && this.currentUserType === 2">
+        <a class="link-text" href="#">Partidos Asignados</a>
+        <a class="link-text" routerLink="/profile">Mi Perfil</a> <!-- Añadir este enlace -->
+      </ng-container>
+
+      <ng-container *ngIf="isLoggedIn && this.currentUserType === 3">
+        <a class="link-text" href="#">Mis Torneos</a>
+        <a class="link-text" routerLink="/profile">Mi Perfil</a> <!-- Añadir este enlace -->
+      </ng-container>
+
+      <ng-container *ngIf="isLoggedIn && this.currentUserType === 4">
+        <a class="link-text" href="#">Mis Torneos</a>
+        <a class="link-text" href="#">Mi Equipo</a>
+        <a class="link-text" href="#">Mis Estadisticas</a>
+        <a class="link-text" routerLink="/profile">Mi Perfil</a> <!-- Añadir este enlace -->
+      </ng-container>
+
     </mat-nav-list>
   </mat-sidenav>
 

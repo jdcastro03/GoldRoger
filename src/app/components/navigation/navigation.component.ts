@@ -23,6 +23,7 @@ export class NavigationComponent {
       shareReplay()
     );
     isLoggedIn: boolean = false; // Estado de autenticación
+    currentUserType : number | null = null; // Tipo de usuario autenticado
   currentUserName: string | null = null; // Nombre del usuario autenticado
     constructor(
       public dialog: MatDialog, 
@@ -37,9 +38,13 @@ export class NavigationComponent {
       
       // Restaurar el nombre del usuario desde el localStorage si la página se recarga
       const storedUser = localStorage.getItem('user');
+      
       if (storedUser) {
         const parsedUser = JSON.parse(storedUser);
         this.currentUserName = parsedUser.username; // Asignar el nombre del usuario desde el localStorage
+        this.currentUserType = parsedUser.userType; // Asignar el tipo de usuario desde el localStorage
+        console.log('El usuario autenticado es:', this.currentUserType);
+        
       
       }
       //actualiza el nombre del usuario
@@ -62,6 +67,7 @@ export class NavigationComponent {
           const currentUser = this.authService.currentUser;
           if (currentUser) {
             this.currentUserName = currentUser.username; // Asegurar que actualizamos correctamente el nombre del usuario
+            this.currentUserType = currentUser.userType; // Asegurar que actualizamos correctamente el tipo de usuario
           }
         }
       });

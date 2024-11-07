@@ -10,6 +10,7 @@ import { RegisterComponent } from "../components/register/register.component";
 import { TournamentPageComponent } from "../pages/tournament-page/tournament-page.component";
 import { AuthGuardService } from "../guards/auth.guard";
 import { ProfilePageComponent } from "../pages/profile-page/profile-page.component";
+import { LoginDialogComponent } from "../components/login-dialog/login-dialog.component";
 
 const routes: Routes = [
 
@@ -19,7 +20,7 @@ const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: 'home', component: HomePageComponent },        // Ruta para el componente de Home
     // Puedes agregar otras rutas aquí
-    {path: 'login', component: LoginComponent},
+    {path: 'login', component: LoginDialogComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'tournament', component: TournamentPageComponent},
     {path: 'profile', component: ProfilePageComponent},

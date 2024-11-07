@@ -8,7 +8,8 @@ import { User } from 'src/app/interfaces/user';
 import { RegisterDialogComponent } from '../register-dialog/register-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { LoadingInterceptor } from 'src/app/services/loading.service';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-login-dialog',
   templateUrl: './login-dialog.component.html',
@@ -16,6 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class LoginDialogComponent implements OnInit {
   loginForm: FormGroup;
+ 
 
   constructor(
     private fb: FormBuilder,
@@ -24,14 +26,20 @@ export class LoginDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<LoginDialogComponent>,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
+    private loadingService: LoadingInterceptor
   ) {
+    
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+ 
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+   
+  }
 
   onSubmit() {
     if (this.loginForm.valid) {
@@ -39,26 +47,23 @@ export class LoginDialogComponent implements OnInit {
         email: this.loginForm.value.email,
         password: this.loginForm.value.password
       };
-
+  
+      // Realiza la llamada de inicio de sesión
       this.authService.logIn(userDetails).then(
         (apiResponse: APIResponse<User>) => {
           if (apiResponse.success) {
             this.snackBar.open('Inicio de sesión exitoso', 'Cerrar', { duration: 3000 });
             console.log('Inicio de sesión exitoso', apiResponse.data);
-            
+  
             // Guardar datos del usuario en localStorage
             localStorage.setItem('user', JSON.stringify(apiResponse.data));
-            //guara en el local storage el usertype de user
-            //console log del lo que guarads en el local storage
-            
-            //como acceor al userid de user
             if (apiResponse.data) {
               localStorage.setItem('user.userId', apiResponse.data.userId.toString());
             }
-            
-
+  
             this.dialogRef.close();
             this.router.navigate(['/home']); // Redireccionar a la página de perfil
+          
           } else {
             this.snackBar.open('Credenciales incorrectas', 'Cerrar', { duration: 3000 });
           }

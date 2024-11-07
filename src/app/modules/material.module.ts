@@ -26,6 +26,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSelectModule } from '@angular/material/select';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 // PrimeNG
 import { SidebarModule } from 'primeng/sidebar';
@@ -59,9 +61,11 @@ import { HotToastModule } from '@ngneat/hot-toast';
     MatSortModule,
     MatSidenavModule,
     MatSelectModule,
-
+    MatProgressSpinnerModule,
+    HttpClientModule,
     // PrimeNG Module
     SidebarModule,
+    NgxSpinnerModule,
 
     // Routing and Animations
     AppRoutingModule,
@@ -101,6 +105,9 @@ import { HotToastModule } from '@ngneat/hot-toast';
     MatSortModule,
     MatSidenavModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
+    HttpClientModule,
+    NgxSpinnerModule,
 
     // PrimeNG Module
     SidebarModule,
