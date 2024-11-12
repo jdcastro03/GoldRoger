@@ -1,23 +1,48 @@
 <div class="grid-container">
-    <h1>Mis Torneos</h1>
-    
-    <!-- Mostrar formulario solo cuando showForm sea verdadero -->
-    <mat-card *ngIf="showForm">
-      <app-organizer-form (formClosed)="toggleForm()" class="overlay"></app-organizer-form>
-    </mat-card>
+  <h1>Mis Torneos</h1>
   
-    <div class="search-container">
-      <div class="search-form-field">
-        <button class="clear-button" aria-label="Clear" (click)="clearSearch()">
-          <span class="material-icons">close</span>
-        </button>
-        <input type="text" placeholder="Buscar..." autocomplete="off" />
-      </div>
-      <!-- Botón para mostrar/ocultar el formulario -->
-      <button class="create-button" (click)="toggleForm()">
-        <span class="material-icons">add</span> Crear
+  <!-- Mostrar formulario solo cuando showForm sea verdadero -->
+  <mat-card *ngIf="showForm" class="overlay-card">
+    <app-organizer-form (formClosed)="toggleForm()" class="overlay"></app-organizer-form>
+  </mat-card>
+
+  <div class="search-container">
+    <div class="search-form-field">
+      <button class="clear-button" aria-label="Clear" (click)="clearSearch()">
+        <span class="material-icons">close</span>
       </button>
+      <input type="text" placeholder="Buscar..." autocomplete="off" />
     </div>
+    <!-- Botón para mostrar/ocultar el formulario -->
+    <button class="create-button" (click)="toggleForm()">
+      <span class="material-icons">add</span> Crear
+    </button>
   </div>
+
+  <div class="tournaments-container">
+    <mat-card class="tournament-card">
+      <!-- Sección superior (nombre y tipo de torneo) -->
+      <div class="top-section">
+        <h2 class="tournament-title">CODE CLASH</h2>
+        <button mat-icon-button class="menu-button">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
   
-  <router-outlet></router-outlet>
+      <!-- Sección inferior (otros detalles del torneo) -->
+      <div class="bottom-section">
+        <div class="avatar-info">
+          <img src="avatar-default.png" alt="Avatar">
+          <span>Alejandro</span>
+        </div>
+        <div class="dates-info">
+          <p><strong>Fecha de inicio:</strong> 11-11-2024</p>
+          <p><strong>Fecha de finalización:</strong> 19-11-2024</p>
+          <p><strong>Tipo de Torneo:</strong> Liga</p>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -9,8 +9,8 @@
         <div class="form-group">
             <label for="category">Tipo de Torneo</label>
             <select id="category" formControlName="category" class="form-input">
-                <option value="">Selecciona una categoria</option>
-                <option *ngFor="let category of ['Fut 7', 'Fut 11']">{{ category }}</option>
+                <option value="">Selecciona el formato del torneo</option>
+                <option *ngFor="let category of ['Liga', 'Eliminatorias 8', 'Eliminatorias 16', 'Eliminatorias 32']">{{ category }}</option>
             </select>
         </div>
         <div class="form-row">
