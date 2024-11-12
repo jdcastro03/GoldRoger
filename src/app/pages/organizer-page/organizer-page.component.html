@@ -1,1 +1,23 @@
-<p>organizer-page works!</p>
+<div class="grid-container">
+    <h1>Mis Torneos</h1>
+    
+    <!-- Mostrar formulario solo cuando showForm sea verdadero -->
+    <mat-card *ngIf="showForm">
+      <app-organizer-form (formClosed)="toggleForm()" class="overlay"></app-organizer-form>
+    </mat-card>
+  
+    <div class="search-container">
+      <div class="search-form-field">
+        <button class="clear-button" aria-label="Clear" (click)="clearSearch()">
+          <span class="material-icons">close</span>
+        </button>
+        <input type="text" placeholder="Buscar..." autocomplete="off" />
+      </div>
+      <!-- Botón para mostrar/ocultar el formulario -->
+      <button class="create-button" (click)="toggleForm()">
+        <span class="material-icons">add</span> Crear
+      </button>
+    </div>
+  </div>
+  
+  <router-outlet></router-outlet>

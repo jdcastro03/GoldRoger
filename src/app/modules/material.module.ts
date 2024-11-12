@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -71,6 +71,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatIconModule,
 
     // Toast Modules
     ToastrModule.forRoot(),
@@ -111,6 +112,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
 
     // PrimeNG Module
     SidebarModule,
+    MatIconModule,
 
     // Routing and Animations
     AppRoutingModule,

@@ -8,9 +8,11 @@ import { LoginPageFormComponent } from "src/app/pages/login-page/login-page-form
 import { HomePageComponent } from "../pages/home-page/home-page.component";
 import { RegisterComponent } from "../components/register/register.component";
 import { TournamentPageComponent } from "../pages/tournament-page/tournament-page.component";
-import { AuthGuardService } from "../guards/auth.guard";
+import { AuthGuard } from "../guards/auth.guard";
 import { ProfilePageComponent } from "../pages/profile-page/profile-page.component";
 import { LoginDialogComponent } from "../components/login-dialog/login-dialog.component";
+import { OrganizerPageComponent } from "../pages/organizer-page/organizer-page.component";
+import { NoAccessComponent } from "../components/no-access/no-access.component";
 
 const routes: Routes = [
 
@@ -24,6 +26,8 @@ const routes: Routes = [
     {path: 'register', component: RegisterComponent},
     {path: 'tournament', component: TournamentPageComponent},
     {path: 'profile', component: ProfilePageComponent},
+    {path: 'organizer', component: OrganizerPageComponent, canActivate: [AuthGuard]},
+    { path: 'sinAcceso', component: NoAccessComponent },
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes/*, { enableTracing: true }-*/)],

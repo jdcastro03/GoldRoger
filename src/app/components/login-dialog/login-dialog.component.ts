@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoadingInterceptor } from 'src/app/services/loading.service';
 import { Observable } from 'rxjs';
+import { PermissionService } from 'src/app/services/permission.service';
 @Component({
   selector: 'app-login-dialog',
   templateUrl: './login-dialog.component.html',
@@ -26,7 +27,8 @@ export class LoginDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<LoginDialogComponent>,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private loadingService: LoadingInterceptor
+    private loadingService: LoadingInterceptor,
+    private permissionService: PermissionService
   ) {
     
     this.loginForm = this.fb.group({
@@ -54,9 +56,14 @@ export class LoginDialogComponent implements OnInit {
           if (apiResponse.success) {
             this.snackBar.open('Inicio de sesión exitoso', 'Cerrar', { duration: 3000 });
             console.log('Inicio de sesión exitoso', apiResponse.data);
-  
+          
             // Guardar datos del usuario en localStorage
             localStorage.setItem('user', JSON.stringify(apiResponse.data));
+            const userId = localStorage.getItem('user.userId');
+            
+              const permissionKeysResponse = this.permissionService.getUserPermissionKeys(Number(userId));
+              console.log('Permisos del usuario:', permissionKeysResponse);
+        
             if (apiResponse.data) {
               localStorage.setItem('user.userId', apiResponse.data.userId.toString());
             }

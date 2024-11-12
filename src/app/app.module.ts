@@ -18,7 +18,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -28,7 +28,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { RegisterComponent } from './components/register/register.component';
 import { TournamentPageComponent } from './pages/tournament-page/tournament-page.component';
 import { AuthService } from './services/auth.service';
-import { AuthGuardService } from './guards/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { JwtInterceptor } from './services/interceptor.service';
 import { TokenService } from './services/token.service';
 import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
@@ -36,6 +36,10 @@ import { RegisterDialogComponent } from './components/register-dialog/register-d
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { LoadingInterceptor } from './services/loading.service';
 import { OrganizerPageComponent } from './pages/organizer-page/organizer-page.component';
+import { OrganizerFormComponent } from './pages/organizer-page/organizer-form/organizer-form.component';
+import { NoAccessComponent } from './components/no-access/no-access.component';
+
+
 
 
 
@@ -54,7 +58,9 @@ import { OrganizerPageComponent } from './pages/organizer-page/organizer-page.co
     LoginDialogComponent,
     RegisterDialogComponent,
     ProfilePageComponent,
-    OrganizerPageComponent
+    OrganizerPageComponent,
+    OrganizerFormComponent,
+    NoAccessComponent
     
 
   
@@ -74,7 +80,8 @@ import { OrganizerPageComponent } from './pages/organizer-page/organizer-page.co
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
-    BrowserModule
+    BrowserModule,
+    MatIconModule,
   
     
 
