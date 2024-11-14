@@ -1,6 +1,6 @@
 <div class="grid-container">
   <h1>Mis Torneos</h1>
-  
+
   <!-- Mostrar formulario solo cuando showForm sea verdadero -->
   <mat-card *ngIf="showForm" class="overlay-card">
     <app-organizer-form (formClosed)="toggleForm()" class="overlay"></app-organizer-form>
@@ -11,38 +11,43 @@
       <button class="clear-button" aria-label="Clear" (click)="clearSearch()">
         <span class="material-icons">close</span>
       </button>
-      <input type="text" placeholder="Buscar..." autocomplete="off" />
+      <input type="text" placeholder="Buscar..." [(ngModel)]="searchText" (input)="filterTournaments()" autocomplete="off" />
     </div>
-    <!-- Botón para mostrar/ocultar el formulario -->
     <button class="create-button" (click)="toggleForm()">
       <span class="material-icons">add</span> Crear
     </button>
   </div>
 
   <div class="tournaments-container">
-    <mat-card class="tournament-card">
-      <!-- Sección superior (nombre y tipo de torneo) -->
+    <mat-card *ngFor="let tournament of paginatedTournaments" class="tournament-card" (click)="navigateToTournamentDetail(tournament.tournamentId)" >
       <div class="top-section">
-        <h2 class="tournament-title">CODE CLASH</h2>
+        <h2 class="tournament-title">{{ tournament.tournamentName }}</h2>
         <button mat-icon-button class="menu-button">
           <mat-icon>menu</mat-icon>
         </button>
       </div>
-  
-      <!-- Sección inferior (otros detalles del torneo) -->
+
       <div class="bottom-section">
         <div class="avatar-info">
           <img src="avatar-default.png" alt="Avatar">
-          <span>Alejandro</span>
+          <span>{{ this.currentUsername }}</span>
         </div>
         <div class="dates-info">
-          <p><strong>Fecha de inicio:</strong> 11-11-2024</p>
-          <p><strong>Fecha de finalización:</strong> 19-11-2024</p>
-          <p><strong>Tipo de Torneo:</strong> Liga</p>
+          <p><strong>Fecha de inicio:</strong> {{ tournament.startDate | date:'dd-MM-yyyy' }}</p>
+          <p><strong>Fecha de finalización:</strong> {{ tournament.endDate | date:'dd-MM-yyyy' }}</p>
+          <p><strong>Tipo de Torneo:</strong> {{ tournamentTypes[tournament.tournamentTypeId] }}</p>
         </div>
       </div>
     </mat-card>
   </div>
+
+  <!-- Paginador para los torneos -->
+  <mat-paginator [pageSizeOptions]="[3, 5, 10]" 
+               [pageSize]="pageSize" 
+               [pageIndex]="pageIndex"
+               (page)="onPageChange($event)" 
+               showFirstLastButtons>
+</mat-paginator>
 </div>
 
 <router-outlet></router-outlet>

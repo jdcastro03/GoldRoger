@@ -38,6 +38,7 @@ import { LoadingInterceptor } from './services/loading.service';
 import { OrganizerPageComponent } from './pages/organizer-page/organizer-page.component';
 import { OrganizerFormComponent } from './pages/organizer-page/organizer-form/organizer-form.component';
 import { NoAccessComponent } from './components/no-access/no-access.component';
+import { OrganizerTournamentComponent } from './pages/organizer-page/organizer-tournament/organizer-tournament.component';
 
 
 
@@ -60,7 +61,8 @@ import { NoAccessComponent } from './components/no-access/no-access.component';
     ProfilePageComponent,
     OrganizerPageComponent,
     OrganizerFormComponent,
-    NoAccessComponent
+    NoAccessComponent,
+    OrganizerTournamentComponent
     
 
   
@@ -82,6 +84,7 @@ import { NoAccessComponent } from './components/no-access/no-access.component';
     MatMenuModule,
     BrowserModule,
     MatIconModule,
+    FormsModule
   
     
 

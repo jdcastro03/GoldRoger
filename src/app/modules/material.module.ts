@@ -66,12 +66,15 @@ import { HotToastModule } from '@ngneat/hot-toast';
     // PrimeNG Module
     SidebarModule,
     NgxSpinnerModule,
+    MatPaginatorModule,
 
     // Routing and Animations
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
     MatIconModule,
+    FormsModule,
+    MatTableModule,
 
     // Toast Modules
     ToastrModule.forRoot(),
@@ -109,6 +112,9 @@ import { HotToastModule } from '@ngneat/hot-toast';
     MatProgressSpinnerModule,
     HttpClientModule,
     NgxSpinnerModule,
+    FormsModule,
+    MatPaginatorModule,
+    MatTableModule,
 
     // PrimeNG Module
     SidebarModule,

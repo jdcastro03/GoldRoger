@@ -11,6 +11,7 @@ import { Organizer } from '../interfaces/organizer';
 import { CreateTournamentRequestDTO } from '../interfaces/CreateTournamentRequestDTO';
 import { Tournament } from '../interfaces/tournament';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TournamentInfoDTO } from '../interfaces/TournamentInfoDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -67,5 +68,25 @@ export class OrganizerService  {
                 throw new Error('Error al crear el torneo');
             })
         );
+
+        
     }
+    getTournamentsByOrganizerId(organizerId: number): Observable<TournamentInfoDTO[]> {
+        const url = `${this.apiUrl}GetTournamentsByOrganizerId?organizerId=${organizerId}`;
+        return this.http.get<APIResponse<TournamentInfoDTO[]>>(url).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve la lista de torneos si la solicitud es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudieron obtener los torneos');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para obtener los torneos:', error);
+                throw new Error('Error al obtener los torneos');
+            })
+        );
+    }
+    
 }

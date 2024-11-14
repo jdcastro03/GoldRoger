@@ -13,6 +13,7 @@ import { ProfilePageComponent } from "../pages/profile-page/profile-page.compone
 import { LoginDialogComponent } from "../components/login-dialog/login-dialog.component";
 import { OrganizerPageComponent } from "../pages/organizer-page/organizer-page.component";
 import { NoAccessComponent } from "../components/no-access/no-access.component";
+import { OrganizerTournamentComponent } from "../pages/organizer-page/organizer-tournament/organizer-tournament.component";
 
 const routes: Routes = [
 
@@ -28,6 +29,7 @@ const routes: Routes = [
     {path: 'profile', component: ProfilePageComponent},
     {path: 'organizer', component: OrganizerPageComponent, canActivate: [AuthGuard]},
     { path: 'sinAcceso', component: NoAccessComponent },
+    { path: 'tournament/:id', component: OrganizerTournamentComponent }, // Ruta dinámica
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes/*, { enableTracing: true }-*/)],

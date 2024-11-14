@@ -1,5 +1,6 @@
 .grid-container {
     margin: 20px;
+    
   }
 
   .search-container {
@@ -108,9 +109,13 @@
 .tournaments-container {
   display: flex;
   justify-content: center;
+  align-items: flex-start; /* Alinea las tarjetas al principio del contenedor */
   padding: 16px;
-  width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+  width: 100%;
+  flex-direction: column; /* Acomoda las tarjetas de forma vertical */
+  gap: 16px; /* Añade espacio entre las tarjetas */
   padding-left: 0;
+
 }
 
 .tournament-card {
@@ -121,7 +126,7 @@
   font-family: 'Arial', sans-serif;
   display: flex;
   flex-direction: column;
-  z-index: 5;
+  z-index: 0;
   border: 2px solid #555; /* Color y grosor del borde */
 }
 .tournament-card:hover {
