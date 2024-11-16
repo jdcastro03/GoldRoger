@@ -39,6 +39,7 @@ import { OrganizerPageComponent } from './pages/organizer-page/organizer-page.co
 import { OrganizerFormComponent } from './pages/organizer-page/organizer-form/organizer-form.component';
 import { NoAccessComponent } from './components/no-access/no-access.component';
 import { OrganizerTournamentComponent } from './pages/organizer-page/organizer-tournament/organizer-tournament.component';
+import { CoachPageComponent } from './pages/coach-page/coach-page.component';
 
 
 
@@ -61,8 +62,9 @@ import { OrganizerTournamentComponent } from './pages/organizer-page/organizer-t
     ProfilePageComponent,
     OrganizerPageComponent,
     OrganizerFormComponent,
-    NoAccessComponent,
-    OrganizerTournamentComponent
+    NoAccessComponent, 
+    OrganizerTournamentComponent,
+    CoachPageComponent
     
 
   

@@ -16,7 +16,10 @@ export class PermissionService {
   getUserPermissionKeys(userId: number): Observable<{ [key: number]: string }> {
     const url = `${this.baseUrl}CheckPermission`;
     return this.http.post<{ [key: number]: string }>(url, { userId }).pipe(
-      map(response => response),
+      map(response => {
+        console.log('Permisos obtenidos del servidor:', response);
+        return response;
+      }),
       catchError(error => {
         console.error('Error fetching user permissions:', error);
         return of({});

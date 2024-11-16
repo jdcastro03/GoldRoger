@@ -1,9 +1,40 @@
 <div class="grid-container">
+    <!-- Botón de regreso -->
+    <button mat-icon-button (click)="goBack()" aria-label="Go back">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
 
-<h1>Torneo {{this.tournamentId}}</h1>
+    <!-- Título del torneo -->
+    <h1>{{ this.tournamentName }}</h1>
 
-
+    <div class="menu">
+        <mat-tab-group>
+            <mat-tab label="Información">
+                <div class="info-container">
+                    <!-- Card de información a la izquierda -->
+                    <mat-card class="info-card">
+                        <mat-card-header>
+                            <mat-card-title>Información del Torneo</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <p><strong>Nombre del Torneo:</strong> {{ this.tournamentName }}</p>
+                            <p><strong>Fecha de Inicio:</strong> {{ this.startDate | date: 'dd/MM/yyyy' }}</p>
+                            <p><strong>Fecha de Fin:</strong> {{ this.endDate | date: 'dd/MM/yyyy' }}</p>
+                            <p><strong>Tipo de Torneo:</strong> {{ this.tournamentTypeName }}</p>
+                            <p><strong>Organizador ID:</strong> {{ this.organizerId }}</p>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </mat-tab>
+            <mat-tab label="Equipos"></mat-tab>
+            <mat-tab label="Solicitudes"></mat-tab>
+            <mat-tab label="Calendario"></mat-tab>
+            <mat-tab label="Resultados"></mat-tab>
+            <mat-tab label="Tabla"></mat-tab>
+            <mat-tab label="Estadísticas"></mat-tab>
+        </mat-tab-group>
+    </div>
 </div>
 
-
+<!-- Contenido dinámico cargado con el router -->
 <router-outlet></router-outlet>

@@ -75,6 +75,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
     MatIconModule,
     FormsModule,
     MatTableModule,
+    MatTabsModule,
 
     // Toast Modules
     ToastrModule.forRoot(),
@@ -115,7 +116,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
     FormsModule,
     MatPaginatorModule,
     MatTableModule,
-
+    MatTableModule,
     // PrimeNG Module
     SidebarModule,
     MatIconModule,

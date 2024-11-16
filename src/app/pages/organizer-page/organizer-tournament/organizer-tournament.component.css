@@ -1,6 +1,42 @@
 .grid-container {
-    margin: 20px;
-    
-  }
+  margin: 20px;
+}
 
+h1 {
+  text-align: center; /* Centrar horizontalmente */
+  font-size: 24px;
+  margin: 0;
+}
+
+.menu {
+  display: flex;
+  justify-content: center; /* Centrar el menú horizontalmente */
+  margin-top: 16px;
+
+}
+
+mat-tab-group {
+  width: 100%; /* Ajusta el ancho según sea necesario */
+}
+
+/* Informacion */
+.info-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.info-card {
+  width: 100%; /* Ajustar para pantallas pequeñas */
+  max-width: 600px; /* Máximo ancho del card */
+  margin: 10px;
+  padding: 10px;
+}
+
+mat-card-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
 

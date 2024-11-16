@@ -88,5 +88,43 @@ export class OrganizerService  {
             })
         );
     }
+
+    getTournamentNameById(tournamentId: number): Observable<string> {
+        const url = `${this.apiUrl}GetTournamentNameById?tournamentId=${tournamentId}`;
+        return this.http.get<APIResponse<string>>(url).pipe(
+            map(response => {
+                // Verificamos si la respuesta es exitosa y contiene datos
+                if (response.success && response.data) {
+                    return response.data; // Devuelve el nombre del torneo
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudo obtener el nombre del torneo'); // Lanza error en caso de fallo
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para obtener el nombre del torneo:', error);
+                throw new Error('Error al obtener el nombre del torneo');
+            })
+        );
+    }
+
+    getTournamentById(tournamentId: number): Observable<Tournament> {
+
+        const url = `${this.apiUrl}GetTournamentInfoById?tournamentId=${tournamentId}`;
+        return this.http.get<APIResponse<Tournament>>(url).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve el torneo si la solicitud es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudo obtener el torneo');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para obtener el torneo:', error);
+                throw new Error('Error al obtener el torneo');
+            })
+        );
+    }
     
 }
