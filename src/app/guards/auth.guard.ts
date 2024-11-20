@@ -37,8 +37,6 @@ export class AuthGuard implements CanActivate {
     return this.permissionService.getUserPermissionKeys(userId).pipe(
       map(permissionKeys => {
         const requiredPermission = this.getRequiredPermissionForUrl(url);
-        console.log('Permisos del usuario:', permissionKeys);
-        console.log('Permiso requerido:', requiredPermission);
     
         const hasPermission = Object.values(permissionKeys).includes(requiredPermission);
     

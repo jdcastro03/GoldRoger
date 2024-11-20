@@ -6,7 +6,10 @@ import { ServerUrl, serverConfig } from '../server';
 import { User } from '../interfaces/user';
 import { CreateUserRequestDTO } from '../interfaces/createUserRequestDTO';
 import { APIResponse } from '../interfaces/APIResponse';
-
+import { Team } from '../interfaces/team';
+import { CreateTeamRequestDTO } from '../interfaces/CreateTeamRequestDTO';
+import { Tournament } from '../interfaces/tournament';
+import { TournamentDTO } from '../interfaces/TournamentDTO';
 @Injectable({
   providedIn: 'root'
 })
@@ -34,5 +37,63 @@ export class CoachService  {
             })
         );
     }
+    getTeamNames(): Observable<string[]> {
+        return this.http.get<APIResponse<string[]>>(`${this.apiUrl}GetTeamNames`).pipe(
+          map(response => response.success && response.data ? response.data : [])
+        );
+      }
+
+      createTeam(requestDTO: CreateTeamRequestDTO): Observable<Team> {
+        const url = `${this.apiUrl}CreateTeam`; // URL de la API para crear el equipo
+        return this.http.post<APIResponse<Team>>(url, requestDTO).pipe(
+          map(response => {
+            if (response.success && response.data) {
+              return response.data; // Retorna el equipo creado si la respuesta es exitosa
+            } else {
+              console.error('Error:', response.message);
+              throw new Error('No se pudo crear el equipo'); // Lanza un error en caso de fallo
+            }
+          }),
+          catchError((error) => {
+            console.error('Error al crear el equipo:', error);
+            throw new Error('Error al crear el equipo');
+          })
+        );
+      }
+
+      deleteAllTeams(): Observable<void> {
+        const url = `${this.apiUrl}DeleteAllTeams`; // URL del endpoint para eliminar los equipos
+        return this.http.delete<APIResponse<void>>(url).pipe(
+          map(response => {
+            if (!response.success) {
+              console.error('Error:', response.message);
+              throw new Error('No se pudieron eliminar los equipos asociados'); // Lanza un error si la respuesta no es exitosa
+            }
+          }),
+          catchError((error) => {
+            console.error('Error al eliminar los equipos asociados:', error);
+            throw new Error('Error al intentar eliminar los equipos asociados');
+          })
+        );
+      }
+     
+      getAllTournaments(): Observable<TournamentDTO[]> {
+        const url = `${this.apiUrl}GetAllTournaments`;
+    
+        return this.http.get<APIResponse<TournamentDTO[]>>(url).pipe(
+          map((response) => {
+            if (response.success && response.data) {
+              return response.data; // Devuelve el arreglo de torneos si tiene éxito
+            } else {
+              console.error('Error en la respuesta de la API:', response.message);
+              throw new Error('No se pudieron obtener los torneos');
+            }
+          }),
+          catchError((error) => {
+            console.error('Error al obtener los torneos:', error);
+            throw new Error('Error al intentar obtener los torneos');
+          })
+        );
+      }
 
 }

@@ -1,6 +1,40 @@
 <div class="grid-container">
-<h1>Mi Equipo</h1>
-</div>
-
-
-<router-outlet></router-outlet>
+    <h1>Mi Equipo</h1>
+  
+    <!-- Mostrar los nombres de los equipos si existen -->
+    <mat-card *ngIf="teamNames.length > 0" class="team-card">
+        <div class="team-info">
+          <div class="card-header">
+            <button mat-icon-button [matMenuTriggerFor]="menu" color="primary">
+              <mat-icon>more_vert</mat-icon> <!-- Icono de tres puntos -->
+            </button>
+      
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item >
+                <mat-icon color="primary">edit</mat-icon> Editar
+              </button>
+              <button mat-menu-item (click)="deleteTeams()">
+                <mat-icon color="warn">delete</mat-icon> Eliminar
+              </button>
+            </mat-menu>
+          </div>
+          <img class="team-logo" src="Logo_Team.png" alt="Logo del Equipo">
+          <div *ngFor="let team of teamNames" class="team-details">
+            <h2>{{ team }}</h2> <!-- Mostrar solo el nombre del equipo -->
+          </div>
+        </div>
+      </mat-card>
+  
+    <!-- Mostrar el formulario si showForm es true -->
+    <mat-card *ngIf="showForm && teamNames.length === 0" class="overlay-card">
+        <app-coach-form (formClosed)="toggleForm()" (teamCreated)="onTeamCreated($event)" class="overlay"></app-coach-form>
+    </mat-card>
+  
+    <!-- Mostrar el mensaje cuando no hay equipo -->
+    <div class="no-team-container" *ngIf="!showForm && teamNames.length === 0">
+      <p>Aún no tienes equipo</p>
+      <button class="create-button" (click)="toggleForm()">
+        <span class="material-icons">add</span> Crear
+      </button>
+    </div>
+  </div>

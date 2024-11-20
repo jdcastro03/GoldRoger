@@ -40,6 +40,8 @@ import { OrganizerFormComponent } from './pages/organizer-page/organizer-form/or
 import { NoAccessComponent } from './components/no-access/no-access.component';
 import { OrganizerTournamentComponent } from './pages/organizer-page/organizer-tournament/organizer-tournament.component';
 import { CoachPageComponent } from './pages/coach-page/coach-page.component';
+import { CoachFormComponent } from './pages/coach-page/coach-form/coach-form.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 
 
@@ -64,7 +66,9 @@ import { CoachPageComponent } from './pages/coach-page/coach-page.component';
     OrganizerFormComponent,
     NoAccessComponent, 
     OrganizerTournamentComponent,
-    CoachPageComponent
+    CoachPageComponent,
+    CoachFormComponent,
+    ConfirmDialogComponent
     
 
   

@@ -15,7 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
@@ -76,6 +76,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
     FormsModule,
     MatTableModule,
     MatTabsModule,
+    MatPaginatorModule,
 
     // Toast Modules
     ToastrModule.forRoot(),
@@ -124,9 +125,11 @@ import { HotToastModule } from '@ngneat/hot-toast';
     // Routing and Animations
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatPaginatorModule,
+  
 
     // Toast Modules
-    ToastrModule,
+    ToastrModule, 
     HotToastModule,
 
     // Reactive Forms
