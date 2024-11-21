@@ -17,13 +17,14 @@
 
       <ng-container *ngIf="isLoggedIn && this.currentUserType === 1">
         <a class="link-text" href="#">Mis Torneos</a>
-        <a class="link-text" href="#">Mi Equipo</a>
+        <a class="link-text" routerLink="/teams">Equipos</a>
+        <a class="link-text" routerLink="/playerTeam">Mi Equipo</a>
         <a class="link-text" href="#">Mis Estadisticas</a>
         <a class="link-text" routerLink="/profile">Mi Perfil</a> <!-- Añadir este enlace -->
       </ng-container>
 
       <ng-container *ngIf="isLoggedIn && this.currentUserType === 2">
-        <a class="link-text" href="#">Partidos Asignados</a>
+        <a class="link-text" routerLink="/referee">Partidos Asignados</a>
         <a class="link-text" routerLink="/profile">Mi Perfil</a> <!-- Añadir este enlace -->
       </ng-container>
 
@@ -33,7 +34,7 @@
       </ng-container>
 
       <ng-container *ngIf="isLoggedIn && this.currentUserType === 4">
-        <a class="link-text" href="#">Mis Torneos</a>
+        <a class="link-text" routerLink="/coachTournament">Mis Torneos</a>
         <a class="link-text" routerLink="/coachTeam">Mi Equipo</a>
         <a class="link-text" href="#">Mis Estadisticas</a>
         <a class="link-text" routerLink="/profile">Mi Perfil</a> <!-- Añadir este enlace -->

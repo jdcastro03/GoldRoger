@@ -35,8 +35,31 @@ getPlayerPositionById(playerId: number): Observable<string> {
             throw new Error('Error al obtener la posición del jugador');
         })
     );
+    
 }
 
+getAllTeams(): Observable<APIResponse<{ teamName: string; coachUsername: string; teamId: number }[]>> {
+    const url = `${this.apiUrl}GetAllTeams`;
+    return this.http.get<APIResponse<{ teamName: string; coachUsername: string; teamId: number }[]>>(url);
+  }
+
+  updatePlayerTeam(teamId: number): Observable<any> {
+    const url = `${this.apiUrl}UpdatePlayerTeam/${teamId}`;
+    return this.http.put<APIResponse<any>>(url, {}).pipe(
+      map(response => {
+        if (response.success) {
+          return response;
+        } else {
+          console.error('Error al actualizar el equipo:', response.message);
+          throw new Error(response.message || 'No se pudo actualizar el equipo');
+        }
+      }),
+      catchError((error) => {
+        console.error('Error en la solicitud para actualizar el equipo:', error);
+        throw new Error('Error al actualizar el equipo');
+      })
+    );
+  }
 
 
 

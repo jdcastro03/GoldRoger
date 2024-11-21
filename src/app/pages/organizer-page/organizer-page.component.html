@@ -19,10 +19,10 @@
   </div>
 
   <div class="tournaments-container">
-    <mat-card *ngFor="let tournament of paginatedTournaments" class="tournament-card" (click)="navigateToTournamentDetail(tournament.tournamentId)" >
+    <mat-card *ngFor="let tournament of paginatedTournaments" class="tournament-card"  >
       <div class="top-section">
         <h2 class="tournament-title">{{ tournament.tournamentName }}</h2>
-        <button mat-icon-button class="menu-button">
+        <button mat-icon-button class="menu-button" (click)="navigateToTournamentDetail(tournament.tournamentId)">
           <mat-icon>menu</mat-icon>
         </button>
       </div>

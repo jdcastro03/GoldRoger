@@ -15,6 +15,10 @@ import { OrganizerPageComponent } from "../pages/organizer-page/organizer-page.c
 import { NoAccessComponent } from "../components/no-access/no-access.component";
 import { OrganizerTournamentComponent } from "../pages/organizer-page/organizer-tournament/organizer-tournament.component";
 import { CoachPageComponent } from "../pages/coach-page/coach-page.component";
+import { CoachTournamentComponent } from "../pages/coach-page/coach-tournament/coach-tournament.component";
+import { PlayerPageComponent } from "../pages/player-page/player-page.component";
+import { TeamPageComponent } from "../pages/team-page/team-page.component";
+import { RefereePageComponent } from "../pages/referee-page/referee-page.component";
 
 const routes: Routes = [
 
@@ -32,6 +36,11 @@ const routes: Routes = [
     { path: 'sinAcceso', component: NoAccessComponent },
     { path: 'tournament/:id', component: OrganizerTournamentComponent }, // Ruta dinámica
     {path : 'coachTeam', component: CoachPageComponent, canActivate: [AuthGuard]},
+    {path: 'coachTournament', component: CoachTournamentComponent},
+    {path: 'playerTeam', component: PlayerPageComponent},
+    {path: 'teams', component: TeamPageComponent},
+    {path: 'referee', component: RefereePageComponent},
+
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes/*, { enableTracing: true }-*/)],

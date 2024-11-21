@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoachService } from 'src/app/services/coach.service';
 import { TournamentDTO } from 'src/app/interfaces/TournamentDTO';
 import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tournament-page',
@@ -17,10 +18,10 @@ export class TournamentPageComponent implements OnInit {
   searchQuery: string = '';
 
   // Configuración de paginación
-  pageSize = 5;
+  pageSize = 3;
   pageIndex = 0;
 
-  constructor(private coachService: CoachService) {}
+  constructor(private coachService: CoachService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadTournaments();
@@ -94,4 +95,9 @@ export class TournamentPageComponent implements OnInit {
         return 'Tipo desconocido'; // Opcional, para manejar valores inesperados
     }
   }
+  navigateToTournamentDetail(tournamentId: number): void {
+    this.router.navigate(['/tournament', tournamentId]);
+    console.log('Navigating to tournament detail:', tournamentId);
+  }
+  
 }

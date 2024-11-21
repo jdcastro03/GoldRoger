@@ -1,0 +1,53 @@
+<div class="grid-container">
+    <h1>Equipos</h1>
+  
+    <!-- Mensaje de error si ocurre -->
+    
+    <!-- Barra de búsqueda -->
+    <div class="search-container">
+      <div class="search-form-field">
+        <button class="clear-button" aria-label="Clear" (click)="clearSearch()">
+          <span class="material-icons">close</span>
+        </button>
+        <input
+          type="text"
+          placeholder="Buscar..."
+          autocomplete="off"
+          [(ngModel)]="searchQuery"
+          (input)="onSearch()"
+        />
+      </div>
+    </div>
+  
+    <!-- Renderizar equipos -->
+    <div class="team-container" *ngIf="!isLoading && !errorMessage">
+      <mat-card class="team-card" *ngFor="let team of paginatedTeams">
+        <div class="team-content">
+          <!-- Imagen del equipo -->
+          <img class="team-image" src="Logo_Team.png" alt="Imagen del equipo" />
+  
+          <!-- Información del equipo -->
+          <div class="team-info">
+            <h2 class="team-name">{{ team.teamName }}</h2>
+            <p class="coach-label">Entrenador</p>
+            <div class="coach-details">
+              <img class="coach-image" src="avatar-default.png" alt="Imagen del entrenador" />
+              <span class="coach-username">{{ team.coachUsername }}</span>
+              <button mat-raised-button color="primary" (click)="joinTeam(team.teamId)">Unirse</button>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  
+    <!-- Paginador -->
+    <mat-paginator
+      [length]="filteredTeams.length"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[3, 6, 9]"
+      (page)="onPageChange($event)">
+    </mat-paginator>
+  </div>
+
+<router-outlet></router-outlet>
+

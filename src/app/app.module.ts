@@ -42,6 +42,10 @@ import { OrganizerTournamentComponent } from './pages/organizer-page/organizer-t
 import { CoachPageComponent } from './pages/coach-page/coach-page.component';
 import { CoachFormComponent } from './pages/coach-page/coach-form/coach-form.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { CoachTournamentComponent } from './pages/coach-page/coach-tournament/coach-tournament.component';
+import { PlayerPageComponent } from './pages/player-page/player-page.component';
+import { TeamPageComponent } from './pages/team-page/team-page.component';
+import { RefereePageComponent } from './pages/referee-page/referee-page.component';
 
 
 
@@ -68,7 +72,12 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     OrganizerTournamentComponent,
     CoachPageComponent,
     CoachFormComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    CoachTournamentComponent,
+    PlayerPageComponent,
+    TeamPageComponent,
+    RefereePageComponent,
+
     
 
   

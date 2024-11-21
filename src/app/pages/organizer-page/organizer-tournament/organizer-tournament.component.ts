@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OrganizerService } from 'src/app/services/organizer.service';
 import { Router } from '@angular/router';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-organizer-tournament',
   templateUrl: './organizer-tournament.component.html',
@@ -20,7 +20,8 @@ export class OrganizerTournamentComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private organizerService: OrganizerService,
-    private router: Router
+    private router: Router,
+    private location: Location,
   ) {}
 
   ngOnInit(): void {
@@ -76,6 +77,6 @@ export class OrganizerTournamentComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/organizer']);
+    this.location.back();
   }
 }
