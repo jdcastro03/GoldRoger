@@ -35,6 +35,7 @@ import { SidebarModule } from 'primeng/sidebar';
 // Toast Notifications
 import { ToastrModule } from 'ngx-toastr';
 import { HotToastModule } from '@ngneat/hot-toast';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
@@ -67,6 +68,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
     SidebarModule,
     NgxSpinnerModule,
     MatPaginatorModule,
+    MatTooltipModule,
 
     // Routing and Animations
     AppRoutingModule,
@@ -121,6 +123,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
     // PrimeNG Module
     SidebarModule,
     MatIconModule,
+    MatTooltipModule,
 
     // Routing and Animations
     AppRoutingModule,

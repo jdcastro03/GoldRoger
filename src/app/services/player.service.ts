@@ -61,6 +61,26 @@ getAllTeams(): Observable<APIResponse<{ teamName: string; coachUsername: string;
     );
   }
 
+  getPlayerTeamId(): Observable<number | null> {
+    const url = `${this.apiUrl}GetPlayerTeamId`;
+    return this.http.get<APIResponse<number | null>>(url).pipe(
+      map(response => {
+        if (response.success) {
+          return response.data !== undefined ? response.data : null; // Devuelve el TeamId (puede ser `null` si no hay equipo asignado)
+        } else {
+          console.error('Error al obtener el equipo del jugador:', response.message);
+          throw new Error(response.message || 'No se pudo obtener el equipo del jugador');
+        }
+      }),
+      catchError(error => {
+        console.error('Error en la solicitud para obtener el equipo del jugador:', error);
+        throw new Error('Error al obtener el equipo del jugador');
+      })
+    );
+  }
+
+  
+
 
 
 }

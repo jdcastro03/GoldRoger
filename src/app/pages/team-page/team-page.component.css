@@ -134,4 +134,12 @@
     color: #e6b800;
     
   }
+
+  .coach-details button[disabled] {
+    cursor: not-allowed; /* Cambia el cursor a "no permitido" */
+
+  
+    pointer-events: auto; /* Permite que el cursor 'not-allowed' sea visible */
+  }
+  
   

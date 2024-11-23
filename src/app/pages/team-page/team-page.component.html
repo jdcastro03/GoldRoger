@@ -33,7 +33,16 @@
             <div class="coach-details">
               <img class="coach-image" src="avatar-default.png" alt="Imagen del entrenador" />
               <span class="coach-username">{{ team.coachUsername }}</span>
-              <button mat-raised-button color="primary" (click)="joinTeam(team.teamId)">Unirse</button>
+              <button
+              mat-raised-button
+              color="primary"
+              (click)="joinTeam(team.teamId)"
+              [disabled]="playerHasTeam"
+              [matTooltip]="playerHasTeam ? 'Ya tienes equipo' : ''"
+              matTooltipPosition="above"
+            >
+              Unirse
+            </button>
             </div>
           </div>
         </div>
