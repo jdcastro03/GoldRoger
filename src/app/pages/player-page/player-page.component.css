@@ -1,3 +1,71 @@
 .grid-container {
-    margin: 20px;
-  }
+  display: flex; /* Utiliza flexbox para distribuir los elementos */
+  justify-content: space-between; /* Asegura separación entre las secciones */
+  margin: 20px;
+}
+
+.left-section {
+  flex: 1; /* Toma un espacio proporcional en la izquierda */
+  max-width: 40%; /* Limita el ancho de los cards */
+  margin-right: 20px; /* Espacio entre los cards y la tabla */
+}
+
+.right-section {
+  flex: 2; /* Toma más espacio para la tabla */
+  max-width: 60%; /* Limita el ancho de la tabla */
+  margin-top: 80px;
+}
+
+.team-card {
+  display: flex;
+  flex-direction: column; /* Organiza el contenido de forma vertical */
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  width: 100%; /* Asegura que los cards se adapten al contenedor */
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+}
+
+.team-details h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px; /* Espacio entre el nombre y el logo */
+}
+
+.team-logo {
+  width: 120px; /* Aumenta el tamaño del logo */
+  height: 120px;
+  border-radius: 10%; /* Cambia el borde si prefieres esquinas ligeramente redondeadas */
+}
+
+.card-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4px; /* Reducido de 8px a 4px para acercar más los botones */
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.delete-btn, .edit-btn {
+  margin-right: -4px; /* Reduce el espacio entre los botones */
+}
+
+mat-table {
+  width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+}
+
+mat-header-cell,
+mat-cell {
+  text-align: left; /* Alinea el texto a la izquierda */
+  padding: 10px;
+}

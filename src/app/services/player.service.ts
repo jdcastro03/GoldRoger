@@ -6,7 +6,7 @@ import { ServerUrl, serverConfig } from '../server';
 import { User } from '../interfaces/user';
 import { CreateUserRequestDTO } from '../interfaces/createUserRequestDTO';
 import { APIResponse } from '../interfaces/APIResponse';
-
+import { PlayerDTO } from '../interfaces/´PlayerDTO';
 @Injectable({
   providedIn: 'root'
 })
@@ -81,6 +81,59 @@ getAllTeams(): Observable<APIResponse<{ teamName: string; coachUsername: string;
 
   
 
+  getPlayerTeamName(): Observable<string | null> {
+    const url = `${this.apiUrl}GetPlayerTeamName`;
+    return this.http.get<APIResponse<string | null>>(url).pipe(
+      map(response => {
+        if (response.success) {
+          return response.data !== undefined && response.data !== null ? response.data : null; // Devuelve el nombre del equipo (puede ser `null` si no hay equipo asignado)
+        } else {
+          console.error('Error al obtener el nombre del equipo del jugador:', response.message);
+          throw new Error(response.message || 'No se pudo obtener el nombre del equipo del jugador');
+        }
+      }),
+      catchError(error => {
+        console.error('Error en la solicitud para obtener el nombre del equipo del jugador:', error);
+        throw new Error('Error al obtener el nombre del equipo del jugador');
+      })
+    );
+  }
+
+  getCoachName(): Observable<string | null> {
+    const url = `${this.apiUrl}GetCoachName`;
+    return this.http.get<APIResponse<string | null>>(url).pipe(
+      map(response => {
+        if (response.success) {
+          return response.data !== undefined && response.data !== null ? response.data : null; // Devuelve el nombre del coach (puede ser `null` si no hay equipo asignado)
+        } else {
+          console.error('Error al obtener el nombre del coach del jugador:', response.message);
+          throw new Error(response.message || 'No se pudo obtener el nombre del coach del jugador');
+        }
+      }),
+      catchError(error => {
+        console.error('Error en la solicitud para obtener el nombre del coach del jugador:', error);
+        throw new Error('Error al obtener el nombre del coach del jugador');
+      })
+    );
+  }
+
+  getPlayersByTeamName(teamName: string): Observable<PlayerDTO[]> {
+    const url = `${this.apiUrl}GetPlayersByTeamName?teamName=${teamName}`;
+    return this.http.get<APIResponse<PlayerDTO[]>>(url).pipe(
+      map(response => {
+        if (response.success) {
+          return response.data || [];
+        } else {
+          console.error('Error al obtener los jugadores del equipo:', response.message);
+          throw new Error(response.message || 'No se pudieron obtener los jugadores del equipo');
+        }
+      }),
+      catchError(error => {
+        console.error('Error en la solicitud para obtener los jugadores del equipo:', error);
+        throw new Error('Error al obtener los jugadores del equipo');
+      })
+    );
+  }
 
 
 }
