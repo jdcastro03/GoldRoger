@@ -44,6 +44,9 @@ export class NavigationComponent {
         this.currentUserName = parsedUser.username; // Asignar el nombre del usuario desde el localStorage
         this.currentUserType = parsedUser.userType; // Asignar el tipo de usuario desde el localStorage
         console.log('El usuario autenticado es:', this.currentUserType);
+        //guarda en el local storage el tipo de usuario
+        localStorage.setItem('userType', JSON.stringify(this.currentUserType));
+        
         
       
       }

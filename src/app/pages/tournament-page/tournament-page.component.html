@@ -38,6 +38,18 @@
           <p><strong>Fecha de finalización:</strong> {{ tournament.endDate | date }}</p>
           <p><strong>Tipo de Torneo:</strong> {{ getTournamentTypeName(tournament.tournamentTypeId) }}</p>
         </div>
+        <div class="action-button" *ngIf="this.currentUserType === 4">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="updateTournamentForTeam(tournament.tournamentId)"
+            [disabled]="teamHasTournament"
+              [matTooltip]="teamHasTournament ? 'Ya estas inscrito en un torneo' : ''"
+              matTooltipPosition="above"
+          >
+            Inscribirse
+          </button>
+        </div>
       </div>
     </mat-card>
 

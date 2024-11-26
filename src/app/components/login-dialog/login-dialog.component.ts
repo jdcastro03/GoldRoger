@@ -67,6 +67,8 @@ export class LoginDialogComponent implements OnInit {
             if (apiResponse.data) {
               localStorage.setItem('user.userId', apiResponse.data.userId.toString());
             }
+            //imprimeme todo lo que hay en local storage
+            console.log('LocalStorage:', localStorage);
   
             this.dialogRef.close();
             this.router.navigate(['/home']); // Redireccionar a la página de perfil

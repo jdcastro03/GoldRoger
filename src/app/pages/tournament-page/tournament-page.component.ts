@@ -3,6 +3,7 @@ import { CoachService } from 'src/app/services/coach.service';
 import { TournamentDTO } from 'src/app/interfaces/TournamentDTO';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tournament-page',
@@ -16,16 +17,29 @@ export class TournamentPageComponent implements OnInit {
   isLoading = true;
   errorMessage = '';
   searchQuery: string = '';
-
+  currentUserType : number | null = null; // Tipo de usuario autenticado
   // Configuración de paginación
   pageSize = 3;
   pageIndex = 0;
+  teamHasTournament: boolean = false; // Indica si el equipo ya tiene torneo
 
-  constructor(private coachService: CoachService, private router: Router) {}
+  constructor(private coachService: CoachService, private router: Router, private snackBar: MatSnackBar){}
 
+  
   ngOnInit(): void {
     this.loadTournaments();
+
+    const storedUser = localStorage.getItem('user');
+      
+      if (storedUser) {
+        const parsedUser = JSON.parse(storedUser);
+        this.currentUserType = parsedUser.userType;
+      }
+      if (this.currentUserType === 4) {
+        this.getTeamTournamentIdByCoachId();
+      }
   }
+  
 
   loadTournaments(): void {
     this.coachService.getAllTournaments().subscribe({
@@ -99,5 +113,34 @@ export class TournamentPageComponent implements OnInit {
     this.router.navigate(['/tournament', tournamentId]);
     console.log('Navigating to tournament detail:', tournamentId);
   }
-  
+  //llama el metodo de getusertype de coachservice
+ 
+
+  updateTournamentForTeam(tournamentId: number): void {
+    this.coachService.updateTournamentForTeam(tournamentId).subscribe({
+      next: (response) => {
+        console.log('Torneo actualizado con éxito:', response);
+        // Opcional: Puedes mostrar un mensaje de éxito al usuario
+      this.snackBar.open('¡Te has inscrito en el torneo con éxito!', 'Cerrar', { duration: 3000 });
+        this.teamHasTournament = true; // Ahora el equipo tiene torneo
+      },
+      error: (error) => {
+        console.error('Error al actualizar el torneo:', error);
+        // Opcional: Puedes mostrar un mensaje de error al usuario
+       this.snackBar.open('No se pudo inscribir en el torneo. Intente nuevamente.', 'Cerrar', { duration: 3000 });
+      },
+    });
+  }
+
+  getTeamTournamentIdByCoachId(): void {
+    this.coachService.getTeamTournamentIdByCoachId().subscribe({
+      next: (tournamentId) => {
+        this.teamHasTournament = tournamentId !== null; // Si el equipo ya tiene torneo
+      },
+      error: (error) => {
+        console.error('Error al obtener el torneo del equipo:', error);
+        this.snackBar.open('No se pudo obtener el torneo del equipo.', 'Cerrar', { duration: 3000 });
+      },
+    });
+  }
 }

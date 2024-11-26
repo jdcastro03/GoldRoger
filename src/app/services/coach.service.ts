@@ -96,4 +96,41 @@ export class CoachService  {
         );
       }
 
+
+      //metodo para obtener el usertype que esta guarado en el local storage
+      updateTournamentForTeam(tournamentId: number): Observable<any> {
+        const url = `${this.apiUrl}UpdateTournamentForTeam/${tournamentId}`;
+        return this.http.put<APIResponse<any>>(url, {}).pipe(
+          map(response => {
+            if (response.success) {
+              return response;
+            } else {
+              console.error('Error al actualizar el torneo:', response.message);
+              throw new Error(response.message || 'No se pudo actualizar el torneo');
+            }
+          }),
+          catchError((error) => {
+            console.error('Error en la solicitud para actualizar el torneo:', error);
+            throw new Error('Error al actualizar el torneo');
+          })
+        );
+      }
+
+      getTeamTournamentIdByCoachId(): Observable<number | null> {
+        const url = `${this.apiUrl}GetTeamTournamentIdByCoachId`;
+        return this.http.get<APIResponse<number | null>>(url).pipe(
+          map(response => {
+            if (response.success) {
+              return response.data !== undefined ? response.data : null; // Devuelve el TeamId (puede ser `null` si no hay equipo asignado)
+            } else {
+              console.error('Error al obtener el torneo del equipo:', response.message);
+              throw new Error(response.message || 'No se pudo obtener el torneo del equipo');
+            }
+          }),
+          catchError(error => {
+            console.error('Error en la solicitud para obtener el torneo del equipo:', error);
+            throw new Error('Error al obtener el torneo del equipo');
+          })
+        );
+      }
 }
