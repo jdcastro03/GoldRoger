@@ -16,10 +16,10 @@
 
 
       <ng-container *ngIf="isLoggedIn && this.currentUserType === 1">
-        <a class="link-text" href="#">Mis Torneos</a>
+        <a class="link-text" routerLink="/playerTournament">Mis Torneos</a>
         <a class="link-text" routerLink="/teams">Equipos</a>
         <a class="link-text" routerLink="/playerTeam">Mi Equipo</a>
-        <a class="link-text" href="#">Mis Estadisticas</a>
+        <a class="link-text" routerLink="/playerStats" >Mis Estadisticas</a>
         <a class="link-text" routerLink="/profile">Mi Perfil</a> <!-- Añadir este enlace -->
       </ng-container>
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PlayerService } from 'src/app/services/player.service'; // Ajusta la ruta a tu servicio
-import { PlayerDTO } from 'src/app/interfaces/´PlayerDTO';
+import { PlayerDTO } from 'src/app/interfaces/PlayerDTO';
 
 @Component({
   selector: 'app-player-page',

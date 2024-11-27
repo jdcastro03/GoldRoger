@@ -1,0 +1,107 @@
+.grid-container {
+    margin: 20px; /* Solo mantiene el margen */
+  }
+  
+  .basic-info-card {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    margin: 20px auto;       /* Centra verticalmente la tarjeta con márgenes automáticos */
+  }
+  
+  mat-card {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Profile section styles */
+  .profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+  }
+  
+  .profile-info h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #333;
+  }
+  
+  .profile-info span {
+    font-size: 1.5rem;
+    color: #333
+  }
+  .yellow-card {
+    color: #ffc107; /* Amarillo típico de Material Design */
+  }
+  
+  .profile-info p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  /* Form styles */
+  .form-row {
+    margin-bottom: 15px;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  mat-icon {
+    margin-right: 8px;
+  }
+  
+  /* Letras más oscuras y grandes */
+  mat-label {
+    font-size: 1.1rem;
+    color: #333; /* Más oscuro */
+    font-weight: bold;
+  }
+  
+  /* Input de campos solo lectura, con fondo blanco */
+  mat-form-field input[readonly] {
+    background-color: #fff; /* Fondo blanco */
+    cursor: not-allowed;
+    color: #333; /* Texto más oscuro */
+    font-size: 1rem; /* Tamaño adecuado */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .profile-header {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .profile-image {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  
+    .profile-info h2 {
+      text-align: center;
+    }
+  }
+
+  .form-field input{
+    font-size: 1rem;
+    font-weight: bold;
+  }

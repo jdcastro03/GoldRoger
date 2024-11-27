@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PlayerService } from 'src/app/services/player.service'; // Asegúrate de importar el servicio de jugadores
-import { PlayerDTO } from 'src/app/interfaces/´PlayerDTO';
+import { PlayerDTO } from 'src/app/interfaces/PlayerDTO';
 
 @Component({
   selector: 'app-coach-page',

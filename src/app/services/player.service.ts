@@ -6,7 +6,8 @@ import { ServerUrl, serverConfig } from '../server';
 import { User } from '../interfaces/user';
 import { CreateUserRequestDTO } from '../interfaces/createUserRequestDTO';
 import { APIResponse } from '../interfaces/APIResponse';
-import { PlayerDTO } from '../interfaces/´PlayerDTO';
+import { PlayerDTO } from '../interfaces/PlayerDTO';
+import { PlayerStatsDTO } from '../interfaces/PlayerStatsDTO';
 @Injectable({
   providedIn: 'root'
 })
@@ -135,5 +136,23 @@ getAllTeams(): Observable<APIResponse<{ teamName: string; coachUsername: string;
     );
   }
 
+  //getplayerstats con playerStatsDTO no pide parametro
+  getPlayerStats(): Observable<PlayerStatsDTO> {
+      const url = `${this.apiUrl}GetPlayerStats`;
+      return this.http.get<APIResponse<PlayerStatsDTO>>(url).pipe(
+        map(response => {
+          if (response.success && response.data) {
+            return response.data;
+          } else {
+            console.error('Error al obtener las estadísticas del jugador:', response.message);
+            throw new Error(response.message || 'No se pudieron obtener las estadísticas del jugador');
+          }
+        }),
+        catchError(error => {
+          console.error('Error en la solicitud para obtener las estadísticas del jugador:', error);
+          throw new Error('Error al obtener las estadísticas del jugador');
+        })
+      );
+    }
 
 }
