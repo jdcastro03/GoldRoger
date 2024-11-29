@@ -12,8 +12,8 @@
           </button>
 
           <mat-menu #menu="matMenu">
-            <button mat-menu-item >
-              <mat-icon color="warn">delete</mat-icon> Abandonar
+            <button mat-menu-item (click)="leaveTeam()">
+              <mat-icon color="warn" >delete</mat-icon> Abandonar
             </button>
           </mat-menu>
         </div>
@@ -38,7 +38,7 @@
 
   <!-- Tabla de jugadores -->
   <div class="right-section">
-    <mat-table *ngIf="players.length > 0; else noPlayers" [dataSource]="players" class="mat-elevation-z8">
+    <mat-table *ngIf="players.length > 0" [dataSource]="players" class="mat-elevation-z8">
       <!-- ID del jugador -->
       <ng-container matColumnDef="playerId">
         <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
@@ -79,9 +79,7 @@
     </mat-table>
 
     <!-- Mensaje en caso de que no haya jugadores -->
-    <ng-template #noPlayers>
-      <p>No hay jugadores asignados a este equipo.</p>
-    </ng-template>
+   
   </div>
 </div>
 <router-outlet></router-outlet>

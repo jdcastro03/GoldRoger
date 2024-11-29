@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PlayerService } from 'src/app/services/player.service'; // Ajusta la ruta a tu servicio
 import { PlayerDTO } from 'src/app/interfaces/PlayerDTO';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-player-page',
@@ -14,7 +17,7 @@ export class PlayerPageComponent implements OnInit {
   players: PlayerDTO[] = []; // Lista de jugadores (PlayerDTO)
   displayedColumns: string[] = ['playerId', 'firstName', 'lastName', 'position', 'acciones']; // Columnas de la tabla
 
-  constructor(private playerService: PlayerService) {}
+  constructor(private playerService: PlayerService, private snackBar: MatSnackBar, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     // Cargar nombre del equipo y jugadores
@@ -65,4 +68,36 @@ export class PlayerPageComponent implements OnInit {
       }
     });
   }
+  leaveTeam(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: {
+        title: 'Confirmar acción',
+        message: '¿Estás seguro de que deseas abandonar el equipo?'
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) { // Si el usuario confirma abandonar el equipo
+        this.playerService.removePlayerFromTeam().subscribe({
+          next: () => {
+            this.snackBar.open('Has abandonado el equipo correctamente', 'Cerrar', { duration: 3000 });
+  
+            // Limpiar los datos locales
+            this.players = [];
+            this.teamName = null;
+  
+            // Volver a cargar el nombre del entrenador
+            this.loadCoachName();
+          },
+          error: (err) => {
+            console.error('Error al abandonar el equipo:', err);
+            this.snackBar.open('Ocurrió un error al intentar abandonar el equipo', 'Cerrar', { duration: 3000 });
+          }
+        });
+      }
+    });
+  }
+  
+  
 }

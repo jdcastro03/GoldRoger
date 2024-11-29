@@ -1,6 +1,7 @@
-.grid-container {
+.grid-container{
     margin: 20px;
-  }
+}
+
 .search-container {
     display: flex;
     align-items: center;
@@ -182,42 +183,3 @@
     font-size: 14px;
     color: #555; /* Color gris para las fechas */
   }
-  
-  
-  .paginator-container {
-    display: flex; /* Flexbox para alinear */
-    justify-content: flex-end; /* Alinea los elementos hijos a la derecha */
-    margin-top: 16px; /* Espaciado superior */
-    width: 100%; /* Asegura que ocupe el ancho completo */
-  }
-  
-  .action-button {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin: 16px; /* Espacio alrededor del botón */
-  }
-  
-  
-
-  .action-button button {
-    margin-left: auto; /* Empuja el botón a la derecha */
-    padding: 8px 16px; /* Añade un poco de relleno */
-    border-radius: 4px; /* Redondea las esquinas */
-    font-weight: bold; /* Hace el texto más fuerte */
-    background-color: #333;
-    color: #FEC82F;
-    
-  }
-  .action-button button:hover {
-    color: #e6b800;
-    
-  }
-
-  .action-button button[disabled] {
-    cursor: not-allowed; /* Cambia el cursor a "no permitido" */
-
-  
-    pointer-events: auto; /* Permite que el cursor 'not-allowed' sea visible */
-  }
-  

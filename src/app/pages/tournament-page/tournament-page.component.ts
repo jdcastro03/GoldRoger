@@ -139,7 +139,7 @@ export class TournamentPageComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al obtener el torneo del equipo:', error);
-        this.snackBar.open('No se pudo obtener el torneo del equipo.', 'Cerrar', { duration: 3000 });
+
       },
     });
   }

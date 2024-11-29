@@ -133,4 +133,24 @@ export class CoachService  {
           })
         );
       }
+
+      //getteamtournamentinfobycoachid regresadndo el tournamentDTO
+
+      getTeamTournamentInfoByCoachId(): Observable<TournamentDTO | null> {
+        const url = `${this.apiUrl}GetTeamTournamentInfoByCoachId`;
+        return this.http.get<APIResponse<TournamentDTO | null>>(url).pipe(
+          map(response => {
+            if (response.success) {
+              return response.data !== undefined ? response.data : null; // Devuelve el TeamId (puede ser `null` si no hay equipo asignado)
+            } else {
+              console.error('Error al obtener el torneo del equipo:', response.message);
+              throw new Error(response.message || 'No se pudo obtener el torneo del equipo');
+            }
+          }),
+          catchError(error => {
+            console.error('Error en la solicitud para obtener el torneo del equipo:', error);
+            throw new Error('Error al obtener el torneo del equipo');
+          })
+        );
+      }
 }

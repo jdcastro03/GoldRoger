@@ -19,8 +19,8 @@ import { CoachTournamentComponent } from "../pages/coach-page/coach-tournament/c
 import { PlayerPageComponent } from "../pages/player-page/player-page.component";
 import { TeamPageComponent } from "../pages/team-page/team-page.component";
 import { RefereePageComponent } from "../pages/referee-page/referee-page.component";
-import { PlayerStatsPageComponent } from "../pages/player-stats-page/player-stats-page.component";
-import { PlayerTournamentPageComponent } from "../pages/player-tournament-page/player-tournament-page.component";
+import { PlayerStatsPageComponent } from "../pages/player-page/player-stats-page/player-stats-page.component";
+import { PlayerTournamentPageComponent } from "../pages/player-page/player-tournament-page/player-tournament-page.component";
 
 const routes: Routes = [
 
@@ -44,6 +44,7 @@ const routes: Routes = [
     {path: 'referee', component: RefereePageComponent},
     {path: 'playerStats', component: PlayerStatsPageComponent},
     {path : 'playerTournament', component: PlayerTournamentPageComponent},
+    {path: 'coachTournament', component: CoachTournamentComponent},
 
 ];
 @NgModule({

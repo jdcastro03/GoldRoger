@@ -8,6 +8,7 @@ import { CreateUserRequestDTO } from '../interfaces/createUserRequestDTO';
 import { APIResponse } from '../interfaces/APIResponse';
 import { PlayerDTO } from '../interfaces/PlayerDTO';
 import { PlayerStatsDTO } from '../interfaces/PlayerStatsDTO';
+import { TournamentDTO } from '../interfaces/TournamentDTO';
 @Injectable({
   providedIn: 'root'
 })
@@ -151,6 +152,44 @@ getAllTeams(): Observable<APIResponse<{ teamName: string; coachUsername: string;
         catchError(error => {
           console.error('Error en la solicitud para obtener las estadísticas del jugador:', error);
           throw new Error('Error al obtener las estadísticas del jugador');
+        })
+      );
+    }
+
+    getPlayerTournaments(): Observable<TournamentDTO[]> {
+      const url = `${this.apiUrl}GetPlayerTournament`;
+      return this.http.get<APIResponse<TournamentDTO>>(url).pipe(
+        map(response => {
+          if (response.success) {
+            // Convertir el objeto único en un array para usarlo fácilmente
+            return response.data ? [response.data] : [];
+          } else {
+            console.error('Error al obtener los torneos del jugador:', response.message);
+            throw new Error(response.message || 'No se pudieron obtener los torneos del jugador');
+          }
+        }),
+        catchError(error => {
+          console.error('Error en la solicitud para obtener los torneos del jugador:', error);
+          throw new Error('Error al obtener los torneos del jugador');
+        })
+      );
+    }
+
+    //removeplayerfromteam no pide parametro
+    removePlayerFromTeam(): Observable<APIResponse<any>> {
+      const url = `${this.apiUrl}RemovePlayerFromTeam`;
+      return this.http.delete<APIResponse<any>>(url).pipe(
+        map(response => {
+          if (response.success) {
+            return response;
+          } else {
+            console.error('Error al eliminar al jugador del equipo:', response.message);
+            throw new Error(response.message || 'No se pudo eliminar al jugador del equipo');
+          }
+        }),
+        catchError(error => {
+          console.error('Error en la solicitud para eliminar al jugador del equipo:', error);
+          throw new Error('Error al eliminar al jugador del equipo');
         })
       );
     }
