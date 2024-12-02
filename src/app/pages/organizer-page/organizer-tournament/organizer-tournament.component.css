@@ -40,3 +40,57 @@ mat-card-title {
   margin: 0;
 }
 
+/* equipos */
+.teams-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que las tarjetas se ajusten a nuevas filas si es necesario */
+  gap: 20px; /* Espacio entre las tarjetas */
+  justify-content: flex-start; /* Alineación inicial de las tarjetas */
+  padding: 20px; /* Añade espacio interno */
+  overflow: visible; /* Asegúrate de que las tarjetas no sean recortadas */
+}
+
+.team-card {
+  width: 150px; /* Tamaño fijo para la tarjeta */
+  height: 197px; /* Altura ajustada */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Alineación al inicio del contenedor */
+  align-items: center; /* Centrado horizontal */
+  position: relative; /* Para que los hijos con `absolute` estén dentro */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
+  border-radius: 8px; /* Bordes redondeados */
+  background-color: white; /* Fondo blanco para resaltar */
+  overflow: hidden; /* Previene contenido que sobresalga */
+  padding: 8px; /* Espacio interno */
+}
+.team-card mat-card-header {
+  position: absolute; /* Permite posicionar dentro de la tarjeta */
+  top: 8px; /* Margen superior */
+  right: 8px; /* Margen derecho */
+  z-index: 10; /* Asegura que esté encima de otros elementos */
+  padding: 0; /* Elimina relleno adicional */
+}
+
+mat-icon-button {
+  background: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para visibilidad */
+  border-radius: 50%; /* Hacerlo circular */
+  padding: 4px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+}
+.team-image {
+  width: 80px; /* Tamaño */
+  height: 80px;
+  border-radius: 50%; /* Circular */
+  object-fit: cover; /* Ajusta sin deformar */
+  margin-top: 40px; /* Separación del ícono del menú */
+}
+
+.team-name {
+  font-weight: bold;
+  display: flex; /* Activa flexbox */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  text-align: center; /* Alinea el texto dentro del div */
+  margin-top: 9px;
+}

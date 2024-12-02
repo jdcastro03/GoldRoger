@@ -12,6 +12,7 @@ import { CreateTournamentRequestDTO } from '../interfaces/CreateTournamentReques
 import { Tournament } from '../interfaces/tournament';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TournamentInfoDTO } from '../interfaces/TournamentInfoDTO';
+import { TeamDTO } from '../interfaces/TeamDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -123,6 +124,24 @@ export class OrganizerService  {
             catchError((error) => {
                 console.error('Error en la solicitud para obtener el torneo:', error);
                 throw new Error('Error al obtener el torneo');
+            })
+        );
+    }
+
+    getTeamsByTournamentId(tournamentId: number): Observable<TeamDTO[]> {
+        const url = `${this.apiUrl}GetTeamsByTournamentId?tournamentId=${tournamentId}`;
+        return this.http.get<APIResponse<TeamDTO[]>>(url).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve los equipos si la solicitud es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudieron obtener los equipos');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para obtener los equipos:', error);
+                throw new Error('Error al obtener los equipos');
             })
         );
     }

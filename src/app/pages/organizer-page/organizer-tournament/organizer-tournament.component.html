@@ -26,7 +26,25 @@
                     </mat-card>
                 </div>
             </mat-tab>
-            <mat-tab label="Equipos"></mat-tab>
+            <mat-tab label="Equipos">
+                <div class="teams-container" *ngIf="teams.length > 0">
+                    <mat-card class="team-card" *ngFor="let team of teams">
+                        <mat-card-header>
+                            <button mat-icon-button aria-label="Menu" class="menu-team">
+                                <mat-icon>menu</mat-icon>
+                            </button>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <img src="/Logo_Team.png" alt="Image" class="team-image" />
+                            <div class="team-name">{{ team.teamName }}</div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div *ngIf="teams.length === 0">
+                    <p>No hay equipos para este torneo.</p>
+                </div>
+            </mat-tab>
+            
             <mat-tab label="Partidos"></mat-tab>
             <mat-tab label="Resultados"></mat-tab>
             <mat-tab label="Tabla"></mat-tab>
