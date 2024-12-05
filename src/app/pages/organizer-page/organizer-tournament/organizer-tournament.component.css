@@ -1,6 +1,9 @@
 .grid-container {
   margin: 20px;
 }
+mat-tab-group {
+  z-index: 0;
+}
 
 h1 {
   text-align: center; /* Centrar horizontalmente */
@@ -78,19 +81,132 @@ mat-icon-button {
   padding: 4px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra ligera */
 }
+.image-container {
+  display: flex; /* Activa flexbox */
+  flex-direction: column; /* Apila los elementos verticalmente */
+  justify-content: center; /* Centra verticalmente */
+  align-items: center; /* Centra horizontalmente */
+  text-align: center; /* Alinea el texto dentro de los elementos */
+}
+
 .team-image {
   width: 80px; /* Tamaño */
   height: 80px;
   border-radius: 50%; /* Circular */
   object-fit: cover; /* Ajusta sin deformar */
-  margin-top: 40px; /* Separación del ícono del menú */
+  margin-bottom: 10px; /* Separación del texto */
+  margin-top: 27px;
 }
 
 .team-name {
   font-weight: bold;
-  display: flex; /* Activa flexbox */
+  font-size: 16px; /* Ajusta el tamaño de fuente si es necesario */
+}
+
+/* partiddos */
+
+/* Contenedor principal */
+/* Contenedor de los partidos */
+/* Contenedor principal de los partidos */
+.quarter-finals-container {
+  display: flex;
+  flex-wrap: wrap; /* Para permitir que los cards se acomoden de manera horizontal */
+  gap: 20px; /* Espacio entre los cards */
+  justify-content: center; /* Centra los cards horizontalmente */
+  margin-top: 20px; /* Separación superior */
+}
+
+/* Estilo para cada card de partido */
+.quarter-finals {
+  width: 45%; /* Hace que cada card sea más pequeño */
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  z-index: 0;
+  border: 2px solid #555;
+  margin-top: 10px; /* Añadir espacio superior para separar los cards */
+  box-sizing: border-box; /* Asegura que el padding no afecte al tamaño */
+}
+
+/* Hover sobre los cards */
+.quarter-finals:hover {
+  border: 2px solid #FEC82F;
+}
+
+/* Contenedor de un partido */
+.match-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Contenedor del equipo izquierdo y derecho */
+.team-left, .team-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Estilo de la imagen del equipo */
+.team-image {
+  width: 60px; /* Hacemos la imagen un poco más pequeña */
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+/* Nombre del equipo */
+.team-name {
+  font-size: 14px; /* Tamaño de fuente reducido */
+  font-weight: bold;
+}
+
+/* El "VS" en el centro */
+.vs {
+  font-size: 18px; /* Ajustamos el tamaño del "VS" */
+  font-weight: bold;
+  color: #FEC82F;
+  margin: 0 20px;
+  text-align: center;
+}
+
+
+/* Botones */
+.create-button {
+  background-color: #FEC82F;
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.create-button .material-icons {
+  font-size: 20px;
+}
+
+.create-button:hover {
+  background-color: #e6b800;
+}
+.button-group {
+  display: flex;
+  gap: 20px; /* Separación entre los botones */
   justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-  text-align: center; /* Alinea el texto dentro del div */
-  margin-top: 9px;
+  margin-top: 5px;
+}
+
+.quarter-finals-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 20px 0;
+  color: #333;
 }

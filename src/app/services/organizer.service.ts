@@ -13,6 +13,9 @@ import { Tournament } from '../interfaces/tournament';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TournamentInfoDTO } from '../interfaces/TournamentInfoDTO';
 import { TeamDTO } from '../interfaces/TeamDTO';
+import { MatchInfoDTO } from '../interfaces/matchInfoDTO';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -142,6 +145,116 @@ export class OrganizerService  {
             catchError((error) => {
                 console.error('Error en la solicitud para obtener los equipos:', error);
                 throw new Error('Error al obtener los equipos');
+            })
+        );
+    }
+
+    //createQu
+    createQuarterfinals(tournamentId: number): Observable<boolean> {
+        const url = `${this.apiUrl}CreateQuarterfinals?tournamentId=${tournamentId}`;
+        return this.http.post<APIResponse<boolean>>(url, null).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve true si la creación es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudieron generar los cuartos de final');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para generar los cuartos de final:', error);
+                throw new Error('Error al generar los cuartos de final');
+            })
+        );
+    }
+
+    //getQuarterFinalsMatches con el dto de matchInfoDTO
+    getQuarterFinalsMatches(tournamentId: number): Observable<MatchInfoDTO[]> {
+        const url = `${this.apiUrl}GetQuarterFinalsMatches?tournamentId=${tournamentId}`;
+        return this.http.get<APIResponse<MatchInfoDTO[]>>(url).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve los partidos si la solicitud es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudieron obtener los partidos de cuartos de final');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para obtener los partidos de cuartos de final:', error);
+                throw new Error('Error al obtener los partidos de cuartos de final');
+            })
+        );
+    }
+    
+    createSemifinals(tournamentId: number): Observable<boolean> {
+        const url = `${this.apiUrl}CreateSemifinals?tournamentId=${tournamentId}`;
+        return this.http.post<APIResponse<boolean>>(url, null).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve true si la creación es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudieron generar las semifinales');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para generar las semifinales:', error);
+                throw new Error('Error al generar las semifinales');
+            })
+        );
+    }
+
+    getSemifinalsMatches(tournamentId: number): Observable<MatchInfoDTO[]> {
+        const url = `${this.apiUrl}GetSemifinalsMatches?tournamentId=${tournamentId}`;
+        return this.http.get<APIResponse<MatchInfoDTO[]>>(url).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve los partidos si la solicitud es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudieron obtener los partidos de semifinales');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para obtener los partidos de semifinales:', error);
+                throw new Error('Error al obtener los partidos de semifinales');
+            })
+        );
+    }
+
+    createFinal(tournamentId: number): Observable<boolean> {
+        const url = `${this.apiUrl}CreateFinal?tournamentId=${tournamentId}`;
+        return this.http.post<APIResponse<boolean>>(url, null).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve true si la creación es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudo generar la final');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para generar la final:', error);
+                throw new Error('Error al generar la final');
+            })
+        );
+    }
+
+    getFinalMatch(tournamentId: number): Observable<MatchInfoDTO> {
+        const url = `${this.apiUrl}GetFinalMatch?tournamentId=${tournamentId}`;
+        return this.http.get<APIResponse<MatchInfoDTO>>(url).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve el partido si la solicitud es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudo obtener el partido de la final');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para obtener el partido de la final:', error);
+                throw new Error('Error al obtener el partido de la final');
             })
         );
     }

@@ -13,7 +13,7 @@
           <button mat-icon-button [matMenuTriggerFor]="menu" color="primary">
             <mat-icon>more_vert</mat-icon> <!-- Icono de tres puntos -->
           </button>
-  
+          
           <mat-menu #menu="matMenu">
             <button mat-menu-item>
               <mat-icon color="primary">edit</mat-icon> Editar
@@ -75,7 +75,7 @@
       <ng-container matColumnDef="acciones">
         <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
         <mat-cell *matCellDef="let player">
-          <button mat-icon-button color="primary">
+          <button mat-icon-button color="primary" (click)="navigateToPlayerDetail(player.playerId)">
             <mat-icon>account_circle</mat-icon> <!-- Ícono para ver perfil -->
           </button>
           <button mat-icon-button color="warn" >

@@ -4,11 +4,13 @@ import { OrganizerService } from 'src/app/services/organizer.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { TeamDTO } from 'src/app/interfaces/TeamDTO';
+import { MatchInfoDTO } from 'src/app/interfaces/matchInfoDTO';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-organizer-tournament',
   templateUrl: './organizer-tournament.component.html',
-  styleUrl: './organizer-tournament.component.css'
+  styleUrls: ['./organizer-tournament.component.css']
 })
 export class OrganizerTournamentComponent implements OnInit {
   tournamentId: number | undefined;
@@ -16,51 +18,51 @@ export class OrganizerTournamentComponent implements OnInit {
   startDate: string = '';
   endDate: string = '';
   tournamentTypeId: number | undefined;
-  tournamentTypeName: string = ''; // Nueva propiedad para el nombre del tipo de torneo
+  tournamentTypeName: string = '';
   organizerId: number | undefined;
-  teams: TeamDTO[] = []; // Variable para almacenar los equipos
-
+  teams: TeamDTO[] = [];
+  currentUserID: number | null = null;
+  quarterFinals: MatchInfoDTO[] = [];  // Para almacenar los partidos de cuartos de final
+  semiFinals: MatchInfoDTO[] = [];  // Para almacenar los partidos de semifinales
+  finalMatch: MatchInfoDTO | undefined;  // Para almacenar el partido final
 
   constructor(
     private route: ActivatedRoute,
     private organizerService: OrganizerService,
     private router: Router,
     private location: Location,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.tournamentId = id !== null ? +id : undefined;
     this.getTournamentDetails();
+    this.currentUserID = JSON.parse(localStorage.getItem('userId') || '{}');
+    this.loadQuarterfinals();  // Cargar partidos de cuartos si ya existen
+    this.loadSemiFinals();  // Cargar partidos de semifinales si ya existen
+    this.loadFinalMatch();  // Cargar partido final si ya existe
   }
 
-  // Obtenemos los detalles del torneo
   getTournamentDetails(): void {
     if (this.tournamentId) {
       this.organizerService.getTournamentById(this.tournamentId).subscribe(
         (tournament) => {
-          // Asignamos los datos obtenidos
           this.tournamentName = tournament.tournamentName;
           this.startDate = new Date(tournament.startDate).toISOString();
           this.endDate = new Date(tournament.endDate).toISOString();
           this.tournamentTypeId = tournament.tournamentTypeId;
           this.organizerId = tournament.organizerId;
-
-          // Llamamos a la función para asignar el nombre del tipo de torneo
           this.setTournamentTypeName();
-          this.getTeams(); // Llamamos a la función para obtener los equipos
+          this.getTeams();
         },
         (error) => {
           console.error('Error fetching tournament details:', error);
-          this.tournamentName = 'Error al obtener los detalles del torneo';
         }
       );
-    } else {
-      console.warn('No tournament ID provided');
     }
   }
 
-  // Función para asignar el nombre del tipo de torneo basado en el ID
   setTournamentTypeName(): void {
     switch (this.tournamentTypeId) {
       case 1:
@@ -76,17 +78,16 @@ export class OrganizerTournamentComponent implements OnInit {
         this.tournamentTypeName = 'Eliminatoria 32';
         break;
       default:
-        this.tournamentTypeName = 'Desconocido'; // Valor por defecto en caso de no coincidir
+        this.tournamentTypeName = 'Desconocido';
         break;
     }
   }
 
-  // Llamada para obtener los equipos del torneo
   getTeams(): void {
     if (this.tournamentId) {
       this.organizerService.getTeamsByTournamentId(this.tournamentId).subscribe(
         (teams) => {
-          this.teams = teams; // Asignamos los equipos obtenidos
+          this.teams = teams;
         },
         (error) => {
           console.error('Error fetching teams:', error);
@@ -95,10 +96,104 @@ export class OrganizerTournamentComponent implements OnInit {
     }
   }
 
-  goBack(): void {
-    this.location.back();
+  // Lógica para generar cuartos de final
+  generateQuarterfinals(): void {
+    if (this.tournamentId) {
+      this.organizerService.createQuarterfinals(this.tournamentId).subscribe(
+        (success) => {
+          if (success) {
+            this.snackBar.open('Cuartos de final generados correctamente', 'Cerrar', { duration: 3000 } );
+            this.loadQuarterfinals();  // Cargar los partidos de cuartos de final después de generarlos
+          } else {
+            this.snackBar.open('Error al generar los cuartos de final', 'Cerrar', { duration: 3000 } );
+          }
+        },
+        (error) => {
+          console.error('Error en la generación de cuartos de final:', error);
+        }
+      );
+    }
+  }
+
+  // Método para cargar los partidos de cuartos de final
+  loadQuarterfinals(): void {
+    if (this.tournamentId) {
+      this.organizerService.getQuarterFinalsMatches(this.tournamentId).subscribe(
+        (matches) => {
+          this.quarterFinals = matches;
+        },
+        (error) => {
+          console.error('Error al obtener los partidos de cuartos de final:', error);
+        }
+      );
+    }
+  }
+
+  generateSemiFinals(): void {
+    if (this.tournamentId) {
+      this.organizerService.createSemifinals(this.tournamentId).subscribe(
+        (success) => {
+          if (success) {
+            this.snackBar.open('Semifinales generadas correctamente', 'Cerrar', { duration: 3000 } );
+            this.loadSemiFinals();  // Cargar los partidos de semifinales después de generarlos
+          } else {
+            this.snackBar.open('Error al generar las semifinales', 'Cerrar', { duration: 3000 } );
+          }
+        },
+        (error) => {
+          console.error('Error en la generación de semifinales:', error);
+        }
+      );
+    }
+  }
+  loadSemiFinals(): void {
+    if (this.tournamentId) {
+      this.organizerService.getSemifinalsMatches(this.tournamentId).subscribe(
+        (matches) => {
+          this.semiFinals = matches;
+        },
+        (error) => {
+          console.error('Error al obtener los partidos de semifinales:', error);
+        }
+      );
+    }
+  }
+  
+  generateFinalMatch(): void {
+    if (this.tournamentId) {
+    this.organizerService.createFinal(this.tournamentId).subscribe(
+      success => {
+        if (success) {
+          this.snackBar.open('Partido final generado correctamente', 'Cerrar', { duration: 3000 });
+          this.loadFinalMatch();  // Cargar el partido final después de generarlo
+        } else {
+          this.snackBar.open('Error al generar el partido final', 'Cerrar', { duration: 3000 });
+        }
+      }
+    , error => {
+      console.error('Error en la generación del partido final:', error);
+    }
+  
+    );
+    }
+  }
+
+  loadFinalMatch(): void {
+    if (this.tournamentId) {
+      this.organizerService.getFinalMatch(this.tournamentId).subscribe(
+        (match) => {
+          this.finalMatch = match;
+        },
+        (error) => {
+          console.error('Error al obtener el partido final:', error);
+        }
+      );
+    }
   }
 
 
 
+  goBack(): void {
+    this.location.back();
+  }
 }

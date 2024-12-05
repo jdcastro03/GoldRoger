@@ -194,4 +194,24 @@ getAllTeams(): Observable<APIResponse<{ teamName: string; coachUsername: string;
       );
     }
 
+
+    
+    getPlayerStatsById(playerId: number): Observable<PlayerStatsDTO> {
+      const url = `${this.apiUrl}GetPlayerStatsById?playerId=${playerId}`;
+      return this.http.get<APIResponse<PlayerStatsDTO>>(url).pipe(
+        map(response => {
+          if (response.success && response.data) {
+            return response.data;
+          } else {
+            console.error('Error al obtener las estadísticas del jugador:', response.message);
+            throw new Error(response.message || 'No se pudieron obtener las estadísticas del jugador');
+          }
+        }),
+        catchError(error => {
+          console.error('Error en la solicitud para obtener las estadísticas del jugador:', error);
+          throw new Error('Error al obtener las estadísticas del jugador');
+        })
+      );
+    }
+
 }

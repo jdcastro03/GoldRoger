@@ -70,6 +70,12 @@ export class OrganizerPageComponent implements OnInit, AfterViewInit {
   navigateToTournamentDetail(tournamentId: number): void {
     this.router.navigate(['/tournament', tournamentId]);
     console.log('Navigating to tournament detail:', tournamentId);
+    //inserta en el local storage el torunament
+    
+
+
+    
+
   }
 
   updatePaginatedTournaments(): void {
@@ -97,5 +103,22 @@ export class OrganizerPageComponent implements OnInit, AfterViewInit {
     this.searchText = '';
     this.filteredTournaments = [...this.tournaments];
     this.updatePaginatedTournaments();
+  }
+  addTournament(newTournament: any): void {
+    // Agrega el nuevo torneo a la lista principal
+    this.tournaments.push({
+      tournamentId: newTournament.tournamentId,
+      tournamentName: newTournament.tournamentName,
+      startDate: new Date(newTournament.startDate),
+      endDate: new Date(newTournament.endDate),
+      tournamentTypeId: newTournament.tournamentTypeId
+    });
+  
+    // Actualiza las listas filtradas y paginadas
+    this.filteredTournaments = [...this.tournaments];
+    this.updatePaginatedTournaments();
+  
+    // Cierra el formulario después de agregar el torneo
+    this.showForm = false;
   }
 }

@@ -6,6 +6,7 @@ import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confir
 import { MatDialog } from '@angular/material/dialog';
 import { PlayerService } from 'src/app/services/player.service'; // Asegúrate de importar el servicio de jugadores
 import { PlayerDTO } from 'src/app/interfaces/PlayerDTO';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-coach-page',
@@ -22,7 +23,8 @@ export class CoachPageComponent implements OnInit {
     private coachService: CoachService, 
     private snackBar : MatSnackBar, 
     private dialog: MatDialog,
-    private playerService: PlayerService // Inyectamos el servicio de jugadores
+    private playerService: PlayerService,
+    private router : Router // Inyectamos el servicio de jugadores
   ) {}
 
   ngOnInit(): void {
@@ -95,5 +97,15 @@ export class CoachPageComponent implements OnInit {
         });
       }
     });
+  }
+  navigateToPlayerDetail(playerId: number): void {
+    this.router.navigate(['/playerStats', playerId]);
+    
+    //inserta en el local storage el torunament
+    
+
+
+    
+
   }
 }

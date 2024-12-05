@@ -67,7 +67,7 @@
       <ng-container matColumnDef="acciones">
         <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
         <mat-cell *matCellDef="let player">
-          <button mat-icon-button color="primary" >
+          <button mat-icon-button color="primary" (click)="navigateToPlayerDetail(player.playerId)" >
             <mat-icon>account_circle</mat-icon> <!-- Ícono para ver perfil -->
           </button>
 

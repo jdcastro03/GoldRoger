@@ -1,9 +1,15 @@
+
+
+
+
+
+
 <div class="grid-container">
   <h1>Mis Torneos</h1>
 
   <!-- Mostrar formulario solo cuando showForm sea verdadero -->
   <mat-card *ngIf="showForm" class="overlay-card">
-    <app-organizer-form (formClosed)="toggleForm()" class="overlay"></app-organizer-form>
+    <app-organizer-form (formClosed)="toggleForm()" class="overlay" (tournamentCreated)="addTournament($event)"></app-organizer-form>
   </mat-card>
 
   <div class="search-container">

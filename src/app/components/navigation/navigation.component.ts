@@ -25,6 +25,7 @@ export class NavigationComponent {
     isLoggedIn: boolean = false; // Estado de autenticación
     currentUserType : number | null = null; // Tipo de usuario autenticado
   currentUserName: string | null = null; // Nombre del usuario autenticado
+  currentUserID: number | null = null; // ID del usuario autenticado
     constructor(
       public dialog: MatDialog, 
       private authService: AuthService, // Inyectar AuthService
@@ -46,7 +47,9 @@ export class NavigationComponent {
         console.log('El usuario autenticado es:', this.currentUserType);
         //guarda en el local storage el tipo de usuario
         localStorage.setItem('userType', JSON.stringify(this.currentUserType));
-        
+        this.currentUserID = parsedUser.userId; // Asignar el id del usuario desde el localStorage
+        localStorage.setItem('userId', JSON.stringify(this.currentUserID));
+        console.log('El usuario autenticado es:', this.currentUserID);
         
       
       }

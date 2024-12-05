@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class OrganizerFormComponent {
   @Output() formClosed = new EventEmitter<void>();  // Evento para cerrar el formulario
   eventForm: FormGroup;
+  @Output() tournamentCreated = new EventEmitter<any>(); // Nuevo evento
 
   constructor(
     private fb: FormBuilder,
@@ -61,6 +62,7 @@ export class OrganizerFormComponent {
           this.snackBar.open('Torneo creado exitosamente', 'Cerrar', { duration: 3000 });
           this.eventForm.reset();  // Resetea el formulario
           this.closeForm();  // Cierra el formulario después de la creación
+          this.tournamentCreated.emit(tournament); // Emitir el torneo creado
         },
         (error: any) => {
           // Muestra un mensaje de error

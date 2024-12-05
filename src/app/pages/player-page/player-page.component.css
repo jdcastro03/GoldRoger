@@ -8,6 +8,7 @@
   flex: 1; /* Toma un espacio proporcional en la izquierda */
   max-width: 40%; /* Limita el ancho de los cards */
   margin-right: 20px; /* Espacio entre los cards y la tabla */
+  margin-top: -20px; /* Alinea los cards con la tabla */
 }
 
 .right-section {

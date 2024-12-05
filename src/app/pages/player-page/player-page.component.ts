@@ -4,6 +4,7 @@ import { PlayerDTO } from 'src/app/interfaces/PlayerDTO';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-player-page',
@@ -17,7 +18,7 @@ export class PlayerPageComponent implements OnInit {
   players: PlayerDTO[] = []; // Lista de jugadores (PlayerDTO)
   displayedColumns: string[] = ['playerId', 'firstName', 'lastName', 'position', 'acciones']; // Columnas de la tabla
 
-  constructor(private playerService: PlayerService, private snackBar: MatSnackBar, private dialog: MatDialog) {}
+  constructor(private playerService: PlayerService, private snackBar: MatSnackBar, private dialog: MatDialog, private router: Router) {}
 
   ngOnInit(): void {
     // Cargar nombre del equipo y jugadores
@@ -98,6 +99,12 @@ export class PlayerPageComponent implements OnInit {
       }
     });
   }
+
+  navigateToPlayerDetail(playerId: number): void {
+    this.router.navigate(['/playerStats', playerId]);
+
+  }
+    
   
   
 }

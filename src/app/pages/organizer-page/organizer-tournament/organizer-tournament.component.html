@@ -27,6 +27,8 @@
                 </div>
             </mat-tab>
             <mat-tab label="Equipos">
+
+
                 <div class="teams-container" *ngIf="teams.length > 0">
                     <mat-card class="team-card" *ngFor="let team of teams">
                         <mat-card-header>
@@ -34,10 +36,10 @@
                                 <mat-icon>menu</mat-icon>
                             </button>
                         </mat-card-header>
-                        <mat-card-content>
+                        <mat-card-content class="image-container">
                             <img src="/Logo_Team.png" alt="Image" class="team-image" />
                             <div class="team-name">{{ team.teamName }}</div>
-                        </mat-card-content>
+                          </mat-card-content>
                     </mat-card>
                 </div>
                 <div *ngIf="teams.length === 0">
@@ -45,8 +47,146 @@
                 </div>
             </mat-tab>
             
-            <mat-tab label="Partidos"></mat-tab>
-            <mat-tab label="Resultados"></mat-tab>
+            <mat-tab label="Partidos">
+                <div class="matches-container">
+                  <!-- Botones para generar partidos -->
+                  <div class="button-group" *ngIf="this.currentUserID === this.organizerId && this.tournamentTypeId === 2">
+                    <button class="create-button" (click)="generateQuarterfinals()">
+                      <mat-icon class="material-icons">sports_soccer</mat-icon>
+                      Generar Cuartos de Final
+                    </button>
+                    <button class="create-button" (click)="generateSemiFinals()">
+                      <mat-icon class="material-icons">sports_soccer</mat-icon>
+                      Generar Semifinal
+                    </button>
+                    <button class="create-button"(click)="generateFinalMatch()" >
+                      <mat-icon class="material-icons">sports_soccer</mat-icon>
+                      Generar Final
+                    </button>
+                  </div>
+
+                    <!-- Cuartos de Final -->
+                <div *ngIf="quarterFinals.length > 0">
+                    <!-- Encabezado "Cuartos de Final" -->
+                    <h2 class="quarter-finals-title">Cuartos de Final</h2>
+
+                  <div class="quarter-finals-container" *ngIf="quarterFinals.length > 0">
+                
+                    <mat-card class="quarter-finals" *ngFor="let match of quarterFinals">
+                        <div class="match-container">
+                            <!-- Equipo 1 -->
+                            <div class="team-left">
+                                <img src="/Logo_Team.png" alt="Imagen del equipo 1" class="team-image" />
+                                <div class="team-name">{{ match.team1Name }}</div>
+                            </div>
+        
+                            <!-- VS en el centro -->
+                            <div class="vs">VS</div>
+        
+                            <!-- Equipo 2 -->
+                            <div class="team-right">
+                                <img src="/Logo_Team.png" alt="Imagen del equipo 2" class="team-image" />
+                                <div class="team-name">{{ match.team2Name }}</div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+                </div>
+
+                <!-- SEMIFINALES -->
+                <div *ngIf="semiFinals.length > 0">
+                    <!-- Encabezado "Cuartos de Final" -->
+                    <h2 class="quarter-finals-title">Semifinales</h2>
+
+                  <div class="quarter-finals-container" *ngIf="semiFinals.length > 0">
+                
+                    <mat-card class="quarter-finals" *ngFor="let match of semiFinals">
+                        <div class="match-container">
+                            <!-- Equipo 1 -->
+                            <div class="team-left">
+                                <img src="/Logo_Team.png" alt="Imagen del equipo 1" class="team-image" />
+                                <div class="team-name">{{ match.team1Name }}</div>
+                            </div>
+        
+                            <!-- VS en el centro -->
+                            <div class="vs">VS</div>
+        
+                            <!-- Equipo 2 -->
+                            <div class="team-right">
+                                <img src="/Logo_Team.png" alt="Imagen del equipo 2" class="team-image" />
+                                <div class="team-name">{{ match.team2Name }}</div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+                </div>
+                
+                <!-- FINAL -->
+                <div *ngIf="finalMatch">
+                    <!-- Encabezado "Cuartos de Final" -->
+                    <h2 class="quarter-finals-title">Final</h2>
+
+                  <div class="quarter-finals-container" *ngIf="finalMatch">
+                
+                    <mat-card class="quarter-finals">
+                        <div class="match-container">
+                            <!-- Equipo 1 -->
+                            <div class="team-left">
+                                <img src="/Logo_Team.png" alt="Imagen del equipo 1" class="team-image" />
+                                <div class="team-name">{{ finalMatch.team1Name }}</div>
+                            </div>
+        
+                            <!-- VS en el centro -->
+                            <div class="vs">VS</div>
+        
+                            <!-- Equipo 2 -->
+                            <div class="team-right">
+                                <img src="/Logo_Team.png" alt="Imagen del equipo 2" class="team-image" />
+                                <div class="team-name">{{ finalMatch.team2Name }}</div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+                </div>
+              
+                
+                </div>
+              </mat-tab>
+            <mat-tab label="Resultados">
+                <div class="matches-container">
+                    <!-- Botones para generar partidos -->
+    
+                  <div>
+                      <!-- Encabezado "Cuartos de Final" -->
+                      <h2 class="quarter-finals-title">Cuartos de Final</h2>
+    
+                    <div class="quarter-finals-container">
+                  
+                      <mat-card class="quarter-finals">
+                          <div class="match-container">
+                              <!-- Equipo 1 -->
+                              <div class="team-left">
+                                  <img src="/Logo_Team.png" alt="Imagen del equipo 1" class="team-image" />
+                                  <div class="team-name">{{ "Equipo 1" }}</div>
+                              </div>
+          
+                              <!-- VS en el centro -->
+                              <div class="vs">VS</div>
+          
+                              <!-- Equipo 2 -->
+                              <div class="team-right">
+                                  <img src="/Logo_Team.png" alt="Imagen del equipo 2" class="team-image" />
+                                  <div class="team-name">{{ "Equipo 2" }}</div>
+                              </div>
+                          </div>
+                      </mat-card>
+                  </div>
+                  </div>
+                  
+                
+                  
+                  </div>
+            </mat-tab>
             <mat-tab label="Tabla"></mat-tab>
             <mat-tab label="Estadísticas"></mat-tab>
         </mat-tab-group>
@@ -55,3 +195,4 @@
 
 <!-- Contenido dinámico cargado con el router -->
 <router-outlet></router-outlet>
+
