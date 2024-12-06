@@ -6,7 +6,9 @@ import { Location } from '@angular/common';
 import { TeamDTO } from 'src/app/interfaces/TeamDTO';
 import { MatchInfoDTO } from 'src/app/interfaces/matchInfoDTO';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { MatchResultDTO } from 'src/app/interfaces/MatchResultDTO';
+import { TournamentPlayerStatsDTO } from 'src/app/interfaces/TournamentPlayerStatsDTO';
+import { MatchLeagueInfoDTO } from 'src/app/interfaces/MatchLeagueInfoDTO';
 @Component({
   selector: 'app-organizer-tournament',
   templateUrl: './organizer-tournament.component.html',
@@ -25,6 +27,17 @@ export class OrganizerTournamentComponent implements OnInit {
   quarterFinals: MatchInfoDTO[] = [];  // Para almacenar los partidos de cuartos de final
   semiFinals: MatchInfoDTO[] = [];  // Para almacenar los partidos de semifinales
   finalMatch: MatchInfoDTO | undefined;  // Para almacenar el partido final
+  quarterFinalsResults: MatchResultDTO[] = [];  // Para almacenar los resultados de los partidos de cuartos de final
+  semiFinalsResults: MatchResultDTO[] = [];  // Para almacenar los resultados de los partidos de semifinales
+  finalMatchResult: MatchResultDTO | undefined;  // Para almacenar el resultado del partido final
+  leagueMatches: MatchLeagueInfoDTO[] = [];  // Para almacenar los partidos de liga
+  groupedMatches: { stage: number; matches: MatchLeagueInfoDTO[] }[] = [];
+
+
+  players: TournamentPlayerStatsDTO[] = [];  // Para almacenar las estadísticas de los jugadores
+
+  // Definimos las columnas que se van a mostrar en la tabla
+  displayedColumns: string[] = ['playerId', 'firstName', 'lastName', 'teamName', 'goals', 'yellowCards', 'redCards'];
 
   constructor(
     private route: ActivatedRoute,
@@ -42,8 +55,27 @@ export class OrganizerTournamentComponent implements OnInit {
     this.loadQuarterfinals();  // Cargar partidos de cuartos si ya existen
     this.loadSemiFinals();  // Cargar partidos de semifinales si ya existen
     this.loadFinalMatch();  // Cargar partido final si ya existe
+    this.getQuarterFinalsResults();  // Cargar resultados de cuartos de final si ya existen
+    this.getSemiFinalsResults();  // Cargar resultados de semifinales si ya existen
+    this.getFinalMatchResult();  // Cargar resultado del partido final si ya
+    this.getPlayerStatsByTournamentId();
+    this.getLeagueMatches();  // Cargar partidos de liga si ya existen
+
   }
 
+  getPlayerStatsByTournamentId(): void {
+    if (this.tournamentId) {
+      this.organizerService.getPlayerStatsByTournamentId(this.tournamentId).subscribe(
+        (players) => {
+          this.players = players;
+        },
+        (error) => {
+          console.error('Error fetching player stats:', error);
+        }
+      );
+    }
+
+  } 
   getTournamentDetails(): void {
     if (this.tournamentId) {
       this.organizerService.getTournamentById(this.tournamentId).subscribe(
@@ -142,6 +174,7 @@ export class OrganizerTournamentComponent implements OnInit {
         },
         (error) => {
           console.error('Error en la generación de semifinales:', error);
+          this.snackBar.open('Error al generar las semifinales', 'Cerrar', { duration: 3000 } );
         }
       );
     }
@@ -190,6 +223,92 @@ export class OrganizerTournamentComponent implements OnInit {
       );
     }
   }
+  getFinalMatchResult(): void {
+    if (this.tournamentId) {
+      this.organizerService.getFinalMatchResult(this.tournamentId).subscribe(
+        (result) => {
+          this.finalMatchResult = result;
+        },
+        (error) => {
+          console.error('Error fetching final match result:', error);
+        }
+      );
+    }
+  }
+
+  getQuarterFinalsResults(): void {
+    if (this.tournamentId) {
+      this.organizerService.getQuarterFinalsResults(this.tournamentId).subscribe(
+        (results) => {
+          this.quarterFinalsResults = results;
+        },
+        (error) => {
+          console.error('Error fetching quarterfinals results:', error);
+        }
+      );
+    }
+  }
+
+  getSemiFinalsResults(): void {
+    if (this.tournamentId) {
+      this.organizerService.getSemifinalsResults(this.tournamentId).subscribe(
+        (results) => {
+          this.semiFinalsResults = results;
+        },
+        (error) => {
+          console.error('Error fetching semifinals results:', error);
+        }
+      );
+    }
+  }
+
+  createLeagueMatches(): void {
+    if (this.tournamentId) {
+      this.organizerService.createLeagueMatches(this.tournamentId).subscribe(
+        (success) => {
+          if (success) {
+            this.snackBar.open('Partidos de liga generados correctamente', 'Cerrar', { duration: 3000 } );
+            this.getLeagueMatches();  // Cargar los partidos de liga después de generarlos
+          } else {
+            this.snackBar.open('Error al generar los partidos de liga', 'Cerrar', { duration: 3000 } );
+          }
+        },
+        (error) => {
+          console.error('Error en la generación de partidos de liga:', error);
+        }
+      );
+    }
+  }
+
+  getLeagueMatches(): void {
+    if (this.tournamentId) {
+      this.organizerService.getLeagueMatches(this.tournamentId).subscribe(
+        (matches) => {
+          this.leagueMatches = matches;
+          this.groupMatchesByStage(); // Agrupa los partidos después de obtenerlos
+        },
+        (error) => {
+          console.error('Error fetching league matches:', error);
+        }
+      );
+    }
+  }
+
+  groupMatchesByStage(): void {
+    const grouped = this.leagueMatches.reduce((acc, match) => {
+      const stageIndex = acc.findIndex(group => group.stage === match.stage);
+      if (stageIndex === -1) {
+        acc.push({ stage: match.stage, matches: [match] });
+      } else {
+        acc[stageIndex].matches.push(match);
+      }
+      return acc;
+    }, [] as { stage: number; matches: MatchLeagueInfoDTO[] }[]);
+  
+    // Ordena las jornadas por número de stage
+    this.groupedMatches = grouped.sort((a, b) => a.stage - b.stage);
+  }
+
 
 
 

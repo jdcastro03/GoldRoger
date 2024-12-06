@@ -14,7 +14,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TournamentInfoDTO } from '../interfaces/TournamentInfoDTO';
 import { TeamDTO } from '../interfaces/TeamDTO';
 import { MatchInfoDTO } from '../interfaces/matchInfoDTO';
-
+import { MatchResultDTO } from '../interfaces/MatchResultDTO';
+import { TournamentPlayerStatsDTO } from '../interfaces/TournamentPlayerStatsDTO';
+import { MatchLeagueInfoDTO } from '../interfaces/MatchLeagueInfoDTO';
 
 
 @Injectable({
@@ -258,5 +260,111 @@ export class OrganizerService  {
             })
         );
     }
-    
+    getQuarterFinalsResults(tournamentId: number): Observable<MatchResultDTO[]> {
+        const url = `${this.apiUrl}GetQuarterFinalsResults?tournamentId=${tournamentId}`;
+        return this.http.get<APIResponse<MatchResultDTO[]>>(url).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve los resultados si la solicitud es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudieron obtener los resultados de cuartos de final');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para obtener los resultados de cuartos de final:', error);
+                throw new Error('Error al obtener los resultados de cuartos de final');
+            })
+        );
+    }
+    getSemifinalsResults(tournamentId: number): Observable<MatchResultDTO[]> {
+        const url = `${this.apiUrl}GetSemifinalsResults?tournamentId=${tournamentId}`;
+        return this.http.get<APIResponse<MatchResultDTO[]>>(url).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve los resultados si la solicitud es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudieron obtener los resultados de semifinales');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para obtener los resultados de semifinales:', error);
+                throw new Error('Error al obtener los resultados de semifinales');
+            })
+        );
+    }
+    getFinalMatchResult(tournamentId: number): Observable<MatchResultDTO> {
+        const url = `${this.apiUrl}GetFinalResult?tournamentId=${tournamentId}`;
+        return this.http.get<APIResponse<MatchResultDTO>>(url).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve el resultado si la solicitud es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudo obtener el resultado de la final');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para obtener el resultado de la final:', error);
+                throw new Error('Error al obtener el resultado de la final');
+            })
+        );
+    }
+
+    getPlayerStatsByTournamentId(tournamentId: number): Observable<TournamentPlayerStatsDTO[]> {
+        const url = `${this.apiUrl}GetPlayerStatsByTournamentId?tournamentId=${tournamentId}`;
+        return this.http.get<APIResponse<TournamentPlayerStatsDTO[]>>(url).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve las estadísticas si la solicitud es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudieron obtener las estadísticas de los jugadores');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para obtener las estadísticas de los jugadores:', error);
+                throw new Error('Error al obtener las estadísticas de los jugadores');
+            })
+        );
+    }
+
+
+    //createleaguematches
+    createLeagueMatches(tournamentId: number): Observable<boolean> {
+        const url = `${this.apiUrl}CreateLeagueMatches?tournamentId=${tournamentId}`;
+        return this.http.post<APIResponse<boolean>>(url, null).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve true si la creación es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudieron generar los partidos de liga');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para generar los partidos de liga:', error);
+                throw new Error('Error al generar los partidos de liga');
+            })
+        );
+    }
+
+    getLeagueMatches(tournamentId: number): Observable<MatchLeagueInfoDTO[]> {
+        const url = `${this.apiUrl}GetLeagueMatches?tournamentId=${tournamentId}`;
+        return this.http.get<APIResponse<MatchLeagueInfoDTO[]>>(url).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve los partidos si la solicitud es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudieron obtener los partidos de liga');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para obtener los partidos de liga:', error);
+                throw new Error('Error al obtener los partidos de liga');
+            })
+        );
+    }
 }

@@ -167,7 +167,7 @@ mat-icon-button {
 
 /* El "VS" en el centro */
 .vs {
-  font-size: 18px; /* Ajustamos el tamaño del "VS" */
+  font-size: 1rem; /* Ajustamos el tamaño del "VS" */
   font-weight: bold;
   color: #FEC82F;
   margin: 0 20px;
@@ -209,4 +209,93 @@ mat-icon-button {
   font-weight: bold;
   margin: 20px 0;
   color: #333;
+}
+/* Goles del equipo */
+.team-score {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #000;
+  margin: 0 20px;
+  text-align: center;
+  width: 50px;
+  line-height: 80px; /* Centrado vertical para alinearse con las imágenes */
+}
+
+.guion {
+  font-size: 3.5rem; /* Ajustamos el tamaño del "VS" */
+  font-weight: bold;
+  color: #FEC82F;
+  margin: 0 20px;
+  text-align: center;
+}
+
+
+/* deshabiltiao */
+.disabled-message-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.disabled-message-card {
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.disabled-message {
+  font-size: 1.2rem;
+  color: #555555;
+  font-weight: 500;
+}
+
+/* TABLA ESTADISTICAS JUGADORES */
+
+
+
+.table-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  
+  
+}
+
+.table-card {
+  width: 90%;
+  max-width: 800px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+mat-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th.mat-header-cell, td.mat-cell {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  background-color: #f1f1f1;
+}
+
+.goal-icon, .yellow-card-icon, .red-card-icon {
+  margin-right: 8px;
+}
+
+.yellow-card {
+  color: #ffc107; /* Amarillo típico de Material Design */
+}
+
+mat-icon {
+  vertical-align: middle;
 }
