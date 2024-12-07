@@ -18,7 +18,7 @@ import { MatchResultDTO } from '../interfaces/MatchResultDTO';
 import { TournamentPlayerStatsDTO } from '../interfaces/TournamentPlayerStatsDTO';
 import { MatchLeagueInfoDTO } from '../interfaces/MatchLeagueInfoDTO';
 import { MatchLeagueResultDTO } from '../interfaces/MatchLeagueResultDTO';
-
+import { UpdateMatchDateDTO } from '../interfaces/UpdateMatchDateDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -389,5 +389,42 @@ export class OrganizerService  {
         );
     }
 
+    //updatematchdate
+    updateMatchDate(updateMatchDateDTO: UpdateMatchDateDTO): Observable<boolean> {
+        const url = `${this.apiUrl}UpdateMatchDate`;
+        return this.http.post<APIResponse<boolean>>(url, updateMatchDateDTO).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve true si la actualización es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudo actualizar la fecha del partido');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para actualizar la fecha del partido:', error);
+                throw new Error('Error al actualizar la fecha del partido');
+            })
+        );
+    }
+
+    //getmatchdate
+    getMatchDate(matchId: number): Observable<Date> {
+        const url = `${this.apiUrl}GetMatchDate?matchId=${matchId}`;
+        return this.http.get<APIResponse<Date>>(url).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return new Date(response.data); // Devuelve la fecha si la solicitud es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudo obtener la fecha del partido');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para obtener la fecha del partido:', error);
+                throw new Error('Error al obtener la fecha del partido');
+            })
+        );
+    }
     
 }

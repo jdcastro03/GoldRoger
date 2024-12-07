@@ -176,10 +176,13 @@ mat-icon-button {
   justify-content: center;
 }
 
+.vs-container p{
+  margin-top: 10px;
+}
 .vs {
   font-size: 1rem; /* Ajustamos el tamaño del "VS" */
   font-weight: bold;
-  color: #FEC82F;
+  color: black;
   margin: 0 20px;
   text-align: center;
 }
@@ -345,3 +348,4 @@ height: 100%;
 background: rgba(0, 0, 0, 0.5); /* Fondo oscuro y semitransparente */
 z-index: 10; /* Aseguramos que esté por encima de otros elementos, como los torneos */
 }
+

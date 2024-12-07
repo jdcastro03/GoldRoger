@@ -1,16 +1,26 @@
 <div class="form-container">
     <button class="close-button" (click)="closeForm()">X</button>
     <h2 class="form-title">Asignación</h2>
+  
     <div class="form-group-row">
-      <label for="category">Arbitro</label>
+      <label for="category">Árbitro</label>
       <div class="input-button-wrapper">
         <select id="category" [(ngModel)]="selectedRefereeId" class="form-input">
-          <option value="Selecciona un aribtro" disabled selected>Selecciona un árbitro</option>
+          <option value="" disabled selected>Selecciona un árbitro</option>
           <option *ngFor="let referee of referees" [value]="referee.refereeId">
             {{ referee.firstName }} {{ referee.lastName }}
           </option>
         </select>
         <button type="button" class="field-button" (click)="assignReferee()">Asignar</button>
       </div>
+    </div>
+  
+    <div class="form-group-row">
+      <label for="assignmentDate">Fecha de asignación</label>
+      <div class="input-button-wrapper">
+        <input type="datetime-local" id="assignmentDate" [(ngModel)]="assignmentDate" class="form-input" />
+        <button type="button" class="field-button" (click)="updateMatchDate()" >Asignar</button>
+      </div>
+     
     </div>
   </div>

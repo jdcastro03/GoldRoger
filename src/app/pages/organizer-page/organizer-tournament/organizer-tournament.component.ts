@@ -42,7 +42,14 @@ export class OrganizerTournamentComponent implements OnInit {
   selectedMatchId: number | null = null; // Para almacenar el matchId seleccionado
   refereesAssigned: { [matchId: number]: RefereeDTO } = {}; 
 
+  matchDateAssigned: { [matchId: number]: Date | null } = {};
+
+
+
+  
+
   referees: { matchId: number, referee: RefereeDTO | null }[] = [];
+  matchDates: { [matchId: number]: Date | null } = {}; 
 
 
   players: TournamentPlayerStatsDTO[] = [];  // Para almacenar las estadísticas de los jugadores
@@ -74,15 +81,24 @@ export class OrganizerTournamentComponent implements OnInit {
     this.getPlayerStatsByTournamentId();
     this.getLeagueMatches();  // Cargar partidos de liga si ya existen
     this.getLeagueResults();  // Cargar resultados de liga si ya existen
+    //verificame en cuanto entra a la pagina si el current user es igual al organizador del torneo
+  
+    
     
     // Llamar a getRefereeByMatchId para cada partido
   
 
     // Llamar a getRefereeByMatchId para cada partido **después** de haber cargado los partidos
     
-    
+  
 
   }
+
+
+  
+
+  
+ 
  
 
   getPlayerStatsByTournamentId(): void {
@@ -315,12 +331,16 @@ export class OrganizerTournamentComponent implements OnInit {
           
           // Agrupa los partidos por fase o etapa
           this.groupMatchesByStage();
-  
+    
           // Llamar a getRefereeByMatchId para cada partido después de haber cargado los partidos
           this.leagueMatches.forEach(match => {
             // Verifica que cada match tenga un matchId antes de hacer la consulta
             if (match.matchId) {
+              // Llamamos a getRefereeByMatchId para cada partido
               this.getRefereeByMatchId(match.matchId);
+              
+              // Llamamos a getMatchDate para obtener la fecha del partido
+              this.getMatchDate(match.matchId);
             }
           });
         },
@@ -421,6 +441,32 @@ getRefereeName(matchId: number): string {
     return 'Árbitro no asignado';  // Si no hay árbitro asignado
   }
 }
+
+getMatchDate(matchId: number): void {
+  this.organizerService.getMatchDate(matchId).subscribe(
+    (date) => {
+      // Asegurarse de que la fecha esté disponible
+      if (date) {
+        this.matchDates[matchId] = new Date(date);  // Guardamos la fecha en el diccionario
+      } else {
+        this.matchDates[matchId] = null;  // Si no tiene fecha, lo dejamos como null
+      }
+    },
+    (error) => {
+      console.error('Error fetching match date for', matchId, ':', error);
+      this.matchDates[matchId] = null;  // En caso de error, asignar null
+    }
+  );
+}
+
+// Método para actualizar la fecha cuando se emite el evento en el hijo
+matchDateUpdated(event: { matchId: number, newDate: Date }): void {
+  const { matchId, newDate } = event;
+  // Actualizamos el diccionario con la nueva fecha
+  this.matchDates[matchId] = newDate;
+}
+
+
   goBack(): void {
     this.location.back();
   }

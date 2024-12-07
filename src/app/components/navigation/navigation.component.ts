@@ -50,6 +50,8 @@ export class NavigationComponent {
         this.currentUserID = parsedUser.userId; // Asignar el id del usuario desde el localStorage
         localStorage.setItem('userId', JSON.stringify(this.currentUserID));
         console.log('El usuario autenticado es:', this.currentUserID);
+
+        
         
       
       }
@@ -73,7 +75,9 @@ export class NavigationComponent {
           const currentUser = this.authService.currentUser;
           if (currentUser) {
             this.currentUserName = currentUser.username; // Asegurar que actualizamos correctamente el nombre del usuario
-            this.currentUserType = currentUser.userType; // Asegurar que actualizamos correctamente el tipo de usuario
+            this.currentUserType = currentUser.userType;
+            this.currentUserID = currentUser.userId;
+            
           }
         }
       });
