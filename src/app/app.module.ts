@@ -49,6 +49,7 @@ import { RefereePageComponent } from './pages/referee-page/referee-page.componen
 import { PlayerStatsPageComponent } from './pages/player-page/player-stats-page/player-stats-page.component';
 import { PlayerTournamentPageComponent } from './pages/player-page/player-tournament-page/player-tournament-page.component';
 import { GlobalPlayerStatsPageComponent } from './pages/global-player-stats-page/global-player-stats-page.component';
+import { OrganizerTournamentFormComponent } from './pages/organizer-page/organizer-tournament-form/organizer-tournament-form.component';
 
 
 
@@ -82,7 +83,8 @@ import { GlobalPlayerStatsPageComponent } from './pages/global-player-stats-page
     RefereePageComponent,
     PlayerStatsPageComponent,
     PlayerTournamentPageComponent,
-    GlobalPlayerStatsPageComponent
+    GlobalPlayerStatsPageComponent,
+    OrganizerTournamentFormComponent
 
     
 

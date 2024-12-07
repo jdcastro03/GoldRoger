@@ -17,6 +17,7 @@ import { MatchInfoDTO } from '../interfaces/matchInfoDTO';
 import { MatchResultDTO } from '../interfaces/MatchResultDTO';
 import { TournamentPlayerStatsDTO } from '../interfaces/TournamentPlayerStatsDTO';
 import { MatchLeagueInfoDTO } from '../interfaces/MatchLeagueInfoDTO';
+import { MatchLeagueResultDTO } from '../interfaces/MatchLeagueResultDTO';
 
 
 @Injectable({
@@ -367,4 +368,26 @@ export class OrganizerService  {
             })
         );
     }
+
+
+    getMatchLeagueResults(tournamentId: number): Observable<MatchLeagueResultDTO[]> {
+
+        const url = `${this.apiUrl}GetLeagueMatchResults?tournamentId=${tournamentId}`;
+        return this.http.get<APIResponse<MatchLeagueResultDTO[]>>(url).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve los resultados si la solicitud es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudieron obtener los resultados de los partidos de liga');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para obtener los resultados de los partidos de liga:', error);
+                throw new Error('Error al obtener los resultados de los partidos de liga');
+            })
+        );
+    }
+
+    
 }

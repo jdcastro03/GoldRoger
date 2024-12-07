@@ -17,6 +17,9 @@ h1 {
   margin-top: 16px;
 
 }
+.goback{
+  z-index: 1;
+}
 
 mat-tab-group {
   width: 100%; /* Ajusta el ancho según sea necesario */
@@ -166,12 +169,38 @@ mat-icon-button {
 }
 
 /* El "VS" en el centro */
+.vs-container {
+  display: flex;
+  flex-direction: column; /* Alinear verticalmente el contenido */
+  align-items: center;
+  justify-content: center;
+}
+
 .vs {
   font-size: 1rem; /* Ajustamos el tamaño del "VS" */
   font-weight: bold;
   color: #FEC82F;
   margin: 0 20px;
   text-align: center;
+}
+
+.vs-container button{
+  margin-top: 10px;
+  background-color: #2E2D2C;        /* Color de fondo amarillo */
+  color: white;                   
+  border-color: #FEC82F;
+  border: none; 
+  border: 2px solid;                    /* Sin borde por defecto */
+  border-radius: 10px; 
+  border-color: #FEC82F;             /* Bordes redondeados */
+  font-size: 16px;                   /* Tamaño de fuente */
+  font-weight: bold;                 /* Texto en negrita */
+  cursor: pointer;                   /* Cambia el cursor al pasar el ratón */
+  transition: background-color 0.3s, color 0.3s; 
+}
+
+.vs-container button:hover {
+  background-color: #e6b800;        /* Color más oscuro al pasar el ratón */
 }
 
 
@@ -298,4 +327,21 @@ th.mat-header-cell, td.mat-cell {
 
 mat-icon {
   vertical-align: middle;
+}
+
+
+.overlay-card {
+  position: relative;
+  z-index: 10; /* Asegúrate de que el formulario tenga un z-index más bajo si hay otros elementos flotantes */
+}
+
+.overlay {
+display: block;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.5); /* Fondo oscuro y semitransparente */
+z-index: 10; /* Aseguramos que esté por encima de otros elementos, como los torneos */
 }

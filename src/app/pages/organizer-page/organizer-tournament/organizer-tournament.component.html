@@ -1,12 +1,16 @@
 <div class="grid-container">
     <!-- Botón de regreso -->
-    <button mat-icon-button (click)="goBack()" aria-label="Go back">
+    <button mat-icon-button (click)="goBack()" aria-label="Go back" class="goback">
         <mat-icon>arrow_back</mat-icon>
     </button>
 
     <!-- Título del torneo -->
     <h1>{{ this.tournamentName }}</h1>
 
+    <mat-card *ngIf="showForm" class="overlay-card">
+      <!-- Pasar matchId al componente hijo -->
+      <app-organizer-tournament-form [matchId]="selectedMatchId" (formClosed)="toggleForm()" class="overlay"></app-organizer-tournament-form>
+    </mat-card>
     <div class="menu">
         <mat-tab-group>
             <mat-tab label="Información">
@@ -75,35 +79,38 @@
                   </div>
 
                   <!-- LIGA JORNADAS -->
-                  <div *ngIf="leagueMatches.length > 0 && tournamentTypeId === 1">
-                    <!-- Agrupar por Stage -->
-                    <ng-container *ngFor="let stageGroup of groupedMatches">
-                      <!-- Encabezado de la jornada -->
-                      <h2 class="quarter-finals-title">Jornada {{ stageGroup.stage }}</h2>
-                  
-                      <!-- Listado de partidos por jornada -->
-                      <div class="quarter-finals-container">
-                        <mat-card class="quarter-finals" *ngFor="let match of stageGroup.matches">
-                          <div class="match-container">
-                            <!-- Equipo 1 -->
-                            <div class="team-left">
-                              <img src="/Logo_Team.png" alt="Imagen del equipo 1" class="team-image" />
-                              <div class="team-name">{{ match.team1Name }}</div>
-                            </div>
-                  
-                            <!-- VS en el centro -->
-                            <div class="vs">VS</div>
-                  
-                            <!-- Equipo 2 -->
-                            <div class="team-right">
-                              <img src="/Logo_Team.png" alt="Imagen del equipo 2" class="team-image" />
-                              <div class="team-name">{{ match.team2Name }}</div>
-                            </div>
-                          </div>
-                        </mat-card>
-                      </div>
-                    </ng-container>
-                  </div>
+                <!-- LIGA JORNADAS -->
+                <div *ngIf="leagueMatches.length > 0 && tournamentTypeId === 1">
+  <ng-container *ngFor="let stageGroup of groupedMatches">
+    <h2 class="quarter-finals-title">Jornada {{ stageGroup.stage }}</h2>
+
+    <div class="quarter-finals-container">
+      <mat-card class="quarter-finals" *ngFor="let match of stageGroup.matches">
+        <div class="match-container">
+          <div class="team-left">
+            <img src="/Logo_Team.png" alt="Imagen del equipo 1" class="team-image" />
+            <div class="team-name">{{ match.team1Name }}</div>
+          </div>
+
+          <div class="vs-container">
+            <div class="vs">VS</div>
+            <button mat-raised-button color="primary" class="asignar" *ngIf="this.currentUserID === this.organizerId" 
+                    (click)="toggleForm(match.matchId)">
+              Asignar
+            </button>
+            <!-- Mostrar el árbitro aquí -->
+            <p>{{ getRefereeName(match.matchId) }}</p>
+          </div>
+
+          <div class="team-right">
+            <img src="/Logo_Team.png" alt="Imagen del equipo 2" class="team-image" />
+            <div class="team-name">{{ match.team2Name }}</div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </ng-container>
+</div>
 
 
 
@@ -200,7 +207,7 @@
                     <!-- Botones para generar partidos -->
     
                   <!-- Cuartos de Final -->
-                <div *ngIf="quarterFinalsResults.length > 0">
+                <div *ngIf="quarterFinalsResults.length > 0 && this.tournamentTypeId === 2" >
                     <!-- Encabezado "Cuartos de Final" -->
                     <h2 class="quarter-finals-title">Cuartos de Final</h2>
 
@@ -234,7 +241,7 @@
                 </div>
 
                  <!-- Semifinales -->
-                 <div *ngIf="semiFinalsResults.length > 0">
+                 <div *ngIf="semiFinalsResults.length > 0 && this.tournamentTypeId === 2">
                     <!-- Encabezado "Cuartos de Final" -->
                     <h2 class="quarter-finals-title">Semifinales</h2>
 
@@ -269,7 +276,7 @@
                   
 
                 <!-- Final -->
-                 <div *ngIf="finalMatchResult">
+                 <div *ngIf="finalMatchResult && this.tournamentTypeId === 2">
                     <!-- Encabezado "Cuartos de Final" -->
                     <h2 class="quarter-finals-title">Final</h2>
 
@@ -301,6 +308,40 @@
                     </mat-card>
                 </div>
                 </div>
+
+                <div *ngIf="leagueResults.length > 0 && tournamentTypeId === 1">
+                  <!-- Agrupar resultados por Stage -->
+                  <ng-container *ngFor="let stageGroup of groupedResults">
+                    <!-- Encabezado de la jornada -->
+                    <h2 class="quarter-finals-title">Resultados Jornada {{ stageGroup.stage }}</h2>
+                
+                    <!-- Listado de resultados por jornada -->
+                    <div class="quarter-finals-container">
+                      <mat-card class="quarter-finals" *ngFor="let result of stageGroup.results">
+                        <div class="match-container">
+                          <!-- Equipo 1 -->
+                          <div class="team-left">
+                            <img src="/Logo_Team.png" alt="Imagen del equipo 1" class="team-image" />
+                            <div class="team-name">{{ result.team1Name }}</div>
+                          </div>
+                
+                          <!-- Goles y separador central -->
+                          <div class="team-score">{{ result.team1Goals }}</div>
+                          <div class="guion">-</div>
+                          <div class="team-score">{{ result.team2Goals }}</div>
+                
+                          <!-- Equipo 2 -->
+                          <div class="team-right">
+                            <img src="/Logo_Team.png" alt="Imagen del equipo 2" class="team-image" />
+                            <div class="team-name">{{ result.team2Name }}</div>
+                          </div>
+                        </div>
+                      </mat-card>
+                    </div>
+                  </ng-container>
+                </div>
+
+
                 
                   
                   </div>
