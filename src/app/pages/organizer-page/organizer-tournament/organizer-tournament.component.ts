@@ -40,6 +40,7 @@ export class OrganizerTournamentComponent implements OnInit {
   leagueResults: MatchLeagueResultDTO[] = [];  // Para almacenar los resultados de los partidos de liga
   groupedResults: { stage: number; results: MatchLeagueResultDTO[] }[] = [];
   selectedMatchId: number | null = null; // Para almacenar el matchId seleccionado
+  refereesAssigned: { [matchId: number]: RefereeDTO } = {}; 
 
   referees: { matchId: number, referee: RefereeDTO | null }[] = [];
 
@@ -75,18 +76,14 @@ export class OrganizerTournamentComponent implements OnInit {
     this.getLeagueResults();  // Cargar resultados de liga si ya existen
     
     // Llamar a getRefereeByMatchId para cada partido
-    this.leagueMatches.forEach(match => {
-      // Verifica que cada match tenga un matchId antes de hacer la consulta
-      if (match.matchId) {
-        this.getRefereeByMatchId(match.matchId);
-      }
-    });
+  
 
     // Llamar a getRefereeByMatchId para cada partido **después** de haber cargado los partidos
     
     
 
   }
+ 
 
   getPlayerStatsByTournamentId(): void {
     if (this.tournamentId) {
@@ -332,6 +329,23 @@ export class OrganizerTournamentComponent implements OnInit {
         }
       );
     }
+  }
+  onRefereeAssigned(event: { matchId: number, referee: RefereeDTO }): void {
+    const { matchId, referee } = event;
+  
+    // Verifica si el árbitro ya está asignado a este partido
+    const existingReferee = this.referees.find(r => r.matchId === matchId);
+  
+    if (existingReferee) {
+      // Si ya existe, actualiza el árbitro
+      existingReferee.referee = referee;
+    } else {
+      // Si no existe, agrega el árbitro
+      this.referees.push({ matchId, referee });
+    }
+  
+    // Forzar la actualización de la vista si es necesario
+    this.cdr.detectChanges();
   }
 
   groupMatchesByStage(): void {

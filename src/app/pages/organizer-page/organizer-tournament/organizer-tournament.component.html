@@ -9,7 +9,7 @@
 
     <mat-card *ngIf="showForm" class="overlay-card">
       <!-- Pasar matchId al componente hijo -->
-      <app-organizer-tournament-form [matchId]="selectedMatchId" (formClosed)="toggleForm()" class="overlay"></app-organizer-tournament-form>
+      <app-organizer-tournament-form [matchId]="selectedMatchId" (formClosed)="toggleForm()"  (refereeAssigned)="onRefereeAssigned($event)" class="overlay"></app-organizer-tournament-form>
     </mat-card>
     <div class="menu">
         <mat-tab-group>
