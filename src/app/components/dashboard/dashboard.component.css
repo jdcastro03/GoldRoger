@@ -52,3 +52,11 @@ body {
 .scroll-button.right {
   right: 10px; /* Posiciona la flecha derecha */
 }
+
+.timer-running-indicator {
+  font-size: 18px;
+  font-weight: bold;
+  color: green;
+  margin-bottom: 10px;
+  text-align: center;
+}

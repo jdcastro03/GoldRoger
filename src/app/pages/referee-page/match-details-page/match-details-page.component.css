@@ -1,0 +1,48 @@
+.grid-container {
+    padding: 20px;
+  }
+  
+  .match-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .team-table {
+    flex: 1;
+    padding: 10px;
+  }
+  
+  .center-section {
+    flex: 0.5;
+    text-align: center;
+  }
+  
+  .action-button {
+    margin: 5px;
+  }
+
+  .center-section button {
+    border-radius: 4px; /* Redondea las esquinas */
+    font-weight: bold; /* Hace el texto más fuerte */
+    background-color: #333;
+    color: #FEC82F;
+    
+  }
+  .center-section button:hover {
+    color: #e6b800;
+    
+  }
+
+  .timer {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+    margin: 20px 0;
+  }
+  .timer span {
+    vertical-align: super;
+    font-size: 1rem;
+  }

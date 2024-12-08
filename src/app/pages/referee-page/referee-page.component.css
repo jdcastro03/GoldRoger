@@ -1,3 +1,79 @@
 .grid-container {
-    margin: 20px;
-  }
+  margin: 20px;
+}
+
+.tournaments-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alinea las tarjetas al principio del contenedor */
+  padding: 16px;
+  width: 100%;
+  flex-direction: column; /* Acomoda las tarjetas de forma vertical */
+  gap: 16px; /* Añade espacio entre las tarjetas */
+  padding-left: 0;
+}
+
+.tournament-card {
+  width: 100%;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: 'Arial', sans-serif;
+  display: flex; /* Establece el diseño en flexbox */
+  flex-direction: row; /* Coloca las secciones en línea horizontal */
+  justify-content: space-between; /* Distribuye las secciones equitativamente */
+  align-items: center; /* Alinea verticalmente las secciones */
+  z-index: 0;
+  border: 2px solid #555; /* Color y grosor del borde */
+}
+
+.tournament-card:hover {
+  border: 2px solid #FEC82F; /* Borde más oscuro al pasar el mouse */
+}
+
+.team-section {
+  text-align: center;
+  width: 25%; /* Ajusta el tamaño de las secciones izquierda y derecha */
+}
+
+.team-section img {
+  max-width: 100px; /* Tamaño máximo para las imágenes */
+  border-radius: 50%; /* Hace que las imágenes sean circulares */
+  margin-bottom: 8px;
+}
+
+.team-name {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-top: 8px;
+}
+
+.center-section {
+  text-align: center;
+  width: 50%; /* Ocupa más espacio la sección central */
+}
+
+.match-date {
+  font-size: 1.1em;
+  margin-bottom: 16px;
+}
+
+.start-button {
+  margin-top: 8px;
+  background-color: #FEC82F;
+  color: #fff;
+}
+
+.center-section button {
+  margin-left: auto; /* Empuja el botón a la derecha */
+  padding: 8px 16px; /* Añade un poco de relleno */
+  border-radius: 4px; /* Redondea las esquinas */
+  font-weight: bold; /* Hace el texto más fuerte */
+  background-color: #333;
+  color: #FEC82F;
+  
+}
+.center-section button:hover {
+  color: #e6b800;
+  
+}

@@ -7,6 +7,7 @@ import { User } from '../interfaces/user';
 import { CreateUserRequestDTO } from '../interfaces/createUserRequestDTO';
 import { APIResponse } from '../interfaces/APIResponse';
 import { RefereeDTO } from '../interfaces/RefereeDTO';
+import { MatchRefereeDTO } from '../interfaces/MatchRefereeDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -89,6 +90,26 @@ export class RefereeService  {
             catchError((error) => {
                 console.error('Error en la solicitud para obtener el árbitro del partido:', error);
                 throw new Error('Error al obtener el árbitro del partido');
+            })
+        );
+    }
+
+
+    //getmatchesbyrefereeid
+    getMatchesByRefereeId(refereeId: number): Observable<MatchRefereeDTO[]> {
+        const url = `${this.apiUrl}GetMatchesByRefereeId?refereeId=${refereeId}`;
+        return this.http.get<APIResponse<MatchRefereeDTO[]>>(url).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Solo devuelve la data si es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudieron obtener los partidos del árbitro'); // Lanza un error en caso de fallo
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para obtener los partidos del árbitro:', error);
+                throw new Error('Error al obtener los partidos del árbitro');
             })
         );
     }

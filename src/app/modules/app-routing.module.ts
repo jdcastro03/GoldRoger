@@ -22,6 +22,7 @@ import { RefereePageComponent } from "../pages/referee-page/referee-page.compone
 import { PlayerStatsPageComponent } from "../pages/player-page/player-stats-page/player-stats-page.component";
 import { PlayerTournamentPageComponent } from "../pages/player-page/player-tournament-page/player-tournament-page.component";
 import { GlobalPlayerStatsPageComponent } from "../pages/global-player-stats-page/global-player-stats-page.component";
+import { MatchDetailsPageComponent } from "../pages/referee-page/match-details-page/match-details-page.component";
 const routes: Routes = [
 
    //even if there is no route for the root path, the router will redirect to the home path
@@ -46,6 +47,7 @@ const routes: Routes = [
     {path: 'playerStats/:id', component: GlobalPlayerStatsPageComponent},
     {path : 'playerTournament', component: PlayerTournamentPageComponent},
     {path: 'coachTournament', component: CoachTournamentComponent},
+    {path: 'match/:id', component: MatchDetailsPageComponent}
 
 ];
 @NgModule({

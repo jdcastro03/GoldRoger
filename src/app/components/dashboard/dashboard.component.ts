@@ -1,45 +1,53 @@
-import { Component, inject } from '@angular/core';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { map } from 'rxjs/operators';
-import { ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { TimerService } from 'src/app/services/timer.service';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements AfterViewInit {
   @ViewChild('matchCardsContainer') matchCardsContainer!: ElementRef;
 
-  showLeftArrow = false;  // Inicialmente ocultar la flecha izquierda
-  showRightArrow = false; // Inicialmente ocultar la flecha derecha
+  showLeftArrow = false;
+  showRightArrow = false;
   
+  isTimerRunning = false;
+  elapsedTime = 0; // Almacenará el tiempo transcurrido
+
+  constructor(private timerService: TimerService) {}
+
   ngAfterViewInit() {
     this.updateArrowVisibility(); // Actualiza la visibilidad al inicializar
+
+    // Escuchar cambios en el estado del timer
+    this.isTimerRunning = this.timerService.isTimerRunning;
+    
+    // Suscribirse al tiempo transcurrido
+    this.timerService.timer$.subscribe(time => {
+      this.elapsedTime = time;
+    });
   }
-  
+
   scroll(direction: 'left' | 'right') {
     const container = this.matchCardsContainer.nativeElement;
-    const scrollAmount = 500; // Ajusta el desplazamiento aquí
-  
+    const scrollAmount = 500;
+
     if (direction === 'left') {
-      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' }); // Desplazamiento suave hacia la izquierda
+      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
     } else {
-      container.scrollBy({ left: scrollAmount, behavior: 'smooth' }); // Desplazamiento suave hacia la derecha
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
-    
-    // Esperar a que el desplazamiento termine y luego actualizar la visibilidad
+
     setTimeout(() => {
-      this.updateArrowVisibility(); // Actualiza la visibilidad de las flechas después del desplazamiento
-    }, 300); // Tiempo de espera para que coincida con la duración del desplazamiento
+      this.updateArrowVisibility();
+    }, 300);
   }
-  
+
   updateArrowVisibility() {
     const container = this.matchCardsContainer.nativeElement;
-  
-    // La flecha izquierda se muestra si hay espacio para desplazarse hacia la izquierda
+
     this.showLeftArrow = container.scrollLeft > 0;
-  
-    // La flecha derecha se muestra si hay espacio para desplazarse hacia la derecha
-    this.showRightArrow = container.scrollLeft < (container.scrollWidth - container.clientWidth);
+    this.showRightArrow = container.scrollLeft < container.scrollWidth - container.clientWidth;
   }
 }
