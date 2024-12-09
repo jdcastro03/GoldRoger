@@ -13,6 +13,7 @@ import { MatchLeagueResultDTO } from 'src/app/interfaces/MatchLeagueResultDTO';
 import { RefereeDTO } from 'src/app/interfaces/RefereeDTO';
 import { RefereeService } from 'src/app/services/referee.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { LeagueStandingDTO } from 'src/app/interfaces/LeagueStandingDTO';
 @Component({
   selector: 'app-organizer-tournament',
   templateUrl: './organizer-tournament.component.html',
@@ -43,6 +44,8 @@ export class OrganizerTournamentComponent implements OnInit {
   refereesAssigned: { [matchId: number]: RefereeDTO } = {}; 
 
   matchDateAssigned: { [matchId: number]: Date | null } = {};
+  leagueStandings: LeagueStandingDTO[] = [];
+  displayedLeagueStandings: string[] = ['teamName', 'points', 'matchesPlayed', 'wins', 'draws', 'losses', 'goalsFor', 'goalsAgainst'];
 
 
 
@@ -82,16 +85,47 @@ export class OrganizerTournamentComponent implements OnInit {
     this.getLeagueMatches();  // Cargar partidos de liga si ya existen
     this.getLeagueResults();  // Cargar resultados de liga si ya existen
     //verificame en cuanto entra a la pagina si el current user es igual al organizador del torneo
-  
-    
+    this.getLeagueStandings();
+    this.updateLeagueStandings();
     
     // Llamar a getRefereeByMatchId para cada partido
-  
+    
 
     // Llamar a getRefereeByMatchId para cada partido **después** de haber cargado los partidos
     
   
 
+  }
+  
+
+  getLeagueStandings(): void {
+    if (this.tournamentId) {
+      this.organizerService.getLeagueStandings(this.tournamentId).subscribe(
+        (standings: LeagueStandingDTO[]) => {  // Asegúrate de que el tipo de respuesta sea LeagueStandingDTO[]
+          this.leagueStandings = standings; // Los datos ya están tipados correctamente
+        },
+        (error) => {
+          console.error('Error fetching league standings:', error);
+        }
+      );
+    }
+  }
+
+  updateLeagueStandings(): void {
+    if (this.tournamentId) {
+      this.organizerService.updateLeagueStandings(this.tournamentId).subscribe(
+        (success) => {
+          if (success) {
+            this.getLeagueStandings();  // Actualizar la clasificación después de actualizarla
+          } else {
+            console.error('Error al actualizar la clasificación');
+          }
+        },
+        (error) => {
+          console.error('Error al actualizar la clasificación:', error);
+        }
+      );
+    }
   }
 
 
@@ -466,6 +500,10 @@ matchDateUpdated(event: { matchId: number, newDate: Date }): void {
   this.matchDates[matchId] = newDate;
 }
 
+
+
+
+  
 
   goBack(): void {
     this.location.back();

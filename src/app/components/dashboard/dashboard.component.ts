@@ -1,6 +1,8 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { TimerService } from 'src/app/services/timer.service';
-
+import { Subscription } from 'rxjs';
+import { MatchHomeDTO } from 'src/app/interfaces/MatchHomeDTO';
+import { RefereeService } from 'src/app/services/referee.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -11,22 +13,32 @@ export class DashboardComponent implements AfterViewInit {
 
   showLeftArrow = false;
   showRightArrow = false;
+  activeMatches: MatchHomeDTO[] = [];
   
   isTimerRunning = false;
   elapsedTime = 0; // Almacenará el tiempo transcurrido
 
-  constructor(private timerService: TimerService) {}
+  private timerSubscription!: Subscription;
 
+  constructor(private timerService: TimerService, private refereeService: RefereeService) {}
+
+  ngOnInit() {
+    this.getActiveMatches();
+  }
   ngAfterViewInit() {
-    this.updateArrowVisibility(); // Actualiza la visibilidad al inicializar
+    this.updateArrowVisibility();
 
-    // Escuchar cambios en el estado del timer
     this.isTimerRunning = this.timerService.isTimerRunning;
-    
-    // Suscribirse al tiempo transcurrido
-    this.timerService.timer$.subscribe(time => {
+
+    // Suscripción al tiempo transcurrido
+    this.timerSubscription = this.timerService.timer$.subscribe(time => {
       this.elapsedTime = time;
     });
+  }
+
+  ngOnDestroy() {
+    // Limpieza de la suscripción
+    this.timerSubscription.unsubscribe();
   }
 
   scroll(direction: 'left' | 'right') {
@@ -50,4 +62,20 @@ export class DashboardComponent implements AfterViewInit {
     this.showLeftArrow = container.scrollLeft > 0;
     this.showRightArrow = container.scrollLeft < container.scrollWidth - container.clientWidth;
   }
+
+  
+  
+  getActiveMatches(): void {
+    this.refereeService.getActiveMatches().subscribe({
+      next: (matches) => {
+        this.activeMatches = matches;
+      },
+      error: (err) => {
+        console.error('Error al obtener los partidos activos:', err);
+      }
+    });
+  }
+    
+    
+
 }

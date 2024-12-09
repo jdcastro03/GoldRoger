@@ -19,6 +19,7 @@ import { TournamentPlayerStatsDTO } from '../interfaces/TournamentPlayerStatsDTO
 import { MatchLeagueInfoDTO } from '../interfaces/MatchLeagueInfoDTO';
 import { MatchLeagueResultDTO } from '../interfaces/MatchLeagueResultDTO';
 import { UpdateMatchDateDTO } from '../interfaces/UpdateMatchDateDTO';
+import { LeagueStandingDTO } from '../interfaces/LeagueStandingDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -427,4 +428,39 @@ export class OrganizerService  {
         );
     }
     
+    getLeagueStandings(tournamentId: number): Observable<LeagueStandingDTO[]> {
+        const url = `${this.apiUrl}GetLeagueStandings?tournamentId=${tournamentId}`;
+        return this.http.get<APIResponse<LeagueStandingDTO[]>>(url).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve las posiciones si la solicitud es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudieron obtener las posiciones de la liga');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para obtener las posiciones de la liga:', error);
+                throw new Error('Error al obtener las posiciones de la liga');
+            })
+        );
+    }
+
+    updateLeagueStandings(tournamentId: number): Observable<boolean> {
+        const url = `${this.apiUrl}UpdateLeagueStandings?tournamentId=${tournamentId}`;
+        return this.http.post<APIResponse<boolean>>(url, null).pipe(
+            map(response => {
+                if (response.success && response.data) {
+                    return response.data; // Devuelve true si la actualización es exitosa
+                } else {
+                    console.error('Error:', response.message);
+                    throw new Error('No se pudieron actualizar las posiciones de la liga');
+                }
+            }),
+            catchError((error) => {
+                console.error('Error en la solicitud para actualizar las posiciones de la liga:', error);
+                throw new Error('Error al actualizar las posiciones de la liga');
+            })
+        );
+    }
 }

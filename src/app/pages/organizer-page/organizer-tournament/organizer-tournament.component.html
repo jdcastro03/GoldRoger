@@ -374,18 +374,67 @@
                   </div>
             </mat-tab>
             <mat-tab label="Tabla">
-                <div class="disabled-message-container" *ngIf="this.tournamentTypeId=== 2">
-                    <mat-card class="disabled-message-card">
-                        <mat-card-content>
-                            <p class="disabled-message">
-                                Esta funcionalidad no está habilitada para torneos de eliminación directa.
-                            </p>
-                        </mat-card-content>
-                    </mat-card>
-                </div>
-               
-
-
+              <mat-card class="league-standings-card" *ngIf="this.tournamentTypeId === 1">
+                <mat-card-header>
+                  <mat-card-title>Tabla de Clasificación</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <table mat-table [dataSource]="leagueStandings" class="mat-elevation-z8">
+                    <!-- Nombre del equipo -->
+                    <ng-container matColumnDef="teamName">
+                      <th mat-header-cell *matHeaderCellDef> Equipo </th>
+                      <td mat-cell *matCellDef="let standing">{{ standing.teamName }}</td>
+                    </ng-container>
+              
+                    <!-- Puntos -->
+                    <ng-container matColumnDef="points">
+                      <th mat-header-cell *matHeaderCellDef> Puntos </th>
+                      <td mat-cell *matCellDef="let standing">{{ standing.points }}</td>
+                    </ng-container>
+              
+                    <!-- Partidos Jugados -->
+                    <ng-container matColumnDef="matchesPlayed">
+                      <th mat-header-cell *matHeaderCellDef> Partidos Jugados </th>
+                      <td mat-cell *matCellDef="let standing">{{ standing.matchesPlayed }}</td>
+                    </ng-container>
+              
+                    <!-- Victorias -->
+                    <ng-container matColumnDef="wins">
+                      <th mat-header-cell *matHeaderCellDef> Victorias </th>
+                      <td mat-cell *matCellDef="let standing">{{ standing.wins }}</td>
+                    </ng-container>
+              
+                    <!-- Empates -->
+                    <ng-container matColumnDef="draws">
+                      <th mat-header-cell *matHeaderCellDef> Empates </th>
+                      <td mat-cell *matCellDef="let standing">{{ standing.draws }}</td>
+                    </ng-container>
+              
+                    <!-- Derrotas -->
+                    <ng-container matColumnDef="losses">
+                      <th mat-header-cell *matHeaderCellDef> Derrotas </th>
+                      <td mat-cell *matCellDef="let standing">{{ standing.losses }}</td>
+                    </ng-container>
+              
+                    <!-- Goles a favor -->
+                    <ng-container matColumnDef="goalsFor">
+                      <th mat-header-cell *matHeaderCellDef> Goles a Favor </th>
+                      <td mat-cell *matCellDef="let standing">{{ standing.goalsFor }}</td>
+                    </ng-container>
+              
+                    <!-- Goles en contra -->
+                    <ng-container matColumnDef="goalsAgainst">
+                      <th mat-header-cell *matHeaderCellDef> Goles en Contra </th>
+                      <td mat-cell *matCellDef="let standing">{{ standing.goalsAgainst }}</td>
+                    </ng-container>
+              
+                    <!-- Filas y cabeceras -->
+                    <tr mat-header-row *matHeaderRowDef="displayedLeagueStandings"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedLeagueStandings;"></tr>
+                  </table>
+                </mat-card-content>
+              </mat-card>
+              
             </mat-tab>
             <mat-tab label="Estadísticas">
                 <div class="table-container">

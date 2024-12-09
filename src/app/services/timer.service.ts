@@ -1,4 +1,3 @@
-// timer.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -21,24 +20,29 @@ export class TimerService {
     }
   }
 
-  pauseTimer() {
+ pauseTimer() {
+  if (this.isRunning) {
     this.isRunning = false;
+    this.timerSubject.next(this.currentTime); // Emite el tiempo actual
   }
+}
 
   stopTimer() {
-    this.isRunning = false;
-    this.currentTime = 0;
-    this.timerSubject.next(0);
+    if (this.isRunning || this.currentTime > 0) { // Asegura que siempre reiniciemos
+      this.isRunning = false;
+      this.currentTime = 0; // Reinicia el tiempo
+      this.timerSubject.next(0); // Emite el estado "reseteado"
+    }
   }
 
   private runTimer() {
-    if (this.isRunning) {
-      setTimeout(() => {
-        this.currentTime = Date.now() - (this.startTime as number);
-        this.timerSubject.next(this.currentTime); // Emitir el tiempo actualizado
-        this.runTimer();
-      }, 1000);
-    }
+    if (!this.isRunning) return; // Detiene la ejecución si el temporizador no está activo
+    setTimeout(() => {
+      if (!this.isRunning) return; // Previene la continuación si el temporizador se detuvo
+      this.currentTime = Date.now() - (this.startTime as number);
+      this.timerSubject.next(this.currentTime); // Emite el nuevo tiempo
+      this.runTimer();
+    }, 1000);
   }
 
   get timer$() {
