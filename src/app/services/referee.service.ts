@@ -261,6 +261,50 @@ export class RefereeService  {
             );
         }
 
+        addYellowCard(matchId: number, playerId: number): Observable<boolean> {
+            const url = `${this.apiUrl}AddYellowCard`; // La URL base ya está correcta
+            const params = new HttpParams()
+                .set('playerId', playerId.toString())
+                .set('matchId', matchId.toString()); // Agrega los parámetros a la URL
+        
+            return this.http.post<APIResponse<boolean>>(url, null, { params }).pipe( // Aquí pasas null como cuerpo
+                map(response => {
+                    if (response.success && response.data) {
+                        return response.data; // Solo devuelve la data si es exitosa
+                    } else {
+                        console.error('Error:', response.message);
+                        throw new Error('No se pudo agregar la tarjeta amarilla');
+                    }
+                }),
+                catchError((error) => {
+                    console.error('Error en la solicitud para agregar la tarjeta amarilla:', error);
+                    throw new Error('Error al agregar la tarjeta amarilla');
+                })
+            );
+        }
+
+        addRedCard(matchId: number, playerId: number): Observable<boolean> {
+            const url = `${this.apiUrl}AddRedCard`; // La URL base ya está correcta
+            const params = new HttpParams()
+                .set('playerId', playerId.toString())
+                .set('matchId', matchId.toString()); // Agrega los parámetros a la URL
+        
+            return this.http.post<APIResponse<boolean>>(url, null, { params }).pipe( // Aquí pasas null como cuerpo
+                map(response => {
+                    if (response.success && response.data) {
+                        return response.data; // Solo devuelve la data si es exitosa
+                    } else {
+                        console.error('Error:', response.message);
+                        throw new Error('No se pudo agregar la tarjeta roja');
+                    }
+                }),
+                catchError((error) => {
+                    console.error('Error en la solicitud para agregar la tarjeta roja:', error);
+                    throw new Error('Error al agregar la tarjeta roja');
+                })
+            );
+        }
+
         isMatchActive(matchId: number): Observable<boolean> {
             const url = `${this.apiUrl}IsMatchActive?matchId=${matchId}`;
             return this.http.get<APIResponse<boolean>>(url).pipe(

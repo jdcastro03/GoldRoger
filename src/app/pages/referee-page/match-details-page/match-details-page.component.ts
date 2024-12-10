@@ -8,6 +8,7 @@ import { MatchTeamDTO } from 'src/app/interfaces/MatchTeamDTO';
 import { MatchGoalsDTO } from 'src/app/interfaces/MatchGoalsDTO';
 import { APIResponse } from 'src/app/interfaces/APIResponse';
 import { ChangeDetectorRef } from '@angular/core';
+import { PlayersStateService } from 'src/app/services/player-state.service';
 
 @Component({
   selector: 'app-match-details-page',
@@ -24,6 +25,7 @@ export class MatchDetailsPageComponent implements OnInit, OnDestroy {
   team2DisplayedColumns = ['playerId', 'name', 'position', 'actions'];
   matchGoals: MatchGoalsDTO = { team1Goals: 0, team2Goals: 0, isFinished: false };
   isActive: boolean = false;  // Para almacenar el estado del partido
+  clickedPlayers: { [playerId: number]: { clickCount: number, clicked: boolean, redCardClicked: boolean } } = {};
 
   // Temporizador
   timerSubscription: Subscription;
@@ -34,7 +36,8 @@ export class MatchDetailsPageComponent implements OnInit, OnDestroy {
     private location: Location,
     private refereeService: RefereeService,  // Servicio para obtener el partido
     public timerService: TimerService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private playersStateService: PlayersStateService
   ) {
     // Suscripción al temporizador
     this.timerSubscription = this.timerService.timer$.subscribe((currentTime: number) => {
@@ -65,6 +68,19 @@ export class MatchDetailsPageComponent implements OnInit, OnDestroy {
       this.getGoalsByMatchId(this.matchId);
 
     }
+    // Obtener los jugadores y asegurarse de que cada uno tenga redCardClicked
+  this.clickedPlayers = this.playersStateService.getClickedPlayers();
+
+  // Asegurarse de que cada jugador tiene la propiedad redCardClicked
+  for (let playerId in this.clickedPlayers) {
+    const player = this.clickedPlayers[playerId];
+    if (player.redCardClicked === undefined) {
+      player.redCardClicked = false; // Inicializa la propiedad si no existe
+    }
+    if (player.clickCount === undefined) {
+      player.clickCount = 0; // Inicializa la propiedad si no existe
+    }
+  }
   }
 
   get isMatchFinished(): boolean {
@@ -110,6 +126,80 @@ export class MatchDetailsPageComponent implements OnInit, OnDestroy {
     } else {
       console.log('No se ha especificado un matchId.');
     }
+  }
+
+  addYellowCard(playerId: number): void {
+    if (this.matchGoals.isFinished) {
+      console.log('El partido ya ha terminado. No se puede agregar una tarjeta amarilla.');
+      return;
+    }
+  
+    if (!this.clickedPlayers[playerId]) {
+      this.clickedPlayers[playerId] = { clickCount: 0, clicked: false, redCardClicked: false };
+    }
+  
+    // Incrementamos el contador de clics
+    this.clickedPlayers[playerId].clickCount += 1;
+  
+    // Si el contador llega a 2, deshabilitamos el jugador para que no pueda recibir más tarjetas amarillas
+    if (this.clickedPlayers[playerId].clickCount >= 2) {
+      this.clickedPlayers[playerId].clicked = true;
+    }
+  
+    // Lógica para agregar la tarjeta amarilla
+    if (this.matchId !== undefined) {
+      this.refereeService.addYellowCard(this.matchId, playerId).subscribe({
+        next: (result) => {
+          if (result) {
+            // Si la respuesta es verdadera, actualiza los goles
+            if (this.matchId !== undefined) {
+              this.getGoalsByMatchId(this.matchId);
+            }
+          }
+        },
+        error: (err) => {
+          console.error('Error al agregar la tarjeta amarilla:', err);
+        }
+      });
+    }
+  
+    // Guardar el estado actualizado en el servicio
+    this.playersStateService.setClickedPlayers(this.clickedPlayers);
+  }
+  
+  addRedCard(playerId: number): void {
+    if (this.matchGoals.isFinished) {
+      console.log('El partido ya ha terminado. No se puede agregar una tarjeta roja.');
+      return;
+    }
+  
+    // Si no tenemos el jugador registrado en clickedPlayers, lo inicializamos
+    if (!this.clickedPlayers[playerId]) {
+      this.clickedPlayers[playerId] = { clickCount: 0, clicked: false, redCardClicked: false };
+    }
+  
+    // Marcar que el jugador ha recibido una tarjeta roja
+    this.clickedPlayers[playerId].redCardClicked = true;
+  
+    // Lógica para agregar la tarjeta roja
+    if (this.matchId !== undefined) {
+      this.refereeService.addRedCard(this.matchId, playerId).subscribe({
+        next: (result) => {
+          if (result) {
+            // Actualiza los goles o cualquier otra lógica necesaria
+            if (this.matchId !== undefined) {
+              this.getGoalsByMatchId(this.matchId);
+            }
+          }
+        },
+        error: (err) => {
+          console.error('Error al agregar la tarjeta roja:', err);
+        }
+      });
+    }
+  
+    // Guardar el estado actualizado en el servicio
+    this.playersStateService.setClickedPlayers(this.clickedPlayers);
   }
 
   getPlayer2ByMatchId(matchId: number): void {

@@ -101,8 +101,14 @@ export class OrganizerTournamentComponent implements OnInit {
   getLeagueStandings(): void {
     if (this.tournamentId) {
       this.organizerService.getLeagueStandings(this.tournamentId).subscribe(
-        (standings: LeagueStandingDTO[]) => {  // Asegúrate de que el tipo de respuesta sea LeagueStandingDTO[]
-          this.leagueStandings = standings; // Los datos ya están tipados correctamente
+        (standings: LeagueStandingDTO[]) => {
+          // Ordenar por puntos y luego por partidos jugados
+          this.leagueStandings = standings.sort((a, b) => {
+            if (b.points !== a.points) {
+              return b.points - a.points; // Ordenar por puntos descendente
+            }
+            return b.matchesPlayed - a.matchesPlayed; // Si puntos son iguales, ordenar por partidos jugados descendente
+          });
         },
         (error) => {
           console.error('Error fetching league standings:', error);
@@ -110,6 +116,7 @@ export class OrganizerTournamentComponent implements OnInit {
       );
     }
   }
+  
 
   updateLeagueStandings(): void {
     if (this.tournamentId) {
@@ -139,15 +146,15 @@ export class OrganizerTournamentComponent implements OnInit {
     if (this.tournamentId) {
       this.organizerService.getPlayerStatsByTournamentId(this.tournamentId).subscribe(
         (players) => {
-          this.players = players;
+          // Ordena los jugadores por goles en orden descendente
+          this.players = players.sort((a, b) => b.goals - a.goals);
         },
         (error) => {
           console.error('Error fetching player stats:', error);
         }
       );
     }
-
-  } 
+  }
   toggleForm(matchId: number | null = null): void {
     this.selectedMatchId = matchId; // Almacena el matchId seleccionado al hacer clic
     this.showForm = !this.showForm; // Alterna la visibilidad del formulario

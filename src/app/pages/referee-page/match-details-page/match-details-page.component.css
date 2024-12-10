@@ -77,3 +77,25 @@
     font-size: 1.5rem;
     font-weight: bold;
 }
+
+.disabled-button {
+  background-color:red; /* Ajustar el color del botón */
+  color: rgba(255, 255, 255, 0.6); /* Ajustar el color del icono */
+}
+
+.disabled-button:hover {
+  background-color: rgba(0, 0, 0, 0.3); /* Mantener color oscuro en hover */
+}
+/* Añadir un ancho a las celdas de la tabla, especialmente para la columna de Posición */
+table.mat-elevation-z8 {
+  width: 100%;
+}
+
+.mat-header-cell, .mat-cell {
+  padding: 10px;
+}
+
+/* Ajustar el ancho de las columnas */
+.mat-column-position {
+  width: 150px; /* Puedes ajustar este valor según lo necesites */
+}
