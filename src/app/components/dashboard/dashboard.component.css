@@ -139,3 +139,9 @@
   margin: 20px 0;
   color: #333;
 }
+.no-matches {
+  text-align: center;
+  font-size: 1.5em;
+  color: #ff0000; /* Color rojo para indicar que no hay partidos */
+  margin-top: 20px;
+}

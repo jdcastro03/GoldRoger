@@ -1,6 +1,9 @@
 <div class="grid-container">
   <h1 class="mat-h1">Inicio</h1>
   <h3>EN VIVO</h3>
+  <div *ngIf="activeMatches.length === 0" class="no-matches">
+    <p>No hay partidos en vivo</p>
+  </div>
   <div class="match-cards-container">
     <button class="scroll-button left" (click)="scroll('left')" *ngIf="showLeftArrow">&#9664;</button>
     <div class="matches-container" #matchCardsContainer>
