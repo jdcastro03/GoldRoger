@@ -5,5 +5,6 @@ export interface MatchHomeDTO {
     team1Goals: number;
     team2Name: string;
     team2Goals: number;
+    tournamentName : string;
 
 }
