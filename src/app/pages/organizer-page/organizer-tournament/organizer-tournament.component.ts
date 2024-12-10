@@ -147,7 +147,7 @@ export class OrganizerTournamentComponent implements OnInit {
       this.organizerService.getPlayerStatsByTournamentId(this.tournamentId).subscribe(
         (players) => {
           // Ordena los jugadores por goles en orden descendente
-          this.players = players.sort((a, b) => b.goals - a.goals);
+          this.players = players.sort((a, b) => b.goals - a.goals).slice(0, 8); // Filtra solo los primeros 8 jugadores
         },
         (error) => {
           console.error('Error fetching player stats:', error);

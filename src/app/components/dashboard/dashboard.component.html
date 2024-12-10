@@ -22,7 +22,7 @@
 
             <!-- VS en el centro -->
             <div class="guion">
-              <div class="elapsed-time" *ngIf="elapsedTime > 0 || isTimerRunning">
+              <div class="elapsed-time" *ngIf="elapsedTime > 0 || !isTimerRunning">
                 {{ elapsedTime | date: 'mm:ss' }}
               </div>
 
