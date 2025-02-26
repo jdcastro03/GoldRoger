@@ -1,5 +1,5 @@
 export const serverConfig: ServerUrl = {
-    serverUrl: 'http://localhost:5173/' // URL del servidor
+    serverUrl: 'http://44.201.159.252:5024/' // URL del servidor
   };
   
   export interface ServerUrl {
