@@ -1,0 +1,63 @@
+::ng-deep .mat-dialog-container {
+    background-color: #000; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 20px;
+  }
+  
+  /* Estilos del título */
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #FEC82F; /* Color dorado */
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos del contenido del dialog */
+  mat-dialog-content {
+    font-size: 18px;
+    text-align: center;
+    color: #FEC82F; /* Color dorado */
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos de los botones */
+  mat-dialog-actions {
+    justify-content: center;
+  }
+  
+  /* Botón de cancelar */
+  .cancel-btn {
+    background-color: transparent;
+    border: 2px solid #FEC82F; /* Borde dorado */
+    color: #FEC82F;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Botón de confirmar */
+  .confirm-btn {
+    background-color: #FEC82F; /* Fondo dorado */
+    border: none;
+    color: #000; /* Texto negro */
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Efecto de hover para los botones */
+  .cancel-btn:hover, .confirm-btn:hover {
+    transform: translateY(-3px); /* Eleva el botón */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra al pasar el mouse */
+  }
+  
+  /* Efecto de focus para los botones */
+  .cancel-btn:focus, .confirm-btn:focus {
+    outline: none; /* Elimina el outline del foco */
+    box-shadow: 0 0 0 2px #FEC82F; /* Sombra dorada al hacer focus */
+  }

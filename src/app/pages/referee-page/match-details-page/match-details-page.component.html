@@ -1,0 +1,125 @@
+<div class="grid-container">
+    <!-- Botón de regresar -->
+    <button mat-icon-button (click)="goBack()" aria-label="Go back" class="goback">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+
+    <div class="match-container">
+        <!-- Tabla de jugadores del equipo 1 -->
+        <div class="team-table">
+          <h2>{{ team1Name }}</h2>
+          <table mat-table [dataSource]="team1Players" class="mat-elevation-z8">
+            <ng-container matColumnDef="playerId">
+              <th mat-header-cell *matHeaderCellDef> ID </th>
+              <td mat-cell *matCellDef="let player"> {{ player.playerId }} </td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Nombre </th>
+              <td mat-cell *matCellDef="let player"> {{ player.firstName }} </td>
+            </ng-container>
+            <ng-container matColumnDef="position" class="mat-column-position">
+              <th mat-header-cell *matHeaderCellDef> Posición </th>
+              <td mat-cell *matCellDef="let player"> {{ player.position }} </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Acciones </th>
+              <td mat-cell *matCellDef="let player">
+  <!-- Botón para agregar gol -->
+<button mat-icon-button color="primary" (click)="addGoal(player.playerId)" 
+[disabled]="isMatchFinished || !isActive || clickedPlayers[player.playerId]?.redCardClicked || (clickedPlayers[player.playerId]?.clickCount ?? 0) >= 2"
+[ngClass]="{'disabled-button': clickedPlayers[player.playerId]?.redCardClicked || (clickedPlayers[player.playerId]?.clickCount ?? 0) >= 2}">
+<mat-icon class="black-ball">sports_soccer</mat-icon>
+</button>
+
+<!-- Botón para agregar tarjeta amarilla -->
+<button mat-icon-button color="accent" (click)="addYellowCard(player.playerId)" 
+  [disabled]="isMatchFinished || !isActive || (clickedPlayers[player.playerId]?.redCardClicked ?? false) || (clickedPlayers[player.playerId]?.clickCount ?? 0) >= 2"
+  [ngClass]="{'disabled-button': (clickedPlayers[player.playerId]?.clickCount ?? 0) >= 2 || clickedPlayers[player.playerId]?.redCardClicked}">
+  <mat-icon class="yellow-card" matPrefix>flag</mat-icon>
+</button>
+
+<!-- Botón para agregar tarjeta roja -->
+<button mat-icon-button color="warn" (click)="addRedCard(player.playerId)" 
+[disabled]="isMatchFinished || !isActive || clickedPlayers[player.playerId]?.redCardClicked || (clickedPlayers[player.playerId]?.clickCount ?? 0) >= 2"
+[ngClass]="{'disabled-button': clickedPlayers[player.playerId]?.redCardClicked || (clickedPlayers[player.playerId]?.clickCount ?? 0) >= 2}">
+<mat-icon matPrefix color="warn">flag</mat-icon>
+</button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="team1DisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: team1DisplayedColumns;"></tr>
+          </table>
+        </div>
+
+        <!-- Centro con botones -->
+        <div class="center-section">
+            <div class="goals-section">
+                <!-- Mostrar si el partido está finalizado -->
+                <h3 *ngIf="matchGoals.isFinished" class="finished">Finalizado</h3>
+              
+                <!-- Mostrar los goles de cada equipo -->
+                <div class="goals">
+                  <span>{{ matchGoals.team1Goals }}</span>
+                  <span>-</span>
+                  <span>{{ matchGoals.team2Goals }}</span>
+                </div>
+              </div>
+            <h2>VS</h2>
+            <button mat-raised-button color="primary" class="action-button" (click)="startTimer()" [disabled]="isMatchFinished" *ngIf="!isMatchFinished" >Iniciar</button>
+            <button mat-raised-button color="accent" class="action-button" (click)="pauseTimer()" *ngIf="!isMatchFinished" >Pausar</button>
+            <button mat-raised-button color="warn" class="action-button" (click)="stopTimer()" *ngIf="!isMatchFinished">Finalizar</button>
+            
+
+            <!-- Temporizador -->
+            <div *ngIf="timerService.isTimerRunning || timer > 0" class="timer">
+                {{ timer | date: 'mm:ss' }}<span>'</span>
+            </div>
+        </div>
+
+        <!-- Tabla de jugadores del equipo 2 -->
+        <div class="team-table">
+            <h2>{{ team2Name }}</h2>  <!-- Mostrar el nombre del equipo 2 -->
+            <table mat-table [dataSource]="team2Players" class="mat-elevation-z8">
+                <!-- Columnas de la tabla -->
+                <ng-container matColumnDef="playerId">
+                    <th mat-header-cell *matHeaderCellDef> ID </th>
+                    <td mat-cell *matCellDef="let player"> {{ player.playerId }} </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                    <td mat-cell *matCellDef="let player"> {{ player.firstName }} </td>
+                </ng-container>
+                <ng-container matColumnDef="position" class="mat-column-position">
+                    <th mat-header-cell *matHeaderCellDef> Posición </th>
+                    <td mat-cell *matCellDef="let player"> {{ player.position }} </td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                    <td mat-cell *matCellDef="let player">
+                      <button mat-icon-button color="primary" (click)="addGoal(player.playerId)" 
+                      [disabled]="isMatchFinished || !isActive || clickedPlayers[player.playerId]?.redCardClicked || (clickedPlayers[player.playerId]?.clickCount ?? 0) >= 2"
+                      [ngClass]="{'disabled-button': clickedPlayers[player.playerId]?.redCardClicked || (clickedPlayers[player.playerId]?.clickCount ?? 0) >= 2}">
+                      <mat-icon class="black-ball">sports_soccer</mat-icon>
+                      </button>
+                      
+                      <!-- Botón para agregar tarjeta amarilla -->
+                      <button mat-icon-button color="accent" (click)="addYellowCard(player.playerId)" 
+                        [disabled]="isMatchFinished || !isActive || (clickedPlayers[player.playerId]?.redCardClicked ?? false) || (clickedPlayers[player.playerId]?.clickCount ?? 0) >= 2"
+                        [ngClass]="{'disabled-button': (clickedPlayers[player.playerId]?.clickCount ?? 0) >= 2 || clickedPlayers[player.playerId]?.redCardClicked}">
+                        <mat-icon class="yellow-card" matPrefix>flag</mat-icon>
+                      </button>
+                      
+                      <!-- Botón para agregar tarjeta roja -->
+                      <button mat-icon-button color="warn" (click)="addRedCard(player.playerId)" 
+                      [disabled]="isMatchFinished || !isActive || clickedPlayers[player.playerId]?.redCardClicked || (clickedPlayers[player.playerId]?.clickCount ?? 0) >= 2"
+                      [ngClass]="{'disabled-button': clickedPlayers[player.playerId]?.redCardClicked || (clickedPlayers[player.playerId]?.clickCount ?? 0) >= 2}">
+                      <mat-icon matPrefix color="warn">flag</mat-icon>
+                      </button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="team2DisplayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: team2DisplayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+</div>

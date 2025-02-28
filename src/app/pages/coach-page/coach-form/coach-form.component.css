@@ -1,0 +1,97 @@
+.form-container {
+    max-width: 600px;
+    margin: 60 auto; /* Asegura que el formulario está centrado horizontalmente */
+    padding: 30px; /* Un poco más de padding para que se vea más espaciado */
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+/* Título del formulario */
+.form-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 25px; /* Mayor separación entre el título y el contenido */
+    color: #333;
+}
+
+/* Grupo de campos del formulario */
+.form-group {
+    margin-bottom: 20px; /* Espacio adicional entre los campos */
+}
+
+/* Etiquetas de los campos */
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px; /* Mayor espacio entre la etiqueta y el campo */
+    color: #555;
+}
+
+/* Entrada de texto y otros elementos de entrada */
+.form-input {
+    width: 100%;
+    padding: 12px; /* Más padding para mayor comodidad en los campos */
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Fila de campos, para agrupar entradas en una línea */
+.form-row {
+    display: flex;
+    gap: 20px; /* Más espacio entre los campos en una fila */
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+/* Botón de envío */
+.form-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #FEC82F;
+    background-color: #2E2D2C;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+    background-color: #222a07;
+}
+
+/* Ajustes de placeholder y foco en campos de entrada */
+.form-input::placeholder {
+    color: #aaa;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: black;
+    background-color: #fff;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: #e6b800; /* Cambia el color del icono al pasar el ratón */
+}

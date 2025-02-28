@@ -1,0 +1,117 @@
+<div class="grid-container">
+  <h1>Mi Perfil</h1>
+  <div class="basic-info-card">
+    <mat-card>
+      <mat-card-content>
+        <div class="profile-header">
+          <img src="assets/avatar-default.png" alt="Profile" class="profile-image" />
+          <div class="profile-info">
+            <h2>
+              {{ user.firstName }} {{ user.lastName }}
+              <span *ngIf="user.userType === 1"> - Jugador</span>
+              <span *ngIf="user.userType === 2"> - Árbitro</span>
+              <span *ngIf="user.userType === 3"> - Organizador</span>
+              <span *ngIf="user.userType === 4"> - Entrenador</span>
+            </h2>
+            <p>ID: {{ user.userId }}<mat-icon>content_copy</mat-icon></p>
+            <button mat-stroked-button color="primary">
+              <mat-icon>lock</mat-icon> Cambiar Contraseña
+            </button>
+          </div>
+        </div>
+
+        <form [formGroup]="userForm">
+          <div class="form-row">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="firstName" [readonly]="!isEditing" required />
+              <mat-error *ngIf="isEditing && userForm.get('firstName')?.hasError('required')">El nombre es obligatorio.</mat-error>
+              <mat-error *ngIf="isEditing && userForm.get('firstName')?.hasError('pattern')">Nombre no valido.</mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Apellido</mat-label>
+              <input matInput formControlName="lastName" [readonly]="!isEditing" required />
+              <mat-error *ngIf="isEditing && userForm.get('lastName')?.hasError('required')">El apellido es obligatorio.</mat-error>
+              <mat-error *ngIf="isEditing && userForm.get('lastName')?.hasError('pattern')">Apellido no valido</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Correo</mat-label>
+              <input matInput formControlName="email" [readonly]="!isEditing" required email />
+              <mat-error *ngIf="isEditing && userForm.get('email')?.hasError('required')">El correo es obligatorio.</mat-error>
+              <mat-error *ngIf="isEditing && userForm.get('email')?.hasError('pattern')">El correo no es válido.</mat-error>
+            </mat-form-field>
+
+            <ng-container *ngIf="isEditing && user.userType === 1">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Posición</mat-label>
+                <mat-select formControlName="playerPosition" required>
+                  <mat-option *ngFor="let position of positions" [value]="position">
+                    {{ position }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="isEditing && userForm.get('playerPosition')?.hasError('required')">La posición es obligatoria.</mat-error>
+              </mat-form-field>
+            </ng-container>
+
+            <ng-container *ngIf="!isEditing && user.userType === 1">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Posición</mat-label>
+                <input matInput [value]="userForm.get('playerPosition')?.value || ''" readonly />
+              </mat-form-field>
+            </ng-container>
+
+            <ng-container *ngIf="user.userType === 2">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Número de Licencia</mat-label>
+                <input matInput formControlName="licenseNumber" [readonly]="!isEditing" required />
+                <mat-error *ngIf="isEditing && userForm.get('licenseNumber')?.hasError('required')">El número de licencia es obligatorio.</mat-error>
+              </mat-form-field>
+            </ng-container>
+
+            <ng-container *ngIf="user.userType === 3">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Nombre de Organización</mat-label>
+                <input matInput formControlName="organizationName" [readonly]="!isEditing" required />
+                <mat-error *ngIf="isEditing && userForm.get('organizationName')?.hasError('required')">El nombre de la organización es obligatorio.</mat-error>
+              </mat-form-field>
+            </ng-container>
+
+            <ng-container *ngIf="user.userType === 4">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Número de Cédula</mat-label>
+                <input matInput formControlName="coachLicenseNumber" [readonly]="!isEditing" required />
+                <mat-error *ngIf="isEditing && userForm.get('coachLicenseNumber')?.hasError('required')">El número de cédula es obligatorio.</mat-error>
+              </mat-form-field>
+            </ng-container>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Nombre de Usuario</mat-label>
+              <input matInput formControlName="username" [readonly]="!isEditing" required />
+              <mat-error *ngIf="isEditing && userForm.get('username')?.hasError('required')">El nombre de usuario es obligatorio.</mat-error>
+              <mat-error *ngIf="isEditing && userForm.get('username')?.hasError('pattern')">
+                El nombre de usuario es inválido.
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Contraseña</mat-label>
+              <input matInput value="*********" type="password" readonly />
+            </mat-form-field>
+          </div>
+
+          <div class="form-row buttons">
+            <button mat-raised-button color="primary" (click)="toggleEdit()">
+              {{ isEditing ? 'Cancelar' : 'Editar' }}
+            </button>
+            <button mat-raised-button color="primary" *ngIf="isEditing" [disabled]="!isFormValid()" (click)="onSubmit()">Guardar</button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<router-outlet></router-outlet>

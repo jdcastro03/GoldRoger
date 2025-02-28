@@ -1,0 +1,15 @@
+<div class="form-container">
+    <button class="close-button" (click)="closeForm()">X</button>
+    <h2 class="form-title">Crear Equipo</h2>
+    <form [formGroup]="teamForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="teamName">Nombre del Equipo</label>
+        <input id="teamName" type="text" formControlName="teamName" class="form-input" />
+        <div *ngIf="teamForm.get('teamName')?.invalid && teamForm.get('teamName')?.touched" class="error-message">
+          El nombre del equipo es obligatorio y debe tener al menos 3 caracteres.
+        </div>
+      </div>
+
+      <button type="submit" class="form-button" [disabled]="teamForm.invalid">CREAR</button>
+    </form>
+</div>

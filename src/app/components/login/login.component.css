@@ -1,0 +1,104 @@
+html, body {
+  height: 100%; /* Asegúrate de que html y body ocupen el 100% de la altura */
+  margin: 0; /* Elimina el margen por defecto */
+  overflow: hidden; /* Evita el desplazamiento de la página */
+}
+
+/* Overlay para oscurecer el fondo */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente oscuro */
+  z-index: 99; /* Debe estar por debajo del login-container */
+  display: none; /* Por defecto no se muestra */
+}
+
+/* Login container que aparece sobre el overlay */
+.login-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100; /* Mayor valor de z-index para asegurar que esté sobre el overlay */
+  display: none; /* Por defecto está oculto */
+}
+
+/* Estilos del formulario */
+.login-card {
+  background-color: #2E2D2C; /* Color de fondo */
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px; /* Ancho máximo del formulario */
+  text-align: center; /* Centra el texto */
+}
+
+.full-width {
+  width: 100%; /* Campos ocupan todo el ancho del contenedor */
+  margin-top: 0.7rem; /* Espaciado superior del campo */
+}
+
+h2 {
+  margin-bottom: 1.5rem; /* Espaciado inferior del título */
+  color: white;
+}
+
+button {
+  margin-top: 1.5rem; /* Espaciado superior del botón */
+  width: 100%; /* Botón ocupa todo el ancho */
+  background-color: #FEC82F; /* Color dorado */
+  color: #2E2D2C; /* Color del texto del botón */
+  border: none; /* Elimina el borde predeterminado */
+  border-radius: 0.8rem; /* Bordes redondeados */
+  font-family: 'Roboto', sans-serif; /* Fuente Roboto */
+  font-weight: bold;
+  height: 2.5rem;
+}
+
+button:hover {
+  background-color: #e6b029; /* Color un poco más oscuro al pasar el mouse */
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #FEC82F; /* Color para el botón deshabilitado */
+  color: black;
+}
+
+.gold-text {
+  color: #FEC82F; /* Color dorado para "Gold" */
+}
+
+.roger-text {
+  color: #FFFFFF; /* Color blanco para "Roger" */
+}
+
+.register-prompt {
+  text-align: center; /* Centra el texto */
+  margin-top: 1rem;
+  color: white;
+}
+
+.register-link {
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none; /* Elimina el subrayado */
+}
+
+.register-link:hover {
+  text-decoration: underline; /* Agrega subrayado al pasar el mouse */
+}
+
+/* Mostrar el overlay y el login-container cuando se haga clic en "Acceder" */
+.show {
+  display: flex !important; /* Muestra el contenedor del login */
+}

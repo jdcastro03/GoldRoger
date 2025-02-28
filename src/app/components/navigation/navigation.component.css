@@ -1,0 +1,136 @@
+.sidenav-container {
+  height: 100%;
+}
+.gold-text {
+  color: #FEC82F; /* Color dorado para "Gold" */
+
+}
+
+.roger-text {
+  color: #FFFFFF; /* Color blanco para "Roger" */
+  
+}
+p{
+  color: #FFFFFF;
+}
+
+.logo-img {
+  width: 60px; /* Aumentar el tamaño de la imagen del logo */
+  height: 60px;
+}
+
+.sidenav  {
+  width: 200px;
+  background-color: #2E2D2C;
+  
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+.mat-toolbar{
+  background-color: #2E2D2C;
+  border-radius: -90%;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.link-text {
+  display: block; /* Para que actúe como un bloque */
+  padding: 16px; /* Ajustar el padding como el de mat-list-item */
+  color: #FFFFFF; /* Color blanco para el texto */
+  text-decoration: none; /* Eliminar subrayado */
+  cursor: pointer;
+}
+
+.link-text:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Efecto de hover similar a mat-list-item */
+}
+
+.link-text:focus {
+  outline: none; /* Eliminar el contorno al hacer foco */
+  background-color: rgba(255, 255, 255, 0.2); /* Cambiar color de fondo en foco */
+}
+
+.spacer {
+  flex: 1 1 auto; /* Esto permite que el spacer ocupe el espacio restante */
+}
+/* Estilo base para ambos botones */
+.btn-acceder, .btn-registrar {
+  padding: 12px 20px;                /* Espaciado interno */
+  border: none; 
+  border: 2px solid;                    /* Sin borde por defecto */
+  border-radius: 10px;              /* Bordes redondeados */
+  font-size: 16px;                   /* Tamaño de fuente */
+  font-weight: bold;                 /* Texto en negrita */
+  cursor: pointer;                   /* Cambia el cursor al pasar el ratón */
+  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+}
+
+/* Estilo específico para el botón Acceder */
+.btn-acceder {
+  background-color: #2E2D2C;        /* Color de fondo amarillo */
+  color: white;                   
+  border-color: #FEC82F;
+  margin-right: 5px;
+}
+
+/* Efecto hover para el botón Acceder */
+.btn-acceder:hover {
+  background-color: #e6b800;        /* Color más oscuro al pasar el ratón */
+}
+
+/* Estilo específico para el botón Registrar */
+.btn-registrar {
+  background-color: #FEC82F;        /* Color de fondo verde */
+                    /* Color del texto */
+}
+
+/* Efecto hover para el botón Registrar */
+.btn-registrar:hover {
+  background-color: #e6b800;        /* Color más oscuro al pasar el ratón */
+}
+
+.mat-drawer-inner-container {
+ border-top-right-radius: none;
+}
+mat-sidenav{
+  border-top-right-radius: 0px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-icon {
+  font-size: 24px;
+  color: white;
+}
+
+.user-name { /* Cambia esto por el nombre de usuario en lugar del saldo */
+  font-size: 18px;
+  color: white;
+  margin-right: 10px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.btn-logout {
+  background-color: #FEC82F; /* Color del botón */
+  border: none;
+  color:  black;
+  padding: 5px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;                   /* Tamaño de fuente */
+  font-weight: bold;   
+}
+
+.btn-logout:hover {
+  background-color: #e6b800; /* Color más oscuro en hover */
+}

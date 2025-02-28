@@ -1,0 +1,110 @@
+.form-container {
+    max-width: 600px;
+    margin: 60px auto; /* Centramos horizontalmente */
+    padding: 30px; /* Espaciado adicional */
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+/* Título del formulario */
+.form-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+/* Grupo de campos */
+.form-group-row {
+    display: flex;
+    flex-direction: column; /* Organiza los elementos verticalmente */
+    margin-bottom: 20px;
+}
+
+/* Etiqueta */
+.form-group-row label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px; /* Espacio entre la etiqueta y el input */
+    color: #555;
+}
+
+/* Contenedor para el input y el botón */
+.input-button-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre el input y el botón */
+}
+
+/* Campo de entrada */
+.form-input {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Botón junto a los campos */
+.field-button {
+    padding: 10px 15px;
+    background-color: #2E2D2C;
+    color: #FEC82F;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.field-button:hover {
+    background-color: #222a07;
+}
+
+/* Botón de envío */
+.form-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #FEC82F;
+    background-color: #2E2D2C;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+    background-color: #222a07;
+}
+
+/* Botón de cerrar */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: #e6b800;
+}
+
+select.form-input {
+    color: #333; /* Asegura que el texto sea visible */
+}
+
+select.form-input option:disabled {
+    color: #888; /* Opcional: cambia el color del placeholder */
+}

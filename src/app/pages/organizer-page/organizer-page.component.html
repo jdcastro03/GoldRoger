@@ -1,0 +1,59 @@
+
+
+
+
+
+
+<div class="grid-container">
+  <h1>Mis Torneos</h1>
+
+  <!-- Mostrar formulario solo cuando showForm sea verdadero -->
+  <mat-card *ngIf="showForm" class="overlay-card">
+    <app-organizer-form (formClosed)="toggleForm()" class="overlay" (tournamentCreated)="addTournament($event)"></app-organizer-form>
+  </mat-card>
+
+  <div class="search-container">
+    <div class="search-form-field">
+      <button class="clear-button" aria-label="Clear" (click)="clearSearch()">
+        <span class="material-icons">close</span>
+      </button>
+      <input type="text" placeholder="Buscar..." [(ngModel)]="searchText" (input)="filterTournaments()" autocomplete="off" />
+    </div>
+    <button class="create-button" (click)="toggleForm()">
+      <span class="material-icons">add</span> Crear
+    </button>
+  </div>
+
+  <div class="tournaments-container">
+    <mat-card *ngFor="let tournament of paginatedTournaments" class="tournament-card"  >
+      <div class="top-section">
+        <h2 class="tournament-title">{{ tournament.tournamentName }}</h2>
+        <button mat-icon-button class="menu-button" (click)="navigateToTournamentDetail(tournament.tournamentId)">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+
+      <div class="bottom-section">
+        <div class="avatar-info">
+          <img src="assets/avatar-default.png" alt="Avatar">
+          <span>{{ this.currentUsername }}</span>
+        </div>
+        <div class="dates-info">
+          <p><strong>Fecha de inicio:</strong> {{ tournament.startDate | date:'dd-MM-yyyy' }}</p>
+          <p><strong>Fecha de finalización:</strong> {{ tournament.endDate | date:'dd-MM-yyyy' }}</p>
+          <p><strong>Tipo de Torneo:</strong> {{ tournamentTypes[tournament.tournamentTypeId] }}</p>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Paginador para los torneos -->
+  <mat-paginator [pageSizeOptions]="[3, 5, 10]" 
+               [pageSize]="pageSize" 
+               [pageIndex]="pageIndex"
+               (page)="onPageChange($event)" 
+               showFirstLastButtons>
+</mat-paginator>
+</div>
+
+<router-outlet></router-outlet>

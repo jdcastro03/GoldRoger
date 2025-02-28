@@ -1,0 +1,69 @@
+<div class="grid-container">
+  <h1>Torneos</h1>
+
+  <div class="search-container">
+    <div class="search-form-field">
+      <button class="clear-button" aria-label="Clear" (click)="clearSearch()">
+        <span class="material-icons">close</span>
+      </button>
+      <input
+        type="text"
+        placeholder="Buscar..."
+        autocomplete="off"
+        [(ngModel)]="searchQuery"
+        (input)="filterTournaments()"
+      />
+    </div>
+  </div>
+
+  <div class="tournaments-container" *ngIf="!isLoading && !errorMessage">
+    <mat-card
+      class="tournament-card"
+      *ngFor="let tournament of paginatedTournaments"
+    >
+      <div class="top-section">
+        <h2 class="tournament-title">{{ tournament.tournamentName }}</h2>
+        <button mat-icon-button class="menu-button" (click)="navigateToTournamentDetail(tournament.tournamentId)">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+
+      <div class="bottom-section">
+        <div class="avatar-info">
+          <img src="assets/avatar-default.png" alt="Avatar" />
+          <span>{{ tournament.organizerUsername || 'Sin organizador' }}</span>
+        </div>
+        <div class="dates-info">
+          <p><strong>Fecha de inicio:</strong> {{ tournament.startDate | date }}</p>
+          <p><strong>Fecha de finalización:</strong> {{ tournament.endDate | date }}</p>
+          <p><strong>Tipo de Torneo:</strong> {{ getTournamentTypeName(tournament.tournamentTypeId) }}</p>
+        </div>
+        <div class="action-button" *ngIf="this.currentUserType === 4">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="updateTournamentForTeam(tournament.tournamentId)"
+            [disabled]="teamHasTournament"
+              [matTooltip]="teamHasTournament ? 'Ya estas inscrito en un torneo' : ''"
+              matTooltipPosition="above"
+          >
+            Inscribirse
+          </button>
+        </div>
+      </div>
+    </mat-card>
+
+    <!-- Paginador -->
+    <div class="paginator-container">
+      <mat-paginator
+        [length]="filteredTournaments.length"
+        [pageSize]="3"
+        [pageSizeOptions]="[3, 6, 9]"
+        (page)="onPageChange($event)"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

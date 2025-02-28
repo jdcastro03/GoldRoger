@@ -1,0 +1,78 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav 
+    #drawer 
+    class="sidenav" 
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="true">
+    <mat-toolbar class="roger-text">Menú</mat-toolbar>
+
+    <mat-nav-list>
+      <a class="link-text" routerLink="/home">Inicio</a>
+      <a class="link-text" routerLink="/tournament">Torneos</a>
+      
+
+
+      <ng-container *ngIf="isLoggedIn && this.currentUserType === 1">
+        <a class="link-text" routerLink="/playerTournament">Mis Torneos</a>
+        <a class="link-text" routerLink="/teams">Equipos</a>
+        <a class="link-text" routerLink="/playerTeam">Mi Equipo</a>
+        <a class="link-text" routerLink="/playerStats" >Mis Estadisticas</a>
+        <a class="link-text" routerLink="/profile">Mi Perfil</a> <!-- Añadir este enlace -->
+      </ng-container>
+
+      <ng-container *ngIf="isLoggedIn && this.currentUserType === 2">
+        <a class="link-text" routerLink="/referee">Partidos Asignados</a>
+        <a class="link-text" routerLink="/profile">Mi Perfil</a> <!-- Añadir este enlace -->
+      </ng-container>
+
+      <ng-container *ngIf="isLoggedIn && this.currentUserType === 3">
+        <a class="link-text" routerLink="/organizer">Mis Torneos</a>
+        <a class="link-text" routerLink="/profile">Mi Perfil</a> <!-- Añadir este enlace -->
+      </ng-container>
+
+      <ng-container *ngIf="isLoggedIn && this.currentUserType === 4">
+        <a class="link-text" routerLink="/coachTournament">Mis Torneos</a>
+        <a class="link-text" routerLink="/coachTeam">Mi Equipo</a>
+        <a class="link-text" routerLink="/profile">Mi Perfil</a> <!-- Añadir este enlace -->
+      </ng-container>
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+
+      <img src="assets/LogoFinal.png" alt="Logo" class="logo-img">
+      <span class="gold-text">Gold</span><span class="roger-text">Roger</span>
+
+      <span class="spacer"></span>
+
+      <!-- Si está logueado, mostrar ícono de usuario con nombre -->
+      <ng-container *ngIf="isLoggedIn">
+        <div class="user-info">
+          <i class="material-icons user-icon">account_circle</i>
+          <span class="user-name">{{ currentUserName }}</span> <!-- Mostrar nombre de usuario -->
+          <button class="btn-logout" (click)="logout()">Cerrar sesión</button>
+        </div>
+      </ng-container>
+
+      <!-- Si no está logueado, mostrar los botones de login y registro -->
+      <ng-container *ngIf="!isLoggedIn">
+        <button class="btn-acceder" (click)="openLoginDialog()">Acceder</button>
+        <button class="btn-registrar" (click)="openRegisterDialog()">Registrar</button>
+      </ng-container>
+    </mat-toolbar>
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,85 @@
+html, body {
+    height: 100%; /* Asegúrate de que html y body ocupen el 100% de la altura */
+    margin: 0; /* Elimina el margen por defecto */
+    overflow: hidden; /* Evita el desplazamiento de la página */
+}
+
+.login-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    z-index: 100; /* Mayor valor de z-index para asegurar que esté sobre el contenido */
+}
+
+.login-card {
+    background-color: #2E2D2C;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.full-width {
+    width: 100%; /* Campos ocupan todo el ancho del contenedor */
+    margin-top: 0.5rem; /* Espaciado superior del campo reducido */
+}
+
+h2 {
+    margin-bottom: 1rem; /* Espaciado inferior del título reducido */
+    color: white; /* Color del texto del título */
+}
+
+button {
+    margin-top: 1rem; /* Espaciado superior del botón reducido */
+    width: 100%; /* Botón ocupa todo el ancho */
+    background-color: #FEC82F; /* Color dorado */
+    color: #2E2D2C; /* Color del texto del botón */
+    border: none; /* Elimina el borde predeterminado */
+    border-radius: 4px; /* Opcional: agrega un borde redondeado */
+    font-family: 'Roboto', sans-serif; /* Fuente Roboto */
+    font-weight: bold; /* Negrita */
+    height: 2rem; /* Altura del botón reducida */
+}
+
+button:hover {
+    background-color: #e6b029; /* Color un poco más oscuro al pasar el mouse */
+}
+
+.gold-text {
+    color: #FEC82F; /* Color dorado para "Gold" */
+}
+
+.roger-text {
+    color: #FFFFFF; /* Color blanco para "Roger" */
+}
+
+button:disabled {
+    background-color: #FEC82F; /* Color para el botón deshabilitado */
+    color: black; /* Color del texto para el botón deshabilitado */
+}
+
+.register-prompt {
+    text-align: center; /* Centra el texto */
+    margin-top: 1rem; /* Espaciado superior */
+    color: white; /* Color del texto */
+}
+
+.register-link {
+    color: white; /* Color blanco */
+    font-weight: bold; /* Negrita */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    text-decoration: none; /* Elimina el subrayado del enlace */
+}
+
+.register-link:hover {
+    text-decoration: underline; /* Agrega subrayado al pasar el mouse */
+}

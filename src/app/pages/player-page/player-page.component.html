@@ -1,0 +1,85 @@
+<div class="grid-container">
+  <!-- Sección izquierda -->
+  <div class="left-section">
+    <h1>Mi equipo</h1>
+
+    <!-- Card para el equipo -->
+    <mat-card class="team-card">
+      <div class="team-info">
+        <div class="card-header">
+          <button mat-icon-button [matMenuTriggerFor]="menu" color="primary">
+            <mat-icon>more_vert</mat-icon> <!-- Icono de tres puntos -->
+          </button>
+
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="leaveTeam()">
+              <mat-icon color="warn" >delete</mat-icon> Abandonar
+            </button>
+          </mat-menu>
+        </div>
+        <img class="team-logo" src="assets/Logo_Team.png" alt="Logo del Equipo" />
+        <div class="team-details">
+          <h2>{{ teamName || 'Sin equipo asignado' }}</h2>
+        </div>
+      </div>
+    </mat-card>
+
+    <!-- Card para el entrenador -->
+    <mat-card class="team-card">
+      <div class="team-info">
+        <h3>Entrenador</h3>
+        <img class="team-logo" src="assets/avatar-default.png" alt="Avatar del Entrenador" />
+        <div class="team-details">
+          <h2>{{ coachName || 'Sin entrenador asignado' }}</h2>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Tabla de jugadores -->
+  <div class="right-section">
+    <mat-table *ngIf="players.length > 0" [dataSource]="players" class="mat-elevation-z8">
+      <!-- ID del jugador -->
+      <ng-container matColumnDef="playerId">
+        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+        <mat-cell *matCellDef="let player"> {{ player.playerId }} </mat-cell>
+      </ng-container>
+
+      <!-- Nombre -->
+      <ng-container matColumnDef="firstName">
+        <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+        <mat-cell *matCellDef="let player"> {{ player.firstName }} </mat-cell>
+      </ng-container>
+
+      <!-- Apellido -->
+      <ng-container matColumnDef="lastName">
+        <mat-header-cell *matHeaderCellDef> Apellido </mat-header-cell>
+        <mat-cell *matCellDef="let player"> {{ player.lastName }} </mat-cell>
+      </ng-container>
+
+      <!-- Posición -->
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef> Posición </mat-header-cell>
+        <mat-cell *matCellDef="let player"> {{ player.position }} </mat-cell>
+      </ng-container>
+
+      <!-- Acciones -->
+      <ng-container matColumnDef="acciones">
+        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+        <mat-cell *matCellDef="let player">
+          <button mat-icon-button color="primary" (click)="navigateToPlayerDetail(player.playerId)" >
+            <mat-icon>account_circle</mat-icon> <!-- Ícono para ver perfil -->
+          </button>
+
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <!-- Mensaje en caso de que no haya jugadores -->
+   
+  </div>
+</div>
+<router-outlet></router-outlet>

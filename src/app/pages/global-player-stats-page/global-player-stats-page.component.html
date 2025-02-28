@@ -1,0 +1,50 @@
+<div class="grid-container">
+  <button mat-icon-button (click)="goBack()" aria-label="Go back">
+    <mat-icon>arrow_back</mat-icon>
+</button>
+    <div class="basic-info-card">
+      <mat-card>
+        <mat-card-content>
+          <div class="profile-header">
+         <img class="profile-image" src="assets/avatar-default.png" alt="">
+            <div class="profile-info">
+              <h2>
+                {{ playerStats?.firstName }} {{ playerStats?.lastName }}
+                <span> - Jugador</span>
+              </h2>
+              <p>ID: {{ playerStats?.playerId }}</p>
+            </div>
+          </div>
+  
+          <form [formGroup]="statsForm">
+            <div class="form-row">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-icon matPrefix color="primary">sports_soccer</mat-icon>
+                <mat-label>Goles</mat-label>
+                <input matInput formControlName="goals" />
+              </mat-form-field>
+            </div>
+  
+            <div class="form-row">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-icon class="yellow-card" matPrefix>flag</mat-icon>
+                <mat-label>Tarjetas Amarillas</mat-label>
+                <input matInput formControlName="yellowCards" />
+              </mat-form-field>
+            </div>
+  
+            <div class="form-row">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-icon matPrefix color="warn">flag</mat-icon>
+                <mat-label>Tarjetas Rojas</mat-label>
+                <input matInput formControlName="redCards" />
+              </mat-form-field>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+
+  <router-outlet></router-outlet>

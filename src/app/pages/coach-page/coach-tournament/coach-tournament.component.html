@@ -1,0 +1,52 @@
+<div class="grid-container">
+    <h1>Mis Torneos</h1>
+  
+    <!-- Mensaje de error -->
+    <div *ngIf="errorMessage" class="error-message">
+      <p>{{ errorMessage }}</p>
+    </div>
+  
+    <!-- Cargando -->
+    <div *ngIf="isLoading" class="loading-container">
+      <p>Cargando torneos...</p>
+    </div>
+  
+    <!-- Input de búsqueda -->
+    <div *ngIf="!isLoading && tournaments.length > 0" class="search-container">
+      <div class="search-form-field">
+        <button class="clear-button" aria-label="Clear">
+          <span class="material-icons" (click)="clear()">close</span>
+        </button>
+        <input type="text" placeholder="Buscar..." autocomplete="off"  [(ngModel)]="searchQuery"/>
+      </div>
+    </div>
+  
+    <!-- Lista de torneos -->
+    <div *ngIf="!isLoading && tournaments.length > 0" class="tournaments-container">
+      <mat-card class="tournament-card" *ngFor="let tournament of tournaments">
+        <div class="top-section">
+          <h2 class="tournament-title">{{ tournament.tournamentName }}</h2>
+          <button mat-icon-button class="menu-button" (click)="navigateToTournamentDetail(tournament.tournamentId)">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+  
+        <div class="bottom-section">
+          <div class="avatar-info">
+            <img src="assets/avatar-default.png" alt="Avatar" />
+            <span>{{ tournament.organizerUsername }}</span>
+          </div>
+          <div class="dates-info">
+            <p><strong>Fecha de inicio:</strong> {{ tournament.startDate | date }}</p>
+            <p><strong>Fecha de finalización:</strong> {{ tournament.endDate | date }}</p>
+            <p><strong>Tipo de Torneo:</strong> {{ getTournamentTypeName(tournament.tournamentTypeId) }}</p>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  
+    <!-- Sin torneos -->
+    <div *ngIf="!isLoading && tournaments.length === 0 && !errorMessage" class="no-tournaments">
+      <p>No hay torneos asignados actualmente.</p>
+    </div>
+  </div>

@@ -1,0 +1,139 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 99;
+}
+
+.login-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.login-card {
+    background-color: #2E2D2C;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    position: relative; /* Para que el botón de cierre se posicione correctamente dentro del card */
+}
+
+.full-width {
+    width: 100%;
+    margin-top: 0.7rem;
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    color: white;
+}
+
+button {
+    margin-top: 1.5rem;
+    width: 100%;
+    background-color: #FEC82F;
+    color: #2E2D2C;
+    border: none;
+    border-radius: 0.8rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    height: 2.5rem;
+}
+
+button:hover {
+    background-color: #e6b029;
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color: #FEC82F;
+    color: black;
+}
+
+.gold-text {
+    color: #FEC82F;
+}
+
+.roger-text {
+    color: #FFFFFF;
+}
+
+.register-prompt {
+    text-align: center;
+    margin-top: 1rem;
+    color: white;
+}
+
+.register-link {
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+.show {
+    display: flex !important;
+}
+
+/* Estilo para el botón de cierre */
+.close-button {
+    position: absolute; /* Posición absoluta para situar el botón en el login-card */
+    top: 15px; /* Ajusta la posición vertical según tus preferencias */
+    right: 20px; /* Ajusta para estar más a la derecha */
+    color: white; /* Color del icono */
+    background: none; /* Sin fondo */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cursor tipo puntero al pasar por encima */
+    z-index: 1; /* Asegúrate de que esté por encima de otros elementos */
+    padding: 0; /* Sin padding para que el tamaño sea solo el del icono */
+    width: 32px; /* Ajusta el ancho del botón */
+    height: 32px; /* Ajusta la altura del botón */
+}
+
+/* Estilo para el icono dentro del botón */
+.close-button mat-icon {
+    font-size: 24px; /* Tamaño del ícono */
+    width: 100%; /* Para que el icono ocupe todo el botón */
+    height: 22; /* Para que el icono ocupe todo el botón */
+}
+
+.close-button:hover {
+    background-color: #FEC82F; /* Efecto hover con un fondo claro */
+    border-radius: 50%; /* Opcional: redondea el borde para un efecto circular */
+}
+
+.loading-spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
+    z-index: 9999;
+  }

@@ -1,0 +1,24 @@
+.grid-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    margin: 0;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  mat-icon {
+    font-size: 6em; /* Ajusta este tamaño para que se vea bien */
+    width: 1em; /* Asegúrate de que el contenedor se ajuste al tamaño del ícono */
+    height: 1em;
+    line-height: 1em; /* Esto ayudará a que el ícono esté centrado verticalmente */
+    margin-bottom: 10px; /* Espacio entre el ícono y el texto */
+  }
+  
+  h2 {
+    font-size: 24px;
+    color: #333; /* Color del texto */
+  }

@@ -1,0 +1,101 @@
+.grid-container {
+    padding: 20px;
+  }
+  
+  .match-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .team-table {
+    flex: 1;
+    padding: 10px;
+  }
+  
+  .center-section {
+    flex: 0.5;
+    text-align: center;
+  }
+  
+  .action-button {
+    margin: 5px;
+  }
+
+  .center-section button {
+    border-radius: 4px; /* Redondea las esquinas */
+    font-weight: bold; /* Hace el texto más fuerte */
+    background-color: #333;
+    color: #FEC82F;
+    
+  }
+  .center-section button:hover {
+    color: #e6b800;
+    
+  }
+
+  .timer {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+    margin: 20px 0;
+  }
+  .timer span {
+    vertical-align: super;
+    font-size: 1rem;
+  }
+
+  .yellow-card {
+    color: #ffc107; /* Amarillo típico de Material Design */
+  }
+
+  .black-ball{
+    color: black;
+  }
+
+  .goals-section {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.finished {
+    color: red;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.goals {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 1.1rem;
+}
+
+.goals span {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.disabled-button {
+  background-color:red; /* Ajustar el color del botón */
+  color: rgba(255, 255, 255, 0.6); /* Ajustar el color del icono */
+}
+
+.disabled-button:hover {
+  background-color: rgba(0, 0, 0, 0.3); /* Mantener color oscuro en hover */
+}
+/* Añadir un ancho a las celdas de la tabla, especialmente para la columna de Posición */
+table.mat-elevation-z8 {
+  width: 100%;
+}
+
+.mat-header-cell, .mat-cell {
+  padding: 10px;
+}
+
+/* Ajustar el ancho de las columnas */
+.mat-column-position {
+  width: 150px; /* Puedes ajustar este valor según lo necesites */
+}
